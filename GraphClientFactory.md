@@ -2,12 +2,12 @@
 
 ## Objectives
 
-Provide class that creates an instance of platform native HTTP client library that is pre-configured for making requests to Graph APIs.
+Provide a class that can be used to create an instances of platform native HTTP client library that are pre-configured for making requests to Graph APIs.
 
 ## Requirements
 
-- Configure default pipeline of middleware for Graph requests
-- Allow user to create a custom pipeline
+- Enable developer to create a native HTTP client instance that is configured with a pipeline of middleware for Graph requests
+- Allow developer to provide a custom pipeline that future create requests will respect
 - Configure default HTTP handling behavior of native library
 - Configure default request headers
 
@@ -15,3 +15,4 @@ Provide class that creates an instance of platform native HTTP client library th
 
 ## Security Considerations
 
+Authorization tokens MUST not be added to the default request headers.
