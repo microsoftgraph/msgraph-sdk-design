@@ -1,4 +1,4 @@
-# BatchRequestContent [In progress]
+# BatchRequestContent
 
 ## Objectives
 

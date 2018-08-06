@@ -1,4 +1,4 @@
-# Graph Client Factory [In Progress]
+# Graph Client Factory
 
 ## Objectives
 
