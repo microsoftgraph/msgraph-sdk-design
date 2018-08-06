@@ -6,7 +6,7 @@ Provide a class that makes it simple to create the payload for a Graph Batch req
 
 ## Requirements
 
-See [constraints](ContentArchtecturalConstraints.md) related to all content objects.
+See [constraints](ContentArchitecturalConstraints.md) related to all content objects.
 
 ### Interface
 
