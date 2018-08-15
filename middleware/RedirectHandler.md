@@ -18,6 +18,8 @@ A piece of client-side middleware designed to handle 3XX responses transparently
 | 307 | Temporary Permanently |Method does not change |
 | 308 | Moved Permanently |Method does not change |
 
+For all status codes listed, redirect handler should use the `Location` header from the redirect response to construct a new request to the new URL that is the same as the original request except for where noted otherwise.
+
 ### Max redirects
 
 Requests should be able to include a hint as to how many redirects are allowed before the response should be returned.  Allowing zero maximum redirects indicates that no redirects are allowed.  Handler should have a default max redirects if request does not provide one.
