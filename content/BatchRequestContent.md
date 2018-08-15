@@ -15,7 +15,7 @@ See [constraints](ContentArchitecturalConstraints.md) related to all content obj
 
 ## Performance Considerations
 
-A batch cannot hold more that 20 requests and requests cannot a batch request payload.
+A batch cannot hold more that 20 requests and requests cannot contain a batch request payload.
 
 ## Security Considerations
 
