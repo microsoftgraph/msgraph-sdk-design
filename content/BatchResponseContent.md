@@ -1,4 +1,4 @@
-# BatchResponseContent [In progress]
+# BatchResponseContent
 
 ## Objectives
 
@@ -10,6 +10,7 @@ See [constraints](ContentArchitecturalConstraints.md) related to all content obj
 
 - Deserialize batch response payload into a collection of GraphResponse objects
 - Allow users to enumerate collection of GraphResponse objects
+- Expose NextLink URL if one is present in the payload.
 
 ## Performance Considerations
 
