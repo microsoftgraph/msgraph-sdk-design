@@ -14,6 +14,7 @@ Provide a class that can be used to create an instances of platform native HTTP 
 - Configure default request headers
   - Set the SdkVersion header with the appropriate moniker based on the following structure `graph-{lang}-{version}`.
 - Enable the developer to select a supported sovereign cloud using an enumerated list.
+- Enable a developer to configure a HTTP proxy that will be used for outgoing requests.
 
 ## Performance Considerations
 
