@@ -19,6 +19,7 @@ Provide a reusuable component that provides application developers with effectiv
 |--|--|--|
 | 429 | Too many requests | |
 | 503 | Server Unavailable |  |
+| 504 | Gateway Timeout |  |
 
 ## Future Potential Requirements
 
