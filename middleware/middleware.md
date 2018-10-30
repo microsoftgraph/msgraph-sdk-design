@@ -24,3 +24,37 @@ Middleware should be cautious about preserving state between the processing of t
 
 
 ## Example Usages
+
+Here's a strawman proposal for how Middleware control objects could be used to influence the behavior of the request.
+
+```csharp
+
+    var client = new HttpClientFactory().CreateClient(new DelegatingHandler[] {
+                                                        new AuthHandler(),
+                                                        new RetryHandler(),
+                                                        new RedirectHandler()
+        });
+
+    var request = new HttpRequestMessage()
+    {
+        RequestUri = new Uri("https://graph.microsoft.com/v1.0/me"),
+        Method = HttpMethod.Get
+    };
+
+    request.AddMiddlewareControl(new IMiddlewareControl[] {
+        new RetryControl()
+        {
+            ShouldRetry = (req) => { return false; }
+        },
+        new RedirectControl()
+        {
+            MaxRedirects = 0
+        },
+        new AuthControl()
+        {
+            SelectedUser = "bob"
+        }});
+
+    var response = client.SendAsync(request);
+
+```
