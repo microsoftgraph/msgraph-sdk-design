@@ -18,6 +18,10 @@ Provide a class that can be used to create an instances of platform native HTTP 
 
 ## Performance Considerations
 
+- If available on the platform, enable gzip compression of requests and responses.
+
 ## Security Considerations
+
+- If available on the platform, configure for TLS 1.2
 
 Authorization tokens MUST not be added to the default request headers.
