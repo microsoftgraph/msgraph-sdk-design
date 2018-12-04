@@ -40,3 +40,7 @@ Care should be taken to try and avoid duplicating request payloads when making t
 ## Security Considerations
 
 Authorization header MUST not be resent if authority (scheme+host) of the Location header is different than the original target URL.
+
+## Open Issues
+
+- What should be the behaviour if a Location header is not provided?
