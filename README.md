@@ -4,8 +4,8 @@ This repository holds documents related to current and on-going work on Microsof
 
 ## SDK Features Support 
 
-| Component |Feature| .net | Java | Javascript | Objective C | PHP | Ruby |  
-|--|--|--|--|--|--|--|--|
+| Component |Feature| .net | Java | Javascript | Objective C | PHP | Ruby | Python | Go | Powershell |
+|--|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
 | | Pipeline                |X| | |[X][objc_middleware]|||
 | | [Authorization Handler](middleware/AuthorizationHandler.md)   |[X][dotnet_authhandler] | | |[X][objc_authhandler] | | |
