@@ -7,26 +7,27 @@ This repository holds documents related to current and on-going work on Microsof
 | Component |Feature| .net | Java | Javascript | Objective C | PHP | Ruby |  
 |--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
-| | Pipeline                |X| | |[X][ios_middleware]|||
-| | [Authorization Handler](middleware/AuthorizationHandler.md)   | | | | | | |
-| | [Retry Handler](middleware/RetryHandler.md)           |[X][dotnet_retryhandler]| | | | | |
-| | [Redirect Handler](middleware/RedirectHandler.md)        |[X][dotnet_redirecthandler]| | | | | |
+| | Pipeline                |X| | |[X][objc_middleware]|||
+| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[X][dotnet_authhandler] | | |[X][objc_authhandler] | | |
+| | [Retry Handler](middleware/RetryHandler.md)              |[X][dotnet_retryhandler]| | |[X][objc_redirecthandler]| | |
+| | [Redirect Handler](middleware/RedirectHandler.md)        |[X][dotnet_redirecthandler]| | |[X][objc_retryhandler] | | |
 | | Compression Handler | | | | | | |
 | | Logging Handler | | | | | | |
 | | Telemetry Handler | | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)       
-|| [Batch Request Content](content/BatchRequestContent.md)    | | | | | | |
-|| [Batch Response Content](content/BatchResponseContent.md)   | | | | | | |
-|| [Multipart Content](content/MultipartContent.md)        | | | | | | |
+|| [Batch Request Content](content/BatchRequestContent.md)     | | |[X][javascript_batchrequestcontent]|[X][objc_batchrequestcontent] | | |
+|| [Batch Response Content](content/BatchResponseContent.md)   | | |[X][javascript_batchresponsecontent] |[X][objc_batchresponsecontent] | | |
+|| [Multipart Content](content/MultipartContent.md)            |X|[X][java_multipartcontent]| | | | |
 | Graph Components 
-|| [Client Factory](GraphClientFactory.md)           |x| | |x| | |
-|| Graph Request            | | | | | | |
-|| [Graph Response](GraphResponse.md)           | | | | | | |
+|| [Client Factory](GraphClientFactory.md)           |[X][dotnet_clientfactory]| | |[X][objc_graphclientfactory]| | |
+|| Graph Request                                     | | |[X][javascript_graphrequest]| | | |
+|| [Graph Response](GraphResponse.md)                | | | | | | |
+|| [Response Handler](responseHandler.md) | | |[X][javascript_responsehandler]||||
 | Tasks
-|| [File Upload](FileUploadTask.md)              | | | | | | |
-|| [Page Iterator](PageIteratorTask.md)            | | | | | | |
+|| [File Upload](FileUploadTask.md)                | | |[X][javascript_fileuploadtask] | | | |
+|| [Page Iterator](PageIteratorTask.md)            | | |[X][javascript_pageiteratortask] | | | |
 | [Providers](providers.md)
-|| Authentication              |[X][dotnet_authprovider]| | | | | |
+|| [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]| | |[X][objc_authprovider] | | |
 || Logging                     | | | | | | |
 
 ## Repositories
@@ -53,7 +54,23 @@ Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 
-[ios_middleware]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Protocols/MSGraphMiddleware.h
+[objc_middleware]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Protocols/MSGraphMiddleware.h
+[objc_authprovider]:https://github.com/microsoftgraph/msgraph-sdk-objc-auth
+[objc_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Implementations/Authentication/MSAuthenticationHandler.h
+[objc_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-objc/tree/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Implementations/RetryHandler
+[objc_redirecthandler]: https://github.com/microsoftgraph/msgraph-sdk-objc/tree/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Implementations/RedirectHandler
+[objc_batchrequestcontent]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/GraphContent/BatchContent/MSBatchRequestContent.h
+[objc_batchresponsecontent]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/GraphContent/BatchContent/MSBatchResponseContent.h
+[objc_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/HTTPClient/MSClientFactory.h
 [dotnet_authprovider]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-auth
 [dotnet_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/RetryHandler.cs
 [dotnet_redirecthandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/RedirectHandler.cs
+[dotnet_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/AuthenticationHandler.cs
+[javascript_graphrequest]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/GraphRequest.ts
+[javascript_responsehandler]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/ResponseHandler.ts
+[javascript_batchrequestcontent]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/content/BatchRequestContent.ts
+[javascript_batchresponsecontent]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/content/BatchResponseContent.ts
+[javascript_fileuploadtask]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/tasks/LargeFileUploadTask.ts
+[javascript_pageiteratortask]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/tasks/PageIterator.ts
+[dotnet_clientfactory]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/GraphClientFactory.cs
+[java_multipartcontent]: https://github.com/microsoftgraph/msgraph-sdk-java/blob/dev/src/main/java/com/microsoft/graph/models/extensions/Multipart.java
