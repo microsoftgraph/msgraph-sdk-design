@@ -30,7 +30,7 @@ This repository holds documents related to current and on-going work on Microsof
 || [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]| | |[X][objc_authprovider] | | |
 || Logging                     | | | | | | |
 
-## Repositories
+## SDKs
 
 |Language| Repo | Packages |
 |--|--|--|
@@ -41,6 +41,14 @@ This repository holds documents related to current and on-going work on Microsof
 |Objective C|[msgraph-sdk-objc](https://github.com/microsoftgraph/msgraph-sdk-objc)||
 |PHP|[msgraph-sdk-php](https://github.com/microsoftgraph/msgraph-sdk-php)|
 |Ruby|[msgraph-sdk-ruby](https://github.com/microsoftgraph/msgraph-sdk-ruby)|
+|Python|[msgraph-sdk-python](https://github.com/microsoftgraph/msgraph-sdk-python)|
+
+## Authorization Providers
+
+|Language| Repo | Packages |
+|--|--|--|
+|.net|[msgraph-sdk-dotnet-auth](https://github.com/microsoftgraph/msgraph-sdk-dotnet-auth)|
+|Objective C|[msgraph-sdk-objc-auth](https://github.com/microsoftgraph/msgraph-sdk-objc-auth)|
 
 
 ## Issues
