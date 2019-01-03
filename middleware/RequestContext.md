@@ -6,7 +6,7 @@
 
 - A request context object is attached to the native Http Request object to control the behaviour of middleware and allow the calling app to react to events that occur during the execution of middleware.
 - The request context object should provide a dictionary of optional middleware control objects that can be accessed by middleware components to allow customized behavior.  
-- The request context object should contain a property `ClientRequestId` which can be set to correlate all actions related to the current request.
+- The request context object MUST contain a property `ClientRequestId` which can be set to correlate all actions related to the current request.
 
 ### Feature Usage Flags
 
