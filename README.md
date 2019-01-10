@@ -2,7 +2,7 @@
 
 This repository holds documents related to current and on-going work on Microsoft Graph SDKs
 
-## SDK Features Support 
+## SDK Features Support
 
 | Component |Feature| .net | Java | JS | ObjC | PHP | Ruby | Python | Go | Powershell |
 |--|--|--|--|--|--|--|--|--|--|--|
@@ -14,11 +14,11 @@ This repository holds documents related to current and on-going work on Microsof
 | | Compression Handler | | | | | | |
 | | Logging Handler | | | | | | |
 | | Telemetry Handler | | | | | | |
-| [Content](content/ContentArchitecturalConstraints.md)       
+| [Content](content/ContentArchitecturalConstraints.md)
 || [Batch Request Content](content/BatchRequestContent.md)     | | |[X][javascript_batchrequestcontent]|[X][objc_batchrequestcontent] | | |
 || [Batch Response Content](content/BatchResponseContent.md)   | | |[X][javascript_batchresponsecontent] |[X][objc_batchresponsecontent] | | |
 || [Multipart Content](content/MultipartContent.md)            |X|[X][java_multipartcontent]| | | | |
-| Graph Components 
+| Graph Components
 || [Client Factory](GraphClientFactory.md)           |[X][dotnet_clientfactory]| | |[X][objc_graphclientfactory]| | |
 || Graph Request                                     | | |[X][javascript_graphrequest]| | | |
 || [Graph Response](GraphResponse.md)                | | | | | | |
@@ -50,7 +50,6 @@ This repository holds documents related to current and on-going work on Microsof
 |.net|[msgraph-sdk-dotnet-auth](https://github.com/microsoftgraph/msgraph-sdk-dotnet-auth)|
 |Objective C|[msgraph-sdk-objc-auth](https://github.com/microsoftgraph/msgraph-sdk-objc-auth)|
 
-
 ## Issues
 
 View or log issues on the [Issues](https://github.com/microsoftgraph/msgraph-sdk-design/issues) tab in the repo.
@@ -60,7 +59,6 @@ View or log issues on the [Issues](https://github.com/microsoftgraph/msgraph-sdk
 Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT [license](LICENSE).
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
 
 [objc_middleware]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Protocols/MSGraphMiddleware.h
 [objc_authprovider]:https://github.com/microsoftgraph/msgraph-sdk-objc-auth
