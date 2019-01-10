@@ -7,10 +7,10 @@ This repository holds documents related to current and on-going work on Microsof
 | Component |Feature| .net | Java | JS | ObjC | PHP | Ruby | Python | Go | Powershell |
 |--|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
-| | Pipeline                |X| | |[X][objc_middleware]|||
-| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[X][dotnet_authhandler] | | |[X][objc_authhandler] | | |
-| | [Retry Handler](middleware/RetryHandler.md)              |[X][dotnet_retryhandler]| | |[X][objc_redirecthandler]| | |
-| | [Redirect Handler](middleware/RedirectHandler.md)        |[X][dotnet_redirecthandler]| | |[X][objc_retryhandler] | | |
+| | Pipeline                |X|O|O|[X][objc_middleware]|||
+| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[X][dotnet_authhandler] | |O|[X][objc_authhandler] | | |
+| | [Retry Handler](middleware/RetryHandler.md)              |[X][dotnet_retryhandler]| |O|[X][objc_redirecthandler]| | |
+| | [Redirect Handler](middleware/RedirectHandler.md)        |[X][dotnet_redirecthandler]| |O|[X][objc_retryhandler] | | |
 | | Compression Handler | | | | | | |
 | | Logging Handler | | | | | | |
 | | Telemetry Handler | | | | | | |
@@ -29,6 +29,9 @@ This repository holds documents related to current and on-going work on Microsof
 | [Providers](providers.md)
 || [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]| | |[X][objc_authprovider] | | |
 || Logging                     | | | | | | |
+
+X - Completed  
+O - In progress
 
 ## SDKs
 
