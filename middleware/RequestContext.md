@@ -10,6 +10,10 @@
 
 ### Feature Usage Flags
 
+<!-- 
+The FeatureUsage flag is set on the Request Context so that telemetry could be sent in a header. This object should be more broadly available so that we can use this instrument other parts of the core library, and not just the middleware pipeline. For example, if we want to understand whether customers are setting a custom HttpProvider object in the GraphServiceClient, we could capture a flag for that scenario. We propose an static object with an internal setter and a public getter on the BaseClient. We make the getter public so that a customer can understand the features enabled in the client at large.
+-->
+
 The request context object should contain a property `FeatureUsage` which is a bitmap value that is used to flag feature usage. 
 
 | Flag | Feature |    
@@ -17,6 +21,7 @@ The request context object should contain a property `FeatureUsage` which is a b
 |  0x00000001 |  Redirect Handler Enabled  |
 |  0x00000002 |  Retry Handler Enabled  |
 |  0x00000003 |  Auth Handler Enabled  |
+|  0x00000004 |  Custom HttpProvider Enabled |
 
 ### Middleware Control Map
 
