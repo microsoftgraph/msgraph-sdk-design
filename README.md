@@ -11,23 +11,23 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Authorization Handler](middleware/AuthorizationHandler.md)   |[X][dotnet_authhandler] | |O|[X][objc_authhandler] | | |
 | | [Retry Handler](middleware/RetryHandler.md)              |[X][dotnet_retryhandler]| |O|[X][objc_redirecthandler]| | |
 | | [Redirect Handler](middleware/RedirectHandler.md)        |[X][dotnet_redirecthandler]| |O|[X][objc_retryhandler] | | |
-| | Compression Handler | | | | | | |
-| | Logging Handler | | | | | | |
-| | Telemetry Handler | | | | | | |
+| | [Compression Handler](middleware/CompressionHandler.md) | | | | | | |
+| | [Logging Handler](middleware/LogggingHandler.md) | | | | | | |
+| | [Telemetry Handler](middleware/TelemetryHandler.md) | | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
-|| [Batch Request Content](content/BatchRequestContent.md)     | | |[X][javascript_batchrequestcontent]|[X][objc_batchrequestcontent] | | |
-|| [Batch Response Content](content/BatchResponseContent.md)   | | |[X][javascript_batchresponsecontent] |[X][objc_batchresponsecontent] | | |
+|| [Batch Request Content](content/BatchRequestContent.md)     | |O|[X][javascript_batchrequestcontent]|[X][objc_batchrequestcontent] | | |
+|| [Batch Response Content](content/BatchResponseContent.md)   | |O|[X][javascript_batchresponsecontent] |[X][objc_batchresponsecontent] | | |
 || [Multipart Content](content/MultipartContent.md)            |X|[X][java_multipartcontent]| | | | |
 | Graph Components
-|| [Client Factory](GraphClientFactory.md)           |[X][dotnet_clientfactory]| | |[X][objc_graphclientfactory]| | |
-|| Graph Request                                     | | |[X][javascript_graphrequest]| | | |
+|| [Client Factory](GraphClientFactory.md)           |[X][dotnet_clientfactory]| |O|[X][objc_graphclientfactory]| | |
+|| [Graph Request](GraphRequest.md)                                     | | |[X][javascript_graphrequest]| | | |
 || [Graph Response](GraphResponse.md)                | | | | | | |
 || [Response Handler](responseHandler.md) | | |[X][javascript_responsehandler]||||
 | Tasks
 || [File Upload](FileUploadTask.md)                | | |[X][javascript_fileuploadtask] | | | |
 || [Page Iterator](PageIteratorTask.md)            | | |[X][javascript_pageiteratortask] | | | |
 | [Providers](providers.md)
-|| [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]| | |[X][objc_authprovider] | | |
+|| [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]| |O|[X][objc_authprovider] | | |
 || Logging                     | | | | | | |
 
 X - Completed  
