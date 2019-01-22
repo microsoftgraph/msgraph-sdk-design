@@ -15,7 +15,7 @@ There are two primary usage scenarios for the client factory.  Developers who wi
   - If a platform supports connection timeouts, then allow configuration of that.  (default 30 secs)
   - Override the default base address for requests
 - Configure default request headers
-  - Set the SdkVersion header with the appropriate moniker based on the following structure `graph-{lang}-{version}`.
+  - Set the SdkVersion header with the appropriate moniker based on the following structure `graph-{lang}-{version}`.  
 - Enable the developer to select a supported sovereign cloud using an enumerated list.  Selecting the sovereign cloud should ensure that the AuthenticationProvider uses the appropriate Authentication Endpoint.
 - Enable a developer to configure a HTTP proxy that will be used for outgoing requests.
 
@@ -33,3 +33,4 @@ Authorization tokens MUST not be added to the default request headers.
 
   - Should we define a response stream read timeout?
   - Can the factory detect from the environment which is the appropriate sovereign cloud?
+  - Should SdkVersion be set as a default header here in the GraphClientFactory, or should it be put assigned by the TelemetryHandler?  Or both?

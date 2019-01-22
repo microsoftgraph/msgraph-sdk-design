@@ -4,24 +4,32 @@
 
 ## Requirements
 
-- A request context object is attached to the native Http Request object to control the behaviour of middleware and allow the calling app to react to events that occur during the execution of middleware.
-- The request context object should provide a dictionary of optional middleware control objects that can be accessed by middleware components to allow customized behavior.  
+- A request context object is attached to the native Http Request object, or Graph Request Object, to control the behavior of middleware and allow the calling app to react to events that occur during the execution of middleware.
+- The request context object should provide a dictionary of optional middleware options objects that can be accessed by middleware components to override the options provided during middleware initialization.  
 - The request context object MUST contain a property `ClientRequestId` which can be set to correlate all actions related to the current request.
 
 ### Feature Usage Flags
 
-<!-- 
-The FeatureUsage flag is set on the Request Context so that telemetry could be sent in a header. This object should be more broadly available so that we can use this instrument other parts of the core library, and not just the middleware pipeline. For example, if we want to understand whether customers are setting a custom HttpProvider object in the GraphServiceClient, we could capture a flag for that scenario. We propose an static object with an internal setter and a public getter on the BaseClient. We make the getter public so that a customer can understand the features enabled in the client at large.
--->
+The FeatureUsage flag is set on the Request Context so that telemetry could be sent in a header.
+This object should be more broadly available so that we can use this instrument other parts of the core library, and not just the middleware pipeline.
+For example, if we want to understand whether customers are using a custom HttpProvider object in the GraphServiceClient, we could capture a flag for that scenario.
+We propose a factory method for RequestContext object that can ensure the appropriate feature flags are preset for session level features.
 
-The request context object should contain a property `FeatureUsage` which is a bitmap value that is used to flag feature usage. 
+The request context object should contain a property `FeatureUsage` which is a bitmap value that is used to flag feature usage.
+This feature is not used to actually enable behavior, but to aggregate a value that is used by the telemetry handler to capture the presence of a handler.
+
 
 | Flag | Feature |    
 |--|--|
 |  0x00000001 |  Redirect Handler Enabled  |
 |  0x00000002 |  Retry Handler Enabled  |
 |  0x00000003 |  Auth Handler Enabled  |
-|  0x00000004 |  Custom HttpProvider Enabled |
+|  0x00000004 |  Custom HttpProvider Enabled  |
+|  0x00000008 |  Logging Handler Enabled  |
+|  0x00000010 |  Service Discovery Handler Enabled  |
+|  0x00000020 |  Compression Handler Enabled  |
+|  0x00000040 |  Connnection Pool Manager Enabled  |
+|  0x00000080 |  Long Running Operation Handler Enabled  |
 
 ### Middleware Control Map
 
