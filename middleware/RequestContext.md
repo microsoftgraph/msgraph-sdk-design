@@ -4,19 +4,24 @@
 
 ## Requirements
 
-- A request context object is attached to the native Http Request object to control the behaviour of middleware and allow the calling app to react to events that occur during the execution of middleware.
-- The request context object should provide a dictionary of optional middleware control objects that can be accessed by middleware components to allow customized behavior.  
+- A request context object is attached to the native Http Request object, or Graph Request Object, to control the behavior of middleware and allow the calling app to react to events that occur during the execution of middleware.
+- The request context object should provide a dictionary of optional middleware options objects that can be accessed by middleware components to override the options provided during middleware initialization.  
 - The request context object MUST contain a property `ClientRequestId` which can be set to correlate all actions related to the current request.
 
 ### Feature Usage Flags
 
-The request context object should contain a property `FeatureUsage` which is a bitmap value that is used to flag feature usage. 
+The request context object should contain a property `FeatureUsage` which is a bitmap value that is used to flag feature usage. This feature is not used to actually enable behavior, but to aggregate a value that is used by the telemetry handler to capture the presence of a handler.
 
 | Flag | Feature |    
 |--|--|
 |  0x00000001 |  Redirect Handler Enabled  |
 |  0x00000002 |  Retry Handler Enabled  |
-|  0x00000003 |  Auth Handler Enabled  |
+|  0x00000004 |  Auth Handler Enabled  |
+|  0x00000008 |  Logging Handler Enabled  |
+|  0x00000010 |  Service Discovery Handler Enabled  |
+|  0x00000020 |  Compression Handler Enabled  |
+|  0x00000040 |  Connnection Pool Manager Enabled  |
+|  0x00000080 |  Long Running Operation Handler Enabled  |
 
 ### Middleware Control Map
 
