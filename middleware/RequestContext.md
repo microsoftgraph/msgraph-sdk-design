@@ -24,7 +24,7 @@ This feature is not used to actually enable behavior, but to aggregate a value t
 |  0x00000001 |  Redirect Handler Enabled  |
 |  0x00000002 |  Retry Handler Enabled  |
 |  0x00000003 |  Auth Handler Enabled  |
-|  0x00000004 |  Custom HttpProvider Enabled  |
+|  0x00000004 |  Default HttpProvider Enabled  |
 |  0x00000008 |  Logging Handler Enabled  |
 |  0x00000010 |  Service Discovery Handler Enabled  |
 |  0x00000020 |  Compression Handler Enabled  |
