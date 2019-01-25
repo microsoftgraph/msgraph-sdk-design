@@ -21,15 +21,16 @@ This feature is not used to actually enable behavior, but to aggregate a value t
 
 | Flag | Feature |    
 |--|--|
+|  0x00000000 |  None  |
 |  0x00000001 |  Redirect Handler Enabled  |
 |  0x00000002 |  Retry Handler Enabled  |
-|  0x00000003 |  Auth Handler Enabled  |
-|  0x00000004 |  Default HttpProvider Enabled  |
-|  0x00000008 |  Logging Handler Enabled  |
-|  0x00000010 |  Service Discovery Handler Enabled  |
-|  0x00000020 |  Compression Handler Enabled  |
-|  0x00000040 |  Connnection Pool Manager Enabled  |
-|  0x00000080 |  Long Running Operation Handler Enabled  |
+|  0x00000004 |  Auth Handler Enabled  |
+|  0x00000008 |  Default HttpProvider Enabled  |
+|  0x00000010 |  Logging Handler Enabled  |
+|  0x00000020 |  Service Discovery Handler Enabled  |
+|  0x00000040 |  Compression Handler Enabled  |
+|  0x00000080 |  Connnection Pool Manager Enabled  |
+|  0x00000100 |  Long Running Operation Handler Enabled  |
 
 ### Middleware Control Map
 
