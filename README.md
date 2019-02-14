@@ -7,26 +7,26 @@ This repository holds documents related to current and on-going work on Microsof
 | Component |Feature| .net | Java | JS | ObjC | PHP | Ruby | Python | Go | Powershell |
 |--|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
-| | Pipeline                |X|O|O|[X][objc_middleware]|||
-| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[X][dotnet_authhandler] | |O|[X][objc_authhandler] | | |
-| | [Retry Handler](middleware/RetryHandler.md)              |[X][dotnet_retryhandler]| |O|[X][objc_redirecthandler]| | |
-| | [Redirect Handler](middleware/RedirectHandler.md)        |[X][dotnet_redirecthandler]| |O|[X][objc_retryhandler] | | |
+| | Pipeline                |X|X|[X][js_middleware]|[X][objc_middleware]|||
+| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[X][dotnet_authhandler] |[X][java_authhandler]|X|[X][objc_authhandler] | | |
+| | [Retry Handler](middleware/RetryHandler.md)              |[X][dotnet_retryhandler]|X|O|[X][objc_redirecthandler]| | |
+| | [Redirect Handler](middleware/RedirectHandler.md)        |[X][dotnet_redirecthandler]|X|X?|[X][objc_retryhandler] | | |
 | | [Compression Handler](middleware/CompressionHandler.md) | | | | | | |
 | | [Logging Handler](middleware/LogggingHandler.md) | | | | | | |
 | | [Telemetry Handler](middleware/TelemetryHandler.md) | | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
-|| [Batch Request Content](content/BatchRequestContent.md)     | |O|[X][javascript_batchrequestcontent]|[X][objc_batchrequestcontent] | | |
-|| [Batch Response Content](content/BatchResponseContent.md)   | |O|[X][javascript_batchresponsecontent] |[X][objc_batchresponsecontent] | | |
+|| [Batch Request Content](content/BatchRequestContent.md)     | |X|[X][javascript_batchrequestcontent]|[X][objc_batchrequestcontent] | | |
+|| [Batch Response Content](content/BatchResponseContent.md)   | |X|[X][javascript_batchresponsecontent] |[X][objc_batchresponsecontent] | | |
 || [Multipart Content](content/MultipartContent.md)            |X|[X][java_multipartcontent]| | | | |
 || [Error Content](content/ErrorContent.md)            | | | | | | |
 | Graph Components
-|| [Graph Response](GraphResponse.md)                | | | | | | |
-|| [Response Handler](responseHandler.md) | | |[X][javascript_responsehandler]||||
+|| [Client Factory](GraphClientFactory.md)           |[X][dotnet_clientfactory]|X|X|[X][objc_graphclientfactory]| | |
+|| [Response Handling](responseHandler.md) | | |[X][javascript_responsehandler]||||
 | Tasks
 || [File Upload](FileUploadTask.md)                | | |[X][javascript_fileuploadtask] | | | |
 || [Page Iterator](PageIteratorTask.md)            | | |[X][javascript_pageiteratortask] | | | |
 | [Providers](providers.md)
-|| [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]| |O|[X][objc_authprovider] | | |
+|| [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]|[J](java_authprovider) / [A](android_authprovider) |X|[X][objc_authprovider] | | |
 || [Logging](provider/LoggingProvider.md)                     | | | | | | |
 
 X - Completed  
@@ -62,6 +62,9 @@ Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
+
+[java_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/httpcore/AuthenticationHandler.java
+[js_middleware]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/IMiddleware.ts#L15 
 [objc_middleware]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Protocols/MSGraphMiddleware.h
 [objc_authprovider]:https://github.com/microsoftgraph/msgraph-sdk-objc-auth
 [objc_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Implementations/Authentication/MSAuthenticationHandler.h
