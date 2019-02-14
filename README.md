@@ -18,9 +18,8 @@ This repository holds documents related to current and on-going work on Microsof
 || [Batch Request Content](content/BatchRequestContent.md)     | |O|[X][javascript_batchrequestcontent]|[X][objc_batchrequestcontent] | | |
 || [Batch Response Content](content/BatchResponseContent.md)   | |O|[X][javascript_batchresponsecontent] |[X][objc_batchresponsecontent] | | |
 || [Multipart Content](content/MultipartContent.md)            |X|[X][java_multipartcontent]| | | | |
+|| [Error Content](content/ErrorContent.md)            | | | | | | |
 | Graph Components
-|| [Client Factory](GraphClientFactory.md)           |[X][dotnet_clientfactory]| |O|[X][objc_graphclientfactory]| | |
-|| [Graph Request](GraphRequest.md)                                     | | |[X][javascript_graphrequest]| | | |
 || [Graph Response](GraphResponse.md)                | | | | | | |
 || [Response Handler](responseHandler.md) | | |[X][javascript_responsehandler]||||
 | Tasks
@@ -28,7 +27,7 @@ This repository holds documents related to current and on-going work on Microsof
 || [Page Iterator](PageIteratorTask.md)            | | |[X][javascript_pageiteratortask] | | | |
 | [Providers](providers.md)
 || [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]| |O|[X][objc_authprovider] | | |
-|| Logging                     | | | | | | |
+|| [Logging](provider/LoggingProvider.md)                     | | | | | | |
 
 X - Completed  
 O - In progress
