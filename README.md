@@ -62,9 +62,8 @@ Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-
 [java_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/httpcore/AuthenticationHandler.java
-[js_middleware]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/IMiddleware.ts#L15 
+[js_middleware]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/IMiddleware.ts#L15
 [objc_middleware]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Protocols/MSGraphMiddleware.h
 [objc_authprovider]:https://github.com/microsoftgraph/msgraph-sdk-objc-auth
 [objc_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Implementations/Authentication/MSAuthenticationHandler.h
