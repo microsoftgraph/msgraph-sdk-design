@@ -4,7 +4,7 @@ This repository holds documents related to current and on-going work on Microsof
 
 ## SDK Features Support
 
-| Component |Feature| .net | Java | JS | ObjC | PHP | Ruby | Python | Go | Powershell |
+| Component |Feature| .net | Java | JS | ObjC | Powershell | PHP | Ruby | Python | Go |  
 |--|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
 | | Pipeline                |X|X|[X][js_middleware]|[X][objc_middleware]|||
