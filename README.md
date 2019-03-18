@@ -32,25 +32,58 @@ This repository holds documents related to current and on-going work on Microsof
 X - Completed  
 O - In progress
 
-## SDKs
+## Supported Languages
 
-|Language| Repo | Packages |
+### .Net
+
+|Role| Repo | Packages |
 |--|--|--|
-|.net|[msgraph-sdk-dotnet](https://github.com/microsoftgraph/msgraph-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph/)|
-|Java|[msgraph-sdk-java](https://github.com/microsoftgraph/msgraph-sdk-java)||
-|Javascript Core|[msgraph-sdk-javascript](https://github.com/microsoftgraph/msgraph-sdk-javascript)||
-|Typescript Types|[msgraph-typescript-typings](https://github.com/microsoftgraph/msgraph-typescript-typings)||
-|Objective C|[msgraph-sdk-objc](https://github.com/microsoftgraph/msgraph-sdk-objc)||
-|PHP|[msgraph-sdk-php](https://github.com/microsoftgraph/msgraph-sdk-php)|
-|Ruby|[msgraph-sdk-ruby](https://github.com/microsoftgraph/msgraph-sdk-ruby)|
-|Python|[msgraph-sdk-python](https://github.com/microsoftgraph/msgraph-sdk-python)|
+|Service+Models|[msgraph-sdk-dotnet](https://github.com/microsoftgraph/msgraph-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph/)|
+|Core|[msgraph-sdk-dotnet](https://github.com/microsoftgraph/msgraph-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Core/)|
+|Auth|[msgraph-sdk-dotnet-auth](https://github.com/microsoftgraph/msgraph-sdk-dotnet-auth)|
+|Beta|[msgraph-beta-sdk-dotnet](https://github.com/microsoftgraph/msgraph-beta-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Beta/)|
 
-## Authorization Providers
+### Javascript
 
-|Language| Repo | Packages |
+|Role| Repo | Packages |
 |--|--|--|
-|.net|[msgraph-sdk-dotnet-auth](https://github.com/microsoftgraph/msgraph-sdk-dotnet-auth)|
-|Objective C|[msgraph-sdk-objc-auth](https://github.com/microsoftgraph/msgraph-sdk-objc-auth)|
+|Service+Core|[msgraph-sdk-javascript](https://github.com/microsoftgraph/msgraph-sdk-javascript)||
+|Models|[msgraph-typescript-typings](https://github.com/microsoftgraph/msgraph-typescript-typings)|
+
+### Java
+
+|Role| Repo | Packages |
+|--|--|--|
+|Service+Models|[msgraph-sdk-java](https://github.com/microsoftgraph/msgraph-sdk-java)||
+|Core|[msgraph-sdk-java-core](https://github.com/microsoftgraph/msgraph-sdk-java-core)||
+|Auth|[msgraph-sdk-java-auth](https://github.com/microsoftgraph/msgraph-sdk-java-auth)||
+|Auth|[msgraph-sdk-android-auth](https://github.com/microsoftgraph/msgraph-sdk-android-auth)||
+
+### Objective C
+
+|Role| Repo | Packages |
+|--|--|--|
+|Core|[msgraph-sdk-objc](https://github.com/microsoftgraph/msgraph-sdk-objc)||
+|Auth|[msgraph-sdk-objc-auth](https://github.com/microsoftgraph/msgraph-sdk-objc-auth)|
+|Models|[msgraph-sdk-objc-models](https://github.com/microsoftgraph/msgraph-sdk-objc-models)|
+
+### PHP
+
+|Role| Repo | Packages |
+|--|--|--|
+|Service+Models|[msgraph-sdk-php](https://github.com/microsoftgraph/msgraph-sdk-php)|
+
+### Ruby
+
+|Role| Repo | Packages |
+|--|--|--|
+|All|[msgraph-sdk-ruby](https://github.com/microsoftgraph/msgraph-sdk-ruby)|
+
+### Python
+
+|Role| Repo | Packages |
+|--|--|--|
+|All|[msgraph-sdk-python](https://github.com/microsoftgraph/msgraph-sdk-python)|
 
 ## Issues
 
