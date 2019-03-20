@@ -24,7 +24,7 @@ This repository holds documents related to current and on-going work on Microsof
 || [Response Handling](responseHandler.md) | | |[X][javascript_responsehandler]||||
 | Tasks
 || [File Upload](FileUploadTask.md)                | | |[X][javascript_fileuploadtask] | | | |
-|| [Page Iterator](PageIteratorTask.md)            | | |[X][javascript_pageiteratortask] | | | |
+|| [Page Iterator](tasks/PageIteratorTask.md)            | | |[X][javascript_pageiteratortask] | | | |
 | [Providers](providers.md)
 || [Authentication](providers/AuthenticationProvider.md)              |[X][dotnet_authprovider]|[J](java_authprovider) / [A](android_authprovider) |X|[X][objc_authprovider] | | |
 || [Logging](provider/LoggingProvider.md)                     | | | | | | |
