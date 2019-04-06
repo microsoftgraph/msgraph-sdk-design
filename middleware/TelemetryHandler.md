@@ -15,7 +15,7 @@ Provide a middleware component that attaches metadata to a Graph request in orde
 
 Ideally we would use the `User-Agent` header to identify the libraries that were involved in making the request.  Unfortunately, this does not work for Javascript because despite allowing `User-Agent` to be changed in fetch() there is a [bug in Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=571722) that remains unfixed for more than 3 years.
 
-The SdkVersion borrows much of the syntax from `user-agent` but uses a comma delimited list instead of space delimited list like the `via` header.
+The SdkVersion borrows much of the syntax from `user-agent` but instead uses a comma delimited list.
 
 ABNF Syntax for SdkVersion:
 
