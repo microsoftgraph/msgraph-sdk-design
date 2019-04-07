@@ -6,10 +6,13 @@ Provide a middleware component that attaches metadata to a Graph request in orde
 
 ## Requirements
 
+- Add a `client-request-id` header with GUID value to request if one is not present.  If the [RequestContext](../middleware/RequestContext.md) has a `ClientRequestId` property set then that value should be used.
 - Add `SdkVersion` request header to each request to identify the language and version of the client SDK library.  The product identifier should be of the format `graph-{lang}`. The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values should be comma delimited as normal header lists are. e.g.
 
     `SdkVersion: MyApp/1.0, spfx/1.0, graph-javascript-1.0`
-- Add a `client-request-id` header with GUID value to request if one is not present.  If the [RequestContext](../middleware/middleware.md) has a `ClientRequestId` property set then that value should be used.
+- If available, add a the `featureUsage` value contained in the [RequestContext](../middleware/RequestContext.md) as key/value pair in the comment after the product. e.g.
+
+    `SdkVersion: graph-dotnet/1.0 (featureUsage=0f)`
 
 ## Remarks
 
