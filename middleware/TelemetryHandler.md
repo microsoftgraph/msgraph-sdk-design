@@ -29,7 +29,7 @@ where `product`, `product-version`, `comment` and `token` are defined in [RFC 72
 
 Currently, many SDKs embed the version number into the `product` using a hypen as a separator.  Over time we should migrate these to use the `/` to make parsing the version easier.
 
-The order of `SdkVersion` values is significant.
+The order of `SdkVersion` values is significant. Core library SdkVersion header values MUST be specified as the last value in the SdkVersion header. Service library header values MUST precede the Core library value in the SdkVersion header.
 
 ## Performance
 
