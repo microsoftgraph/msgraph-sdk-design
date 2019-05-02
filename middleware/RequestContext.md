@@ -31,6 +31,9 @@ This feature is not used to actually enable behavior, but to aggregate a value t
 |  0x00000040 |  Compression Handler Enabled  |
 |  0x00000080 |  Connnection Pool Manager Enabled  |
 |  0x00000100 |  Long Running Operation Handler Enabled  |
+|  0x00000200 |  Batch Request Content Used  |
+|  0x00000400 |  Page Iterator task Used  |
+|  0x00000800 |  File Upload task Used  |
 
 ### Middleware Control Map
 
