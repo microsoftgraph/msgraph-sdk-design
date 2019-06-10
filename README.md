@@ -11,9 +11,13 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][objc_authhandler] | | |
 | | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|✓|[✓][js_retryhandler]|[✓][objc_retryhandler]| | |
 | | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|✓|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | |
-| | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]| | | | | |
+| | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N| | | |
 | | [Logging Handler](middleware/LoggingHandler.md) | | | | | | |
 | | [Telemetry Handler](middleware/TelemetryHandler.md) |[O][dotnet_telemetryhandler]| | | | | |
+| | [Connection Management]() | | | | | | |
+| | [Long Running Operations]() | | | | | | |
+| | [Chaos Handler]() | | | | | | |
+| | [Service Discovery Handler]() | | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
 || [Batch Request Content](content/BatchRequestContent.md)     |[✓][dotnet_batchrequestcontent]|✓|[✓][js_batchrequestcontent]|[✓][objc_batchrequestcontent] | | |
 || [Batch Response Content](content/BatchResponseContent.md)   |[✓][dotnet_batchrequestcontent]|✓|[✓][js_batchresponsecontent] |[✓][objc_batchresponsecontent] | | |
@@ -31,6 +35,7 @@ This repository holds documents related to current and on-going work on Microsof
 
 ✓ - Completed  
 O - In progress
+N - Native library support
 
 ## Supported Languages
 
@@ -58,6 +63,8 @@ O - In progress
 |Core|[msgraph-sdk-java-core](https://github.com/microsoftgraph/msgraph-sdk-java-core)||
 |Auth|[msgraph-sdk-java-auth](https://github.com/microsoftgraph/msgraph-sdk-java-auth)||
 |Auth|[msgraph-sdk-android-auth](https://github.com/microsoftgraph/msgraph-sdk-android-auth)||
+
+Java Core is based on the [OkHttp](https://github.com/square/okhttp).
 
 ### Objective C
 
