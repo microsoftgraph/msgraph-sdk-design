@@ -1,10 +1,8 @@
 # GraphResponse object for .Net
 
-The generated .Net client library either returns: 1) the response content as the result of a successful call to Microsoft Graph, or 2) a ServiceException in the case the call fails.
+The generated .Net client library either returns: 1) the response content as an object or collection object as the result of a successful call to Microsoft Graph, or 2) a ServiceException in the case the call fails.
 
-## Problem: Lost data
-
-We consider this a design flaw as the client library swallows useful information in response headers and the http status code. Mitigations such as stuffing the information in AdditionalData is insufficient for all scenarios. For example, there is no AdditionalData on Stream objects, and Delete operations return void.
+We consider this a design flaw as the client library swallows useful information such as the response headers and the http status code. Mitigation such as stuffing the information in AdditionalData is insufficient for all scenarios. For example, there is no AdditionalData on Stream objects, and Delete operations return void.
 
 Related to:
 https://github.com/microsoftgraph/msgraph-sdk-dotnet/issues/457
@@ -12,7 +10,18 @@ https://github.com/microsoftgraph/msgraph-sdk-dotnet/issues/361
 
 ## Proposed solution
 
-We propose that we overload our existing *Async functions to enable this new functionality.
+We propose that we create parallel *Async functions to enable the GraphResponse object functionality. We will generate requests with the following public API signatures:
+
+GetWithResponseObjectAsync(): GraphResponse<T>, where T is the return type
+CreateWithResponseObjectAsync(NewObject: Entity) : GraphResponse<T>, where T is the return type
+PostWithResponseObjectAsync(NewObject: Entity) : GraphResponse<T>, where T is the return type
+UpdateWithResponseObjectAsync(UpdatedObject: Entity) : GraphResponse<T>, where T is the return type
+DeleteWithResponseObjectAsync() : GraphResponse<T>, where T is the return type
+
+GraphResponse.Content
+GraphResponse.HttpHeaders
+GraphResponse.StatusCode
+
 
 Why not on BaseRequest?
 * All of the new methods would be on all the Request objects.
