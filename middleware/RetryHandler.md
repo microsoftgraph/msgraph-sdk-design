@@ -11,6 +11,9 @@ Provide a reusuable component that provides application developers with effectiv
 - Retries MUST respect the `retry-after` response header if provided.
 - Where no `retry-after` header is provided by the server, an exponential backoff with random offset hueristic should be used to determine the retry delay.
 - Retries should be limited to a maximum value.
+- This value MUST be specified by the client code.
+- Retries will be based on the cumulative retry delay against the maximum retry time specified by the client code.
+- Upon expiry of the maximum retry time, the Task should be cancelled and an exception thrown.
 - Only requests with payloads that are buffered/rewindable are supported.  Payloads with forward only streams will be have the responses returned without any retry attempt.
 
 ### Supported Status Codes
