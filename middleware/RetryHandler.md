@@ -10,10 +10,11 @@ Provide a reusuable component that provides application developers with effectiv
 - A `retry-attempt` header SHOULD be added which contains a numeric value representing the retry number.  This value will be used for diagnostics and determining the effectiveness of the retry handler.
 - Retries MUST respect the `retry-after` response header if provided.
 - Where no `retry-after` header is provided by the server, an exponential backoff with random offset hueristic should be used to determine the retry delay.
-- Retries should be limited to a maximum value.
-- This value MUST be specified by the client code.
-- Retries will be based on the cumulative retry delay against the maximum retry time specified by the client code.
-- Upon expiry of the maximum retry time, the Task should be cancelled and an exception thrown.
+- Retries should be limited to a maximum delay value. The default value for this is set at 180 seconds.
+- The client code can specify a custom value for the maximum delay.
+- Retries will be based on the cumulative retry delay compared against the maximum delay specified by the client code.
+- Upon expiry of the maximum delay, when the cumulative retry delay is greater than the specified maximum delay, the `Task` should be cancelled and an `exception` thrown with a relevant message.
+- In the case whereby the client code specifies a maximum delay that is less than the received `retry-after` header value from the server, the cumulative retry delay will run for the duration of the `retry-after` value.
 - Only requests with payloads that are buffered/rewindable are supported.  Payloads with forward only streams will be have the responses returned without any retry attempt.
 
 ### Supported Status Codes
