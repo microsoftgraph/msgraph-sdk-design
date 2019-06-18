@@ -2,17 +2,37 @@
 
 ## Objectives
 
-Provide a middleware component that attaches metadata to a Graph request in order help improve the SDK team improve the developer experience.
+Provide a mandatory middleware component that attaches metadata to a Graph request in order help the SDK team improve the developer experience.
 
 ## Requirements
 
 - Add a `client-request-id` header with GUID value to request if one is not present.  If the [RequestContext](../middleware/RequestContext.md) has a `ClientRequestId` property set then that value should be used.
-- Add `SdkVersion` request header to each request to identify the language and version of the client SDK library.  The product identifier should be of the format `graph-{lang}`. The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values should be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
 
-    `SdkVersion: MyApp/1.0, spfx/1.0, graph-javascript-1.0`
+- Add `SdkVersion` request header to each request to identify the language and version of the client SDK library. The product identifier should be of the format `graph-{lang}`. The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values should be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
+
+    `SdkVersion: MyApp/1.0, spfx/1.0, graph-javascript/1.0`
+
 - If available, add a the `featureUsage` value contained in the [RequestContext](../middleware/RequestContext.md) as key/value pair in the comment after the product. e.g.
 
     `SdkVersion: graph-dotnet/1.0 (featureUsage=0f)`
+
+- Add `x-client-OS` request header to each request. This will help us identify the OS in which our client SDK is being used. e.g.
+
+    `x-client-OS: Microsoft Windows 10.0.18362`
+
+- Add `x-runtime-Framework` request header to capture the runtime framework on which the client SDK is running on. Idealy, we should capture the framework in the form on `x-runtime-Framework: FrameworkName/FrameworkVersion`. e.g.
+
+    - `x-runtime-Framework: .NETFramework/1.1` for .NET.
+    - `x-runtime-Framework: Node/1.1` for JavaScript.
+    - `x-runtime-Framework: JRE/1.1` for Java.
+
+#### Ideal Metadata Capture
+```cs
+SdkVersion: graph-dotnet/1.16.0 (featureUsage=0f)
+client-request-id: fdae6861-5916-486d-93d9-9129160b2d79
+x-client-OS: Microsoft Windows 10.0.18362 
+x-runtime-Framework: .NETFramework/4.7.2
+```
 
 ## Remarks
 
