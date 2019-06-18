@@ -16,22 +16,22 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
 
     `SdkVersion: graph-dotnet/1.0 (featureUsage=0f)`
 
-- Add `x-client-OS` request header to each request. This will help us identify the OS in which our client SDK is being used. e.g.
+- Add `HostOS` request header to each request to help us identify the OS on which our client SDK is running on. e.g.
 
-    `x-client-OS: Microsoft Windows 10.0.18362`
+    `HostOS: Microsoft Windows 10.0.18362`
 
-- Add `x-runtime-Framework` request header to capture the runtime framework on which the client SDK is running on. Idealy, we should capture the framework in the form on `x-runtime-Framework: FrameworkName/FrameworkVersion`. e.g.
+- Add `RuntimeEnvironment` request header to capture the runtime framework on which the client SDK is running on. Ideally, we should capture the runtime environment in the form of `RuntimeEnvironment: Name/Version`. e.g.
 
-    - `x-runtime-Framework: .NETFramework/1.1` for .NET.
-    - `x-runtime-Framework: Node/1.1` for JavaScript.
-    - `x-runtime-Framework: JRE/1.1` for Java.
+    - `RuntimeEnvironment: .NETFramework/1.1` for .NET.
+    - `RuntimeEnvironment: Node/1.1` for JavaScript.
+    - `RuntimeEnvironment: JRE/1.1` for Java.
 
 #### Ideal Metadata Capture
 ```cs
 SdkVersion: graph-dotnet/1.16.0 (featureUsage=0f)
 client-request-id: fdae6861-5916-486d-93d9-9129160b2d79
-x-client-OS: Microsoft Windows 10.0.18362 
-x-runtime-Framework: .NETFramework/4.7.2
+HostOS: Microsoft Windows 10.0.18362
+RuntimeEnvironment: .NETFramework/4.7.2
 ```
 
 ## Remarks
