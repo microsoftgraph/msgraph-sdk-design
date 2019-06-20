@@ -12,7 +12,7 @@ Provide a reusuable component that provides application developers with effectiv
 - Where no `retry-after` header is provided by the server, an exponential backoff with random offset hueristic should be used to determine the retry delay.
 - Retries should be limited to a maximum delay value. The default value for this is set at 180 seconds.
 - The client code can specify a custom value for the maximum delay.
-- Retries will be based on the cumulative retry delays compared against the maximum delay specified by the client code, cumulatively added across all retries within the context of a single call. This is applicable to both 429 and 503/504.
+- Multiple retry attempts will be limited to not exceed the `RetriesTimeLimit`. This is applicable to both 429 and 503/504.
 - Upon expiry of the maximum delay, when the cumulative retry delay is greater than the specified maximum delay, the `Task` should be cancelled and an `exception` thrown with a relevant message.
 - In the case where the client receives a `retry-after` value that is greater than the remaining `RetriesTimeLimit` the client should return the failed response immediately.
 - Only requests with payloads that are buffered/rewindable are supported.  Payloads with forward only streams will be have the responses returned without any retry attempt.
