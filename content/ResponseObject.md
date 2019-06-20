@@ -43,7 +43,7 @@ Custom deserializer support can enable customers to craft a deserializer optimiz
 <!-- TODO: Add these reference. -->
 
 ---
-<!-- TODO: Write up for .Netgoes in separate doc -->
+<!-- TODO: Write up for .Net goes in separate doc -->
 
 The generated .Net client library either returns: 1) the response content as an object or collection object as the result of a successful call to Microsoft Graph, or 2) a ServiceException in the case the call fails.
 
