@@ -14,7 +14,7 @@ Provide a reusuable component that provides application developers with effectiv
 - The client code can specify a custom value for the maximum delay.
 - Retries will be based on the cumulative retry delays compared against the maximum delay specified by the client code, cumulatively added across all retries within the context of a single call. This is applicable to both 429 and 503/504.
 - Upon expiry of the maximum delay, when the cumulative retry delay is greater than the specified maximum delay, the `Task` should be cancelled and an `exception` thrown with a relevant message.
-- In the case whereby the client code specifies a maximum delay that is less than the received `retry-after` header value from the server, the cumulative retry delay will run for the duration of the `retry-after` value.
+- In the case where the client receives a `retry-after` value that is greater than the remaining `RetriesTimeLimit` the client should return the failed response immediately.
 - Only requests with payloads that are buffered/rewindable are supported.  Payloads with forward only streams will be have the responses returned without any retry attempt.
 
 ### Supported Status Codes
