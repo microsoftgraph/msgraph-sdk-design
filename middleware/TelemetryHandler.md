@@ -8,13 +8,23 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
 
 - Add a `client-request-id` header with GUID value to request if one is not present.  If the [RequestContext](../middleware/RequestContext.md) has a `ClientRequestId` property set then that value should be used.
 
-- Add `SdkVersion` request header to each request to identify the language and version of the client SDK library. The product identifier should be of the format `graph-{lang}`. The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values should be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
+- Add `SdkVersion` request header to each request to identify the language and version of the client SDK library(s). The product identifier should be of the format `graph-{lang}/{majorVersion}.{minorVersion}.{buildVersion}` for client libraries. If the client SDK library has more than one component i.e. core, v1.0/beta service model library, then the product identifier should capture them as follows based on usage :
 
-    `SdkVersion: MyApp/1.0, spfx/1.0, graph-javascript/1.0`
+    | Client SDK Library Component | Template | Example |
+    | --- | --- | --- |
+    | **Core** | `graph-{lang}-core/{major}.{minor}.{build}` | `graph-dotnet-core/1.16.0` |
+    | **v1.0 Service Model** | `graph-{lang}/{major}.{minor}.{build}` | `graph-dotnet/1.16.0` |
+    | **Beta Service Model** | `graph-{lang}-beta/{major}.{minor}.{build}` | `graph-dotnet-beta/1.16.0` |
+    
+    The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values should be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
 
-- If available, add a the `featureUsage` value contained in the [RequestContext](../middleware/RequestContext.md) as key/value pair in the comment after the product. e.g.
+    ```js
+    SdkVersion: MyApp/1.0, graph-dotnet-core/1.16.0 (featureUsage=0f), graph-dotnet/0.6.0
+    ```
 
-    `SdkVersion: graph-dotnet/1.0 (featureUsage=0f)`
+- If available, add a the `featureUsage` value contained in the [RequestContext](../middleware/RequestContext.md) to the `SDKVersion` header as key/value pair in the comment after the product identifier. e.g.
+
+    `SdkVersion: graph-javascript/1.0.0 (featureUsage=0f)`
 
 - Add `HostOS` request header to each request to help us identify the OS on which our client SDK is running on. e.g.
 
@@ -27,8 +37,8 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
     - `RuntimeEnvironment: JRE/1.1` for Java.
 
 #### Ideal Metadata Capture
-```cs
-SdkVersion: graph-dotnet/1.16.0 (featureUsage=0f)
+```js
+SdkVersion: graph-dotnet-beta/0.6.0-preview graph-dotnet-core/1.16.0 (featureUsage=0f)
 client-request-id: fdae6861-5916-486d-93d9-9129160b2d79
 HostOS: Microsoft Windows 10.0.18362
 RuntimeEnvironment: .NETFramework/4.7.2
