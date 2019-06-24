@@ -18,8 +18,8 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
     
     The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values should be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
 
-    ```js
-    SdkVersion: MyApp/1.0, graph-dotnet-core/1.16.0 (featureUsage=0f), graph-dotnet/0.6.0
+    ```
+    SdkVersion: MyApp/1.0, graph-dotnet-core/1.16.0 (featureUsage=0f), graph-dotnet/1.15.0
     ```
 
 - If available, add a the `featureUsage` value contained in the [RequestContext](../middleware/RequestContext.md) to the `SDKVersion` header as key/value pair in the comment after the product identifier. e.g.
@@ -37,8 +37,8 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
     - `RuntimeEnvironment: JRE/1.1` for Java.
 
 #### Ideal Metadata Capture
-```js
-SdkVersion: graph-dotnet-beta/0.6.0-preview graph-dotnet-core/1.16.0 (featureUsage=0f)
+```
+SdkVersion: graph-dotnet-beta/0.6.0-preview, graph-dotnet-core/1.16.0 (featureUsage=0f)
 client-request-id: fdae6861-5916-486d-93d9-9129160b2d79
 HostOS: Microsoft Windows 10.0.18362
 RuntimeEnvironment: .NETFramework/4.7.2
