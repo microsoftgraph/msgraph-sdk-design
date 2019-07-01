@@ -8,6 +8,19 @@ Provide a GraphResponse class that contains the entire response sent to the clie
 
 The generated client libraries don't return the entire response envelope. The response body is deserialized into a returned object. This results in data loss of information in response headers, status codes, and status messages which may be actionable by the client.
 
+## Requirements
+
+- GraphResponse MUST provide the HTTP response headers, status codes, and the raw response body.
+- It SHOULD provide a method to lazy deserialize the response body into our generated models or another object type based on whether a custom deserializer is provided.
+- It MAY support providing a custom deserializer to override the default deserializer.
+
+## Performance Considerations
+
+Lazy deserialization should improve performance for scenarios where customers do not need to immediately access the returned objects.
+
+Custom deserializer support can enable customers to craft a deserializer optimized for a specific response.
+
+
 ## Current GraphResponse objects in Microsoft Graph SDKs
 
 ### Javascript
@@ -26,17 +39,9 @@ The Javascript SDK exposes the native [Response](https://developer.mozilla.org/e
 
 The PHP SDK returns a Graph model (or collection) or a GraphResponse object, depending on whether a returnType is specified. This means that the returnType information is not supplied to the GraphResponse. The response body is set as a JSON array on GraphResponse. The only work I'd suggest here is that we add an option to pass the returnType to the GraphResponse and add a lazy deserialize method so it is easy to get the Graph models.
 
-## Requirements
+### Objective-C
 
-- GraphResponse MUST provide the HTTP response headers, status codes, and the raw response body.
-- It SHOULD provide a method to lazy deserialize the response body into our generated models or another object type based on whether a custom deserializer is provided.
-- It MAY support providing a custom deserializer to override the default deserializer.
-
-## Performance Considerations
-
-Lazy deserialization should improve performance for scenarios where customers do not need to immediately access the returned objects.
-
-Custom deserializer support can enable customers to craft a deserializer optimized for a specific response.
+<!-- TODO: needs statement -->
 
 ## References
 
