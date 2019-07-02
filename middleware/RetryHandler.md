@@ -10,10 +10,8 @@ Provide a reusuable component that provides application developers with effectiv
 - A `retry-attempt` header SHOULD be added which contains a numeric value representing the retry number.  This value will be used for diagnostics and determining the effectiveness of the retry handler.
 - Retries MUST respect the `retry-after` response header if provided.
 - Where no `retry-after` header is provided by the server, an exponential backoff with random offset hueristic should be used to determine the retry delay.
-- The client code can specify a custom value for the maximum delay value for time-based retries. The default is set at 0 second.
-- Multiple retry attempts will be limited to not exceed the `RetriesTimeLimit` in the case of time-based retries and `RetryCounts` in count-based retries. This is applicable to both 429 and 503/504.
-- In the case where the client receives a `retry-after` value that is greater than the remaining `RetriesTimeLimit` the client should return the failed response immediately.
-- Customers who intend to use the time-based retry will need to provide a maximum delay value in seconds greater than 0 for `RetriesTimeLimit`, otherwise the count-based retry will be used by default.
+- Customers can specify a custom value for the `RetriesTimeLimit` greater than 0 to introduce time-based evaluated request retries alongside the default count-based request retry. The default is set at 0 second.
+- If the `RetriesTimeLimit` value has been specified, the cumulative retry time and `retry-after` value for each request will be evaluated against this value; if either the cumulative retry time or `retry-after` value is greater than the `RetriesTimeLimit`, the failed response will be immediately returned, else the retry request continues. This is applicable to both 429 and 503/504.
 - Only requests with payloads that are buffered/rewindable are supported. Payloads with forward only streams will be have the responses returned without any retry attempt.
 
 ### Supported Status Codes
