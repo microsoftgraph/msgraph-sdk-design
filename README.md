@@ -11,7 +11,7 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][objc_authhandler] | | |
 | | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|✓|[✓][js_retryhandler]|[✓][objc_retryhandler]| | |
 | | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|✓|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | |
-| | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N| | | |
+| | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N|N| | |
 | | [Logging Handler](middleware/LoggingHandler.md) | | | | | | |
 | | [Telemetry Handler](middleware/TelemetryHandler.md) |[O][dotnet_telemetryhandler]| | | | | |
 | | [Connection Management]() | | | | | | |
