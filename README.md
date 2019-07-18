@@ -27,8 +27,8 @@ This repository holds documents related to current and on-going work on Microsof
 || [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|✓|[✓][js_graphclientfactory]|[✓][objc_graphclientfactory]| | |
 || [Response Handling](ResponseHandler.md) |[✓][dotnet_responsehandler]| |[✓][js_responsehandler]||||
 | Tasks
-|| [File Upload](tasks/FileUploadTask.md)                | | |[✓][js_fileuploadtask] | | | |
-|| [Page Iterator](tasks/PageIteratorTask.md)            |[✓][dotnet_pageiteratortask]| |[✓][js_pageiteratortask] | | | |
+|| [File Upload](tasks/FileUploadTask.md)                | |✓|[✓][js_fileuploadtask] |✓| | |
+|| [Page Iterator](tasks/PageIteratorTask.md)            |[✓][dotnet_pageiteratortask]|✓|[✓][js_pageiteratortask] |✓| | |
 | [Providers](providers/providers.md)
 || [Authentication](providers/AuthenticationProvider.md)              |[✓][dotnet_authprovider]|[J](java_authprovider) / [A](android_authprovider) |[✓][js_authprovider]|[✓][objc_authprovider] | | |
 || [Logging](providers/LoggingProvider.md)                     | | | | | | |
