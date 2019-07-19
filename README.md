@@ -13,7 +13,7 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|✓|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | |
 | | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N|N| | |
 | | [Logging Handler](middleware/LoggingHandler.md) | | | | | | |
-| | [Telemetry Handler](middleware/TelemetryHandler.md) |[O][dotnet_telemetryhandler]| | | | | |
+| | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|✓|✓|✓| | |
 | | [Connection Management]() | | | | | | |
 | | [Long Running Operations]() | | | | | | |
 | | [Chaos Handler]() | | | | | | |
