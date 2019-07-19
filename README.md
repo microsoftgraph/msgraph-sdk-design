@@ -12,11 +12,11 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|✓|[✓][js_retryhandler]|[✓][objc_retryhandler]| | |
 | | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|✓|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | |
 | | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N|N| | |
-| | [Logging Handler](middleware/LoggingHandler.md) | | | | | | |
+| | [Logging Handler](middleware/LoggingHandler.md) |O| | | | | |
 | | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|✓|✓|✓| | |
 | | [Connection Management]() | | | | | | |
 | | [Long Running Operations]() | | | | | | |
-| | [Chaos Handler]() | | | | | | |
+| | [Chaos Handler]() | | |O| | | |
 | | [Service Discovery Handler]() | | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
 || [Batch Request Content](content/BatchRequestContent.md)     |[✓][dotnet_batchrequestcontent]|✓|[✓][js_batchrequestcontent]|[✓][objc_batchrequestcontent] | | |
