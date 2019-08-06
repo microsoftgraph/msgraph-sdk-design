@@ -1,6 +1,8 @@
 # Microsoft Graph SDKs - Requirements and Design
 
-This repository holds documents related to current and on-going work on Microsoft Graph SDKs
+This repository holds documents related to current and on-going work on Microsoft Graph SDKs.  The following diagram shows a high level view of the SDK component architecture. The goal is to enable developers to opt-into functionality that they wish to use.  Over time all the SDKs will be adapted to follow this pattern.
+
+![Component Architecure](images/componentArch.png)
 
 ## SDK Features Support
 
