@@ -2,7 +2,7 @@
 
 ## Objectives
 <ul>
- <li>This feature is a middleware component that allows developers to plug in their own 3rd party logging platform to their application, currently it enables developers to log items in the graph SDK related to: request to graph service latency, authentication latency, redirect count, exceptions, request and client id’s. These items will be provided to a third-party logging framework through various exporters.</li>
+ <li>This feature is a middleware component that allows developers to plug in their own 3rd party logging platform to their application, currently it enables developers to log items in the graph SDK related to: request to graph service latency, authentication latency, redirect count, exceptions, request and client id’s. These items will be provided to a third-party logging framework through various exporters. List of items is open-ended and can be changed.</li>
 </ul>
 
 ## Requirements 
