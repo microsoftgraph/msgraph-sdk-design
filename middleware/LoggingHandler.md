@@ -30,6 +30,17 @@ This feature is a middleware component that allows developers to plug in their o
 //Create tracer object to record ditributed tracing information from ms graph .net core client library
 private static ITracer tracer = Tracing.Tracer;
 
+//Create tags key-value pairs of data associated with recorded measurements from app
+ private static ITagger tagger = Tags.Tagger;
+ 
+ //Create stat recorder to create new measurments
+ private static IStatsRecorder statsRecorder = Stats.StatsRecorder;
+ 
+ //key for tag
+ private static readonly ITagKey Key = TagKey.Create("sample key");
+ 
+ ......
+
 //Configure exporter to export traces to Azure Application Insights
 TelemetryConfiguration.Active.InstrumentationKey = "InstrumentationKey";
 var appInsightsexporter = new ApplicationInsightsExporter(Tracing.ExportComponent, Stats.ViewManager, TelemetryConfiguration.Active);
@@ -43,13 +54,22 @@ var spanBuilder = tracer
 .SetRecordEvents(true)
 .SetSampler(Samplers.AlwaysSample);
 
+ //value for tag
+ ITagContextBuilder tagContextBuilder = tagger.CurrentBuilder.Put(Key, TagValue.Create("sample value"))
+ 
+
 // 4. Create a scoped span. It will end automatically when using statement ends
 using (var scopedSpan = spanBuilder.StartScopedSpan())
 
 {
-    tracer.CurrentSpan.AddAnnotation("Latency of getting user's profile.");
-    //Get the current user's profile.
-    User me = await graphClient.Me.Request(requestOptions).WithUserAccount(ClaimsPrincipal.Current.ToGraphUserAccount()).GetAsync();
+     tracer.CurrentSpan.AddAnnotation("Auth and call to graph service latency.");
+     //auth latency
+     await authProvider.AuthenticateRequestAsync(httpRequestMessage);
+     //call to graph service
+     HttpResponseMessage response = await base.SendAsync(httpRequestMessage, cancellationToken);
+     
+     //associates the measure with given value, also associates tag with the measure
+     statsRecorder.NewMeasureMap().Put(measure, value).Record(tagger.CurrentTagContext);
 
  }
 
