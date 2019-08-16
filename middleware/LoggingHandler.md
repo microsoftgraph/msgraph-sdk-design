@@ -91,3 +91,5 @@ What is the default behaviour of OpenCensus when an exporter is not configured?
 Can we get an instance of an exporter using OpenCensus static classes?
 
 How should we configure the tracer within our client library?
+
+How does the developer configure logging specfications?
