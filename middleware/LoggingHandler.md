@@ -27,16 +27,16 @@ This feature is a middleware component that allows developers to plug in their o
 ## Example Usage
 ```cs
 
-//Create tracer object to record ditributed tracing information from ms graph .net core client library
+//create tracer object to record ditributed tracing information from ms graph .net core client library
 private static ITracer tracer = Tracing.Tracer;
 
-//Create tags key-value pairs of data associated with recorded measurements from app
+//create tags key-value pairs of data associated with recorded measurements from app
  private static ITagger tagger = Tags.Tagger;
  
- //Create stat recorder to create new measurments
+ //create stat recorder to create new measurments
  private static IStatsRecorder statsRecorder = Stats.StatsRecorder;
  
- //key for tag
+ //set key for tag
  private static readonly ITagKey Key = TagKey.Create("sample key");
  
  ......
@@ -65,7 +65,7 @@ using (var scopedSpan = spanBuilder.StartScopedSpan())
      //call to graph service
      HttpResponseMessage response = await base.SendAsync(httpRequestMessage, cancellationToken);
      
-     //value for tag
+     //set value for tag
      ITagContextBuilder tagContextBuilder = tagger.CurrentBuilder.Put(Key, TagValue.Create("sample value"))
      
      //associates the measure with given value, also associates tag with the measure
