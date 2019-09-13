@@ -1,4 +1,4 @@
-# Logging Handler [Draft 2]
+# Microsoft Graph Logging Configuration [Draft 2]
 
 ## Objectives
 
