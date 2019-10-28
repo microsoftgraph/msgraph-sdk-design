@@ -8,11 +8,12 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 ## Requirements
 
 - Accept a Microsoft.Graph.UploadSession instance to be used for the upload which is created and managed by the user and handed over to the task. The task should use the instance to start/resume the upload.
+- The task should validate the expiration time and expected byte range of the upload session on resume by querying the upload URL(thereby updating its instance of the Microsoft.Graph.UploadSession).
 - Accept a file/stream to be uploaded
 - The task should provide a mechanism of configuring the upload properties i.e. the upload chunk size
 - The task should provide a mechanism of monitoring the upload status i.e the progress and failures through a callback/Delegate
 - Using the RequestContext, the flag for the FileUploadTask can be set.
-- In the event that a chunk fails to upload, the task should retry to re-upload the chunk for a configurable number of times(default of 3) before giving up and throwing an error/exception for the user to handle..
+- In the event that a chunk fails to upload, the task should retry to re-upload the chunk for a configurable number of times(default of 3) before giving up and throwing an error/exception for the user to handle.
 
 ## Performance Considerations
 
