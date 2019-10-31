@@ -63,12 +63,13 @@ var uploadSession = await graphClient.Drive.Items["01KGPRHTV6Y2GOVW7725BZO354PWS
 Use the upload session and callback handler to run/resume the upload
 
 ```CSharp
-// create the upload provider with relevant options
-var maxChunkSize = 320 * 1024; // 320 KB - Change this to your chunk size. 5MB is the default.
-var provider = new ChunkedUploadProvider(uploadSession, graphClient, stream, maxChunkSize);
+// create the Large File Upload task with relevant options
+var maxSliceSize = 320 * 1024; // 320 KB - Change this to your slice size. 5MB is the default.
+// var provider = new ChunkedUploadProvider(uploadSession, graphClient, stream, maxChunkSize); //Old way that is wrapped
+var largeFileUploadTask = new LargeFileUpload(uploadSession, graphClient, stream, maxSliceSize);
 
 // upload away with relevant callback
-DriveItem itemResult = await provider.UploadAsync( new ProgressCallback );
+DriveItem itemResult = await largeFileUploadTask.UploadAsync( new ProgressCallback );
 
 ```
 
@@ -121,7 +122,7 @@ ChunkedUploadProvider<DriveItem> chunkedUploadProvider = new ChunkedUploadProvid
         uploadSession,
         graphClient,
         uploadFile,  //the file to upload
-        fileSize,    //size of the chunks
+        fileSize,    //size of the slices
         DriveItem.class);
 
 // upload with the provided callback mechanism
