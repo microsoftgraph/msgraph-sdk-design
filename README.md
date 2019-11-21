@@ -18,7 +18,7 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|✓|✓|✓| | |
 | | [Connection Management]() | | | | | | |
 | | [Long Running Operations]() | | | | | | |
-| | [Chaos Handler]() | | |O| | | |
+| | [Chaos Handler](middleware/ChaosHandler.md) | | |O| | | |
 | | [Service Discovery Handler]() | | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
 || [Batch Request Content](content/BatchRequestContent.md)     |[✓][dotnet_batchrequestcontent]|✓|[✓][js_batchrequestcontent]|[✓][objc_batchrequestcontent] | | |
