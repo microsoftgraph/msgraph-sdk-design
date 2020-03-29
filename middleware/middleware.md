@@ -12,9 +12,6 @@ In order to enable a flexible way to support cross cutting features, client libr
 - Middleware should accept a native or wrapped request object and also process the corresponding response.
 - Middleware components should be as cohesive as possible with an effort to minimize dependencies on other pieces of middleware.
 - A [RequestContext](./RequestContext.md) object should be passed along with the request object, to allow the behavior of middleware to be adjusted based on the specifics of the request and state aggregated by other pieces of middleware.
-- The request context object should provide a dictionary of optional middleware control objects that can be accessed by middleware components to allow customized behavior.  
-- The request context object should contain a property `ClientRequestId` which can be set to correlate all actions related to the current request.
-- The request context object should contain a property `FeatureUsage` which is a bitmap value that is used to flag feature usage. Details of the structure is described in the [RequestContext](./RequestContext.md) document.
 - When middleware assigns HTTP header values to requests or responses they SHOULD only update a single valued header if no value already exists.
 
 ## Performance Considerations
