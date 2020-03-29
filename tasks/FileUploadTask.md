@@ -14,6 +14,7 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 - The task should provide a mechanism of monitoring the upload status i.e the progress and failures through a callback/Delegate
 - Using the RequestContext, the feature flag for the FileUploadTask can be set for telemetry purposes.
 - In the event that a slice fails to upload, the task should retry to re-upload the slice for a configurable number of times(default of 3) before giving up and throwing an error/exception for the user to handle.
+- The task should be agnostic to the kind of upload being perfromed so as to support for various fileUpload scenarios e.g. DriveItem and FileAttachment
 
 ## Performance Considerations
 
@@ -30,27 +31,11 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 Create a handler for the progress of the upload
 
 ```CSharp
-
-public class ProgressCallback : IProgressCallback
+// Setup the progress monitoring
+IProgress<long> progress = new Progress<long>(progress =>
 {
-    public void UpdateProgress(long current, long max)
-    {
-        //Check progress  
-        Console.WriteLine("Processed " + current + "of" + max);
-    }
-
-    public void OnSuccess( DriveItem result )
-    {
-        //Handle the successful response
-        Console.WriteLine("Upload complete");
-    }
-
-    public void OnFailure( ClientException ex )
-    {
-        //Handle the failed upload
-        Console.WriteLine("Upload failed");
-    }
-}
+    Console.WriteLine($"Uploaded {progress} bytes of {stream.Length} bytes");
+});
 ```
 
 Create an upload session using the request builders
@@ -66,10 +51,10 @@ Use the upload session and callback handler to run/resume the upload
 // create the Large File Upload task with relevant options
 var maxSliceSize = 320 * 1024; // 320 KB - Change this to your slice size. 5MB is the default.
 // var provider = new ChunkedUploadProvider(uploadSession, graphClient, stream, maxChunkSize); //Old way that is wrapped
-var largeFileUploadTask = new LargeFileUpload(uploadSession, graphClient, stream, maxSliceSize);
+var largeFileUploadTask = new LargeFileUploadTask(uploadSession, graphClient, stream, maxSliceSize);
 
 // upload away with relevant callback
-DriveItem itemResult = await largeFileUploadTask.UploadAsync( new ProgressCallback );
+DriveItem itemResult = await largeFileUploadTask.UploadAsync( progress );
 
 ```
 
