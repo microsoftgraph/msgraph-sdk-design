@@ -13,7 +13,7 @@ For a variety of reasons, collections of entities are often split into pages and
 
 ## Performance Considerations
 
-The PageIteratorTask should not maintain references to pages that it has already iterated over.  An optimization could be to allow the Iterator to request future pages before it has completed walking the current page.  If this is implemented then there needs a way for a consumer to disable this optimization.   
+The PageIteratorTask should not maintain references to pages that it has already iterated over.  An optimization could be to allow the Iterator to request future pages before it has completed walking the current page.  If this is implemented, then there needs to be a way for a consumer to disable this optimization.
 ## Security Considerations
 
 ## Example usage
