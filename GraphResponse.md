@@ -16,7 +16,6 @@ Provide a decorator for the native response message to enable attaching Graph sp
 
 ## Performance Considerations
 
-Lazy deserialization should improve performance for scenarios where customers do not need to immediately access the returned objects.
 Custom deserializer support can enable customers to craft a deserializer optimized for a specific response.
 
 ## Background
@@ -57,12 +56,14 @@ The PHP SDK returns a Graph model (or collection) or a GraphResponse object, dep
 The GraphResponse object can wrap the native HttpResponseMessage object so that customers can use the familiar HttpResponseMessage members. 
 GraphResponse will be part of Microsoft.Graph.Core and it will expose the headers,Content and status code while also keeping reference to the Request object as below.
 
+
+### GraphResponse
 ```csharp
 
     /// <summary>
     /// The GraphResponse Object
     /// </summary>
-    public class GraphResponse 
+    public class GraphResponse : IDisposable
     {
         /// <summary>
         /// The GraphResponse Constructor
@@ -105,6 +106,46 @@ GraphResponse will be part of Microsoft.Graph.Core and it will expose the header
         {
             return httpResponseMessage;
         }
+
+        /// <summary>
+        /// Cleanup
+        /// </summary>
+        public void Dispose()
+        {
+            httpResponseMessage?.Dispose();
+        }
+    }
+
+```
+
+### GraphResponse< T >
+
+This derives from non generic GraphResponse and provides a method of derialization using a function called `GetResponseObjectAsync()`
+
+```csharp
+
+    /// <summary>
+    /// The GraphResponse Object
+    /// </summary>
+    public class GraphResponse<T> : GraphResponse
+    {
+        /// <summary>
+        /// The GraphResponse Constructor
+        /// </summary>
+        /// <param name="iBaseRequest">The Request made for the response</param>
+        /// <param name="httpResponseMessage">The response</param>
+        public GraphResponse(IBaseRequest iBaseRequest, HttpResponseMessage httpResponseMessage)
+            : base(iBaseRequest, httpResponseMessage)
+        {
+        }
+
+        /// <summary>
+        /// Gets the deserialized object 
+        /// </summary>
+        public async Task<T> GetResponseObjectAsync()
+        {
+            return await this.BaseRequest.ResponseHandler.HandleResponse<T>(this);
+        }
     }
 
 ```
@@ -113,21 +154,20 @@ GraphResponse will be part of Microsoft.Graph.Core and it will expose the header
 
 We can create parallel *Async functions to enable the GraphResponse object functionality. We will generate requests with the following public API signatures:
 
-* `GetWithGraphResponseAsync(): : GraphResponse`
-* `CreateWithGraphResponseAsync(NewObject: Entity) : GraphResponse`
-* `PostWithGraphResponseAsync(NewObject: Entity) : GraphResponse`
-* `UpdateWithGraphResponseAsync(UpdatedObject: Entity) : GraphResponse`
-* `DeleteWithGraphResponseAsync() : GraphResponse` 
+* `GetResponseAsync(): : GraphResponse<T>`
+* `CreateResponseAsync(NewObject: Entity) : GraphResponse<T>`
+* `PostResponseAsync(NewObject: Entity) : GraphResponse<T>`
+* `UpdateResponseAsync(UpdatedObject: Entity) : GraphResponse<T>`
+* `DeleteResponseAsync() : GraphResponse`  //no generic here 
 
 These would in turn call a function in the core library(BaseRequest) that looks something like
 
 ```csharp
 
-    public async Task<GraphResponse> SendAsyncWithGraphResponse() {
-        using (var response = await this.SendRequestAsync(serializableObject, cancellationToken, completionOption).ConfigureAwait(false))
-        {
-            return new GraphResponse(this,response);
-        }
+    public async Task<GraphResponse> SendAsyncWithGraphResponse() 
+    {
+        var response = await this.SendRequestAsync(serializableObject, cancellationToken, completionOption).ConfigureAwait(false))
+        return new GraphResponse(this,response);
     }
 
 ```
@@ -137,9 +177,9 @@ Example calls will look like this.
 
 ```csharp
 
-GraphResponse response = await graphServiceClient.Users.Request().GetWithGraphResponseAsync(cancellationToken);
+GraphResponse<IUserCollectionPage> response = await graphServiceClient.Users.Request().GetWithGraphResponseAsync<IUserCollectionPage>(cancellationToken);
 
-GraphResponse response = await graphServiceClient.Me.Request().UpdateWithGraphResponseAsync(patchUser, cancellationToken);
+GraphResponse<User> response = await graphServiceClient.Me.Request().UpdateWithGraphResponseAsync<User>(patchUser, cancellationToken);
 
 ```
 
@@ -190,13 +230,15 @@ Therefore a developer could possibly follow the following steps.
     ISerializer serailizer = new CustomSerializer(); //Custom Serializer
     IResponseHandler responseHandler = new ResponseHandler(serailizer); // Our ResponseHadler with custom Serializer
     
-    GraphResponse graphResponse = await graphServiceClient.Me.Request().UpdateWithGraphResponseAsync(patchUser, cancellationToken);//response with no serialization
+    GraphResponse<User> graphResponse = await graphServiceClient.Me.Request()
+                                                    .WithResponseHandler(responseHandler)// customized yay!
+                                                    .UpdateWithGraphResponseAsync<User>(patchUser, cancellationToken);//response with no serialization
     
     //
     // Do other stuff here like check status/headers
     //
 
-    User me = responseHandler.HandleResponse<User>(graphResponse); // Late and custom deserialization
+    User user = graphResponse.GetResponseObjectAsync(); //calls the responsehandler with custom serailizer
 
 ```
 
