@@ -120,7 +120,7 @@ GraphResponse will be part of Microsoft.Graph.Core and it will expose the header
 
 ### GraphResponse< T >
 
-This derives from non generic GraphResponse and provides a method of derialization using a function called `GetResponseObjectAsync()`
+This derives from non generic GraphResponse and provides a method of deserialization using a function called `GetResponseObjectAsync()`
 
 ```csharp
 
