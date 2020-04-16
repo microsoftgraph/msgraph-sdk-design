@@ -114,6 +114,14 @@ GraphResponse will be part of Microsoft.Graph.Core and it will expose the header
         {
             httpResponseMessage?.Dispose();
         }
+
+        /// <summary>
+        /// String representain of GraphResponse
+        /// </summary>
+        public override string ToString()
+        {
+            return $"Status: {StatusCode}";
+        }
     }
 
 ```
