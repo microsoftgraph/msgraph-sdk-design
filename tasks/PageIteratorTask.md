@@ -6,10 +6,10 @@ For a variety of reasons, collections of entities are often split into pages and
 
 ## Requirements
 
-- Accept any collection of entities that contains a link to a next page
-- Accept a callback function that will be called for each entity in each page of the collection.  The callback function should provide a way to indicate to the iterator to stop iterating.
-- Dereference the next page link, when each of the the entities of the current page have been passed to the callback.
-
+1. Accept any collection of entities that contains a link to a next page
+2. Accept a callback function that will be called for each entity in each page of the collection.  The callback function should provide a way to indicate to the iterator to stop iterating.
+3. Dereference the next page link, when each of the the entities of the current page have been passed to the callback.
+4. Accept or provide the ability to pass information like headers, middleware options, response type in the request for the next page. For example, when using a PageIteratorTask for processing a large number of events, consumer should be able to specify the timezone preferance in the headers. 
 
 ## Performance Considerations
 
@@ -72,5 +72,23 @@ TypeScript
         }; 
         let pageIterator = new PageIterator(client, response, callback); 
         pageIterator.iterate(); 
+        
+        // Example of passing headers with a PageIterator
+        let response: PageCollection = await client.api("/me/events").headers({ "Prefer": 'outlook.timezone= "utc"' }).get(); 
+        let callback = (data) => { 
+            console.log(data); 
+            return true; 
+        }; 
+        var requestOptions = { headers: { "Prefer":  'outlook.timezone= "utc"' } };
+        let pageIterator = new PageIterator(client, response, callback, requestOptions); 
+        pageIterator.iterate(); 
 ```
-
+## Future Implementations
+    - Support 4th requirement mentioned in this file. The progress can be tracked as follows -
+    | SDK         | Implemenation Status |
+    |-------------|----------------------|
+    | C#          | -                    |
+    | JAVA        | -                    |
+    | PHP         | -                    |
+    | Objective-C | -                    |
+    | JavaScript  | In Progress          |
