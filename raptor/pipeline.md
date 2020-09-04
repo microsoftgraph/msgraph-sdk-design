@@ -1,4 +1,4 @@
-# Raptor Pipeline as a Deployment Gate
+# Raptor Pipeline as a Metadata Deployment Gate
 
 ## Objectives
 
