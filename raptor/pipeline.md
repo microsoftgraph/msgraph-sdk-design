@@ -101,3 +101,5 @@ The tools that are required to answer the question in the [Objectives](#Objectiv
 ## Open Issues
 1. Need to sync with AGS team to see where this pipeline is going to be located.
 2. Is this going to be a stand-alone pipeline or part of an existing pipeline? The design can easily fit both pictures and our preference would be a stand-alone pipeline for testing purposes on our end.
+3. Since we own the tooling that would be part of the gate keeping, we'd need to define an SLA for what type of issues we will address, and when we can address them. There are many ways we could unexpectedly block deployment.
+We need to provide prescriptive guidance on what the expectations are when a deployment is gated. What type of issues require changes for the workload, and what are the changes? We will need to check that our error messages are actionable. We may need to start out as a simple non-gated check, and as we improve, we could start gating when we have a higher degree of accuracy and actionable information provided to onboarding workloads.
