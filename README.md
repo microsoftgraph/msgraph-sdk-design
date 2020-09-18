@@ -16,10 +16,10 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N|N| | |
 | | [Logging Handler](middleware/LoggingHandler.md) |O| | | | | |
 | | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|✓|✓|✓| | |
-| | [Connection Management]() | | | | | | |
-| | [Long Running Operations]() | | | | | | |
-| | [Chaos Handler]() | | |O| | | |
-| | [Service Discovery Handler]() | | | | | | |
+| | Connection Management | | | | | | |
+| | Long Running Operations | | | | | | |
+| | Chaos Handler | | |O| | | |
+| | Service Discovery Handler | | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
 || [Batch Request Content](content/BatchRequestContent.md)     |[✓][dotnet_batchrequestcontent]|✓|[✓][js_batchrequestcontent]|[✓][objc_batchrequestcontent] | | |
 || [Batch Response Content](content/BatchResponseContent.md)   |[✓][dotnet_batchrequestcontent]|✓|[✓][js_batchresponsecontent] |[✓][objc_batchresponsecontent] | | |
