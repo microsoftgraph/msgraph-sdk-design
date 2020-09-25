@@ -1,4 +1,4 @@
-# Testing Handler
+# Chaos Handler
 A piece of middleware that helps to mock different kinds of responses.
 
 ## Objectives
@@ -7,11 +7,13 @@ Provide a component, so that application developers can test their application w
 ## Requirements
 * Should be included in middleware using Custom Middleware Chain.
 * Should support Manual Mode of operation, where application developer can specify what response code they want for which API request.
-* Manual Mode should be supported at Client Level/ Global Level where they declare a Map and pass this to TestingHandler.
+* Manual Mode should be supported at Client Level/ Global Level where they declare a Map and pass this to ChaosHandler.
 * This manually declared Map should work on exact matching as well as Regex Matching (Eg - "/me/messages/.*").
 * Manual Mode should be supported at Request Level as well, where they can override the response code for a particular request.
 * Should support Random mode where application developers receive Random response codes on the basis of API method from the list of
 predefined response code for each method.
+* Should allow developers to pass custom Response Body mocking Graph responses from the API.
+
 #### Random Mode Response Codes List
 
 | API Method |                              Status Code List                             |
