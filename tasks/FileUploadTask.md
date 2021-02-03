@@ -15,8 +15,12 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 - Using the RequestContext, the feature flag for the FileUploadTask can be set for telemetry purposes.
 - In the event that a slice fails to upload, the task should retry to re-upload the slice for a configurable number of times(default of 3) before giving up and throwing an error/exception for the user to handle.
 - The task should be agnostic to the kind of upload being perfromed so as to support for various fileUpload scenarios e.g. DriveItem and FileAttachment
-- An upload task should be marked as completed if the response status is a 201. Another condition valid only for OneDrive is if the response status is a 200 and the response contains an "id" then the task is complete.
-- Refer to [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments?tabs=javascript) and [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true) documentation for the response formats. Note - Outlook does not allow to update an attachment. 
+- An upload task should be marked as completed if the response status is a 201. Another condition valid only for OneDrive is if the response status is a 200 and the response contains an "id" then the task is complete. Note - Outlook and Print API does not allow to update an attachment.
+- Refer to the following documentation for more information -
+    * [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments?tabs=javascript)
+    * [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true) 
+    * [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
+
 
 ## Performance Considerations
 
