@@ -9,26 +9,29 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 
 - Accept a Microsoft.Graph.UploadSession instance to be used for the upload which is created and managed by the user and handed over to the task. The task should use the instance to start/resume the upload.
 - The task should validate the expiration time and expected byte range of the upload session on resume by querying the upload URL(thereby updating its instance of the Microsoft.Graph.UploadSession).
-- Accept a file/stream to be uploaded
-- The task should provide a mechanism of configuring the upload properties i.e. the upload slice size
-- The task should provide a mechanism of monitoring the upload status i.e the progress and failures through a callback/Delegate
-- Using the RequestContext, the feature flag for the FileUploadTask can be set for telemetry purposes.
-- In the event that a slice fails to upload, the task should retry to re-upload the slice for a configurable number of times(default of 3) before giving up and throwing an error/exception for the user to handle.
-- The task should be agnostic to the kind of upload being perfromed so as to support for various fileUpload scenarios e.g. DriveItem and FileAttachment
+- Accept a file/stream to be uploaded.
+- The task should provide a mechanism of configuring the upload properties i.e. the upload slice size.
+- The task should provide a mechanism of monitoring the upload progress through a callback/delegate.
+- The task should signal upload failures via standard exception mechanism.
+- The task should signal upload completion via by returning the status or returning a completed **Task**/**Promise**/**Future** for async APIs.
+- Using the RequestContext, the feature flag for the **FileUploadTask** can be set for telemetry purposes.
+- The task should not retry to upload failed slices as any retry should already be done by the retry-handler which the task should be using.
+- The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**.
+- The task should provide cancellation capabilities through native task cancellation sources when using async APIs.
 - An upload task should be marked as completed if the response status is a 201. Another condition valid only for OneDrive is if the response status is a 200 and the response contains an "id" then the task is complete. Note - Outlook and Print API does not allow to update an attachment.
-- Refer to the following documentation for more information -
-    * [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments?tabs=javascript)
-    * [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true) 
-    * [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
+- Refer to the following documentation for more information:
 
+  - [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments?tabs=javascript)
+  - [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true) 
+  - [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
 
 ## Performance Considerations
 
-- The FileUploadTask should not create buffers for more than the current slice of data being uploaded.
+- The **FileUploadTask** should not create buffers for more than the current slice of data being uploaded.
 
 ## Telemetry considerations
 
-- Using the RequestContext, the flag for the FileUploadTask can be set to enable monitoring of the use of the task.
+- Using the RequestContext, the flag for the **FileUploadTask** can be set to enable monitoring of the use of the task.
 
 ## Example usage
 
@@ -67,24 +70,11 @@ DriveItem itemResult = await largeFileUploadTask.UploadAsync( progress );
 ### Java
 
 ```java
-
 // Define a callback for the upload progress
-IProgressCallback<DriveItem> callback = new IProgressCallback<DriveItem> () {
+final IProgressCallback callback = new IProgressCallback () {
     @Override
     public void progress(final long current, final long max) {
         //Check progress
-    }
-    @Override
-    public void success(final DriveItem result) {
-        //Handle the successful response
-        String finishedItemId = result.id;
-        Assert.assertNotNull(finishedItemId);
-    }
-
-    @Override
-    public void failure(final ClientException ex) {
-        //Handle the failed upload
-        Assert.fail("Upload session failed");
     }
 };
 ```
@@ -93,7 +83,7 @@ Create an upload session using the request builders
 
 ```java
 // create an upload session
-UploadSession uploadSession = testBase
+final IUploadSession uploadSession = testBase
         .graphClient
         .me()
         .drive()
@@ -109,7 +99,7 @@ Use the upload session and callback handler to run the upload
 
 ```java
 // create the upload provider
-ChunkedUploadProvider<DriveItem> chunkedUploadProvider = new ChunkedUploadProvider<DriveItem>(
+final ChunkedUploadProvider<DriveItem> chunkedUploadProvider = new ChunkedUploadProvider<DriveItem>(
         uploadSession,
         graphClient,
         uploadFile,  //the file to upload
@@ -117,7 +107,7 @@ ChunkedUploadProvider<DriveItem> chunkedUploadProvider = new ChunkedUploadProvid
         DriveItem.class);
 
 // upload with the provided callback mechanism
-chunkedUploadProvider.upload(callback);
+final DriveItem result = chunkedUploadProvider.upload(callback); //or uploadAsync to get a future
 
 ```
 
@@ -137,6 +127,7 @@ let options = {
 // create an upload session
 const uploadTask = await MicrosoftGraph.OneDriveLargeFileUploadTask.create(client, file, options);
 ```
+
 Use the upload task to run the upload
 
 ```typescript
