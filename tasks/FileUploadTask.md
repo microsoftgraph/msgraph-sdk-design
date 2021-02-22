@@ -18,12 +18,30 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 - The task should not retry to upload failed slices as any retry should already be done by the retry-handler which the task should be using.
 - The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**.
 - The task should provide cancellation capabilities through native task cancellation sources when using async APIs.
+- The task classes naming should match **LargeFileUploadXXX** (provider, result...) and all the classes should live in a **tasks** subnamespace, and be sharing the same  namespace at the **PageIterator** task.
 - An upload task should be marked as completed if the response status is a 201. Another condition valid only for OneDrive is if the response status is a 200 and the response contains an "id" then the task is complete. Note - Outlook and Print API does not allow to update an attachment.
 - Refer to the following documentation for more information:
 
   - [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments?tabs=javascript)
-  - [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true) 
+  - [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true)
   - [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
+
+## Large File Upload Result Prototype
+
+Json Schema with a generic type for the object:
+
+- In case only an id is provided by the response, it'll be set as the id of the object.
+- In case a location header is returned by the service, the property will be set and the object will be left null.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "location": { "type": "string"},
+    "object": { "type":  "generic"},
+  }
+}
+```
 
 ## Performance Considerations
 
@@ -63,7 +81,7 @@ var maxSliceSize = 320 * 1024; // 320 KB - Change this to your slice size. 5MB i
 var largeFileUploadTask = new LargeFileUploadTask(uploadSession, graphClient, stream, maxSliceSize);
 
 // upload away with relevant callback
-DriveItem itemResult = await largeFileUploadTask.UploadAsync( progress );
+LargeFileUploadResult<DriveItem> uploadResult = await largeFileUploadTask.UploadAsync( progress );
 
 ```
 
@@ -99,7 +117,7 @@ Use the upload session and callback handler to run the upload
 
 ```java
 // create the upload provider
-final ChunkedUploadProvider<DriveItem> chunkedUploadProvider = new ChunkedUploadProvider<DriveItem>(
+final LargeFileUploadTask<DriveItem> largeFileUploadTask = new LargeFileUploadTask<DriveItem>(
         uploadSession,
         graphClient,
         uploadFile,  //the file to upload
@@ -107,7 +125,7 @@ final ChunkedUploadProvider<DriveItem> chunkedUploadProvider = new ChunkedUpload
         DriveItem.class);
 
 // upload with the provided callback mechanism
-final DriveItem result = chunkedUploadProvider.upload(callback); //or uploadAsync to get a future
+final LargeFileUploadResult<DriveItem> result = largeFileUploadTask.upload(callback); //or uploadAsync to get a future
 
 ```
 
@@ -125,13 +143,13 @@ let options = {
 };
 
 // create an upload session
-const uploadTask = await MicrosoftGraph.OneDriveLargeFileUploadTask.create(client, file, options);
+const uploadTask = await MicrosoftGraph.LargeFileUploadTask.create(client, file, options);
 ```
 
 Use the upload task to run the upload
 
 ```typescript
 // upload
-const response = await uploadTask.upload();
+const result = await uploadTask.upload();
 
 ```
