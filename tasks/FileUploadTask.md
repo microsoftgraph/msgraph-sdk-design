@@ -16,15 +16,19 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 - The task should signal upload completion via by returning the status or returning a completed **Task**/**Promise**/**Future** for async APIs.
 - Using the RequestContext, the feature flag for the **FileUploadTask** can be set for telemetry purposes.
 - The task should not retry to upload failed slices as any retry should already be done by the retry-handler which the task should be using.
-- The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**.
 - The task should provide cancellation capabilities through native task cancellation sources when using async APIs.
 - The task classes naming should match **LargeFileUploadXXX** (provider, result...) and all the classes should live in a **tasks** subnamespace, and be sharing the same  namespace as the **PageIterator** task.
-- An upload task should be marked as completed if the response status is a 201. Another condition valid only for OneDrive is if the response status is a 200 and the response contains an "id" then the task is complete. Note - Outlook and Print API does not allow to update an attachment.
-- Refer to the following documentation for more information:
+- The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**. An example of the agnostic nature of task is how the task is marked as completed considering different response formats from each API:
+  - If the response status is a 201.
+  - For OneDrive if the response status is a 200 and the response contains an "id" then the task is complete.
+  
+> Note: Outlook and Print API does not allow to update an attachment after it has been uploaded.
 
-  - [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments?tabs=javascript)
-  - [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true)
-  - [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
+Refer to the following documentation for more information:
+
+- [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments)
+- [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true)
+- [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
 
 ## Large File Upload Result Prototype
 
