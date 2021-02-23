@@ -20,7 +20,7 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 - The task classes naming should match **LargeFileUploadXXX** (provider, result...) and all the classes should live in a **tasks** subnamespace, and be sharing the same  namespace as the **PageIterator** task.
 - The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**. An example of the agnostic nature of task is how the task is marked as completed considering different response formats from each API:
   - If the response status is a 201.
-  - For OneDrive if the response status is a 200 and the response contains an "id" then the task is complete.
+  - An additional case for OneDrive is, if the response status is a 200 and the response contains an "id" then the task is complete.
   
 > Note: Outlook and Print API does not allow to update an attachment after it has been uploaded.
 
