@@ -34,8 +34,8 @@ Refer to the following documentation for more information:
 
 Json Schema with a generic type for the object:
 
-- In case only an id is provided by the response, it'll be set as the id of the object.
-- In case a location header is returned by the service, the property will be set and the object will be left null.
+- In case only an id is provided by the response, it'll be set as the id of the responseBody.
+- In case a location header is returned by the service, the property will be set and the responseBody will be left null.
 
 ```json
 {
@@ -46,6 +46,32 @@ Json Schema with a generic type for the object:
   }
 }
 ```
+
+> Warning: the location header casing can be different between HTTP/1.1 **Location** and HTTP/2. Implementation should account for this.
+
+## Large Upload Sequence
+
+1. The consumer creates a large upload session using the SDK.
+1. The consumer opens a stream to the file that needs to be uploaded (from storage, network, memory...).
+1. The consumer creates a large upload task (this object model) passing the upload session, upload parameters, and the stream.
+1. The consumer calls the **upload** method which:
+    1. Reads the next bytes according to parameters
+    1. Performs the upload request.
+    1. Reads the response to determine whether a next range of bytes is expected, or the upload is completed, or whether the upload has failed.
+    1. If next bytes are expected, the task repeats previous 3 steps.
+1. The upload status is returned to the consumer or an exception is thrown if the upload failed.
+
+### Example of a response calling for the upload of the next range
+
+```json
+{
+"@odata.context":"https://outlook.office.com/api/v2.0/$metadata#Users('<redacted>')/Messages('<redacted>')/AttachmentSessions/$entity",
+"expirationDateTime":"2019-09-25T01:09:30.7671707Z",
+"nextExpectedRanges":["2097152"]
+}
+```
+
+> Warning: In case the large upload task is targeting Outlook APIs, it is possible the casing of the json properties is different (i.e. **ExpirationDateTime** instead of **expirationDateTime**). Implementation should account for this.
 
 ## Performance Considerations
 
