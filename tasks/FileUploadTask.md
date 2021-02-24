@@ -9,26 +9,77 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 
 - Accept a Microsoft.Graph.UploadSession instance to be used for the upload which is created and managed by the user and handed over to the task. The task should use the instance to start/resume the upload.
 - The task should validate the expiration time and expected byte range of the upload session on resume by querying the upload URL(thereby updating its instance of the Microsoft.Graph.UploadSession).
-- Accept a file/stream to be uploaded
-- The task should provide a mechanism of configuring the upload properties i.e. the upload slice size
-- The task should provide a mechanism of monitoring the upload status i.e the progress and failures through a callback/Delegate
-- Using the RequestContext, the feature flag for the FileUploadTask can be set for telemetry purposes.
-- In the event that a slice fails to upload, the task should retry to re-upload the slice for a configurable number of times(default of 3) before giving up and throwing an error/exception for the user to handle.
-- The task should be agnostic to the kind of upload being perfromed so as to support for various fileUpload scenarios e.g. DriveItem and FileAttachment
-- An upload task should be marked as completed if the response status is a 201. Another condition valid only for OneDrive is if the response status is a 200 and the response contains an "id" then the task is complete. Note - Outlook and Print API does not allow to update an attachment.
-- Refer to the following documentation for more information -
-    * [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments?tabs=javascript)
-    * [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true) 
-    * [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
+- Accept a file/stream to be uploaded.
+- The task should provide a mechanism of configuring the upload properties i.e. the upload slice size.
+- The task should provide a mechanism of monitoring the upload progress through a callback/delegate.
+- The task should signal upload failures via standard exception mechanism.
+- The task should signal upload completion via by returning the status or returning a completed **Task**/**Promise**/**Future** for async APIs.
+- Using the RequestContext, the feature flag for the **FileUploadTask** can be set for telemetry purposes.
+- The task should not retry to upload failed slices as any retry should already be done by the retry-handler which the task should be using.
+- The task should provide cancellation capabilities through native task cancellation sources when using async APIs.
+- The task classes naming should match **LargeFileUploadXXX** (provider, result...) and all the classes should live in a **tasks** subnamespace, and be sharing the same  namespace as the **PageIterator** task.
+- The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**. An example of the agnostic nature of task is how the task is marked as completed considering different response formats from each API:
+  - If the response status is a 201.
+  - An additional case for OneDrive is, if the response status is a 200 and the response contains an "id" then the task is complete.
+  
+> Note: Outlook and Print API does not allow to update an attachment after it has been uploaded.
 
+Refer to the following documentation for more information:
+
+- [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments)
+- [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true)
+- [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
+
+## Large File Upload Result Prototype
+
+Json Schema with a generic type for the object:
+
+- In case only an id is provided by the response, it'll be set as the id of the responseBody.
+- In case a location header is returned by the service, the property will be set and the responseBody will be left null.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "location": { "type": "string"},
+    "responseBody": { "type":  "generic"},
+  }
+}
+```
+
+> Warning: the location header casing can be different between HTTP/1.1 **Location** and HTTP/2. Implementation should account for this.
+
+## Large Upload Sequence
+
+1. The consumer creates a large upload session using the SDK.
+1. The consumer opens a stream to the file that needs to be uploaded (from storage, network, memory...).
+1. The consumer creates a large upload task (this object model) passing the upload session, upload parameters, and the stream.
+1. The consumer calls the **upload** method which:
+    1. Reads the next bytes according to parameters
+    1. Performs the upload request.
+    1. Reads the response to determine whether a next range of bytes is expected, or the upload is completed, or whether the upload has failed.
+    1. If next bytes are expected, the task repeats previous 3 steps.
+1. The upload status is returned to the consumer or an exception is thrown if the upload failed.
+
+### Example of a response calling for the upload of the next range
+
+```json
+{
+"@odata.context":"https://outlook.office.com/api/v2.0/$metadata#Users('<redacted>')/Messages('<redacted>')/AttachmentSessions/$entity",
+"expirationDateTime":"2019-09-25T01:09:30.7671707Z",
+"nextExpectedRanges":["2097152"]
+}
+```
+
+> Warning: In case the large upload task is targeting Outlook APIs, it is possible the casing of the json properties is different (i.e. **ExpirationDateTime** instead of **expirationDateTime**). Implementation should account for this.
 
 ## Performance Considerations
 
-- The FileUploadTask should not create buffers for more than the current slice of data being uploaded.
+- The **FileUploadTask** should not create buffers for more than the current slice of data being uploaded.
 
 ## Telemetry considerations
 
-- Using the RequestContext, the flag for the FileUploadTask can be set to enable monitoring of the use of the task.
+- Using the RequestContext, the flag for the **FileUploadTask** can be set to enable monitoring of the use of the task.
 
 ## Example usage
 
@@ -60,31 +111,18 @@ var maxSliceSize = 320 * 1024; // 320 KB - Change this to your slice size. 5MB i
 var largeFileUploadTask = new LargeFileUploadTask(uploadSession, graphClient, stream, maxSliceSize);
 
 // upload away with relevant callback
-DriveItem itemResult = await largeFileUploadTask.UploadAsync( progress );
+LargeFileUploadResult<DriveItem> uploadResult = await largeFileUploadTask.UploadAsync( progress );
 
 ```
 
 ### Java
 
 ```java
-
 // Define a callback for the upload progress
-IProgressCallback<DriveItem> callback = new IProgressCallback<DriveItem> () {
+final IProgressCallback callback = new IProgressCallback () {
     @Override
     public void progress(final long current, final long max) {
         //Check progress
-    }
-    @Override
-    public void success(final DriveItem result) {
-        //Handle the successful response
-        String finishedItemId = result.id;
-        Assert.assertNotNull(finishedItemId);
-    }
-
-    @Override
-    public void failure(final ClientException ex) {
-        //Handle the failed upload
-        Assert.fail("Upload session failed");
     }
 };
 ```
@@ -93,7 +131,7 @@ Create an upload session using the request builders
 
 ```java
 // create an upload session
-UploadSession uploadSession = testBase
+final IUploadSession uploadSession = testBase
         .graphClient
         .me()
         .drive()
@@ -109,7 +147,7 @@ Use the upload session and callback handler to run the upload
 
 ```java
 // create the upload provider
-ChunkedUploadProvider<DriveItem> chunkedUploadProvider = new ChunkedUploadProvider<DriveItem>(
+final LargeFileUploadTask<DriveItem> largeFileUploadTask = new LargeFileUploadTask<DriveItem>(
         uploadSession,
         graphClient,
         uploadFile,  //the file to upload
@@ -117,7 +155,7 @@ ChunkedUploadProvider<DriveItem> chunkedUploadProvider = new ChunkedUploadProvid
         DriveItem.class);
 
 // upload with the provided callback mechanism
-chunkedUploadProvider.upload(callback);
+final LargeFileUploadResult<DriveItem> result = largeFileUploadTask.upload(callback); //or uploadAsync to get a future
 
 ```
 
@@ -135,12 +173,13 @@ let options = {
 };
 
 // create an upload session
-const uploadTask = await MicrosoftGraph.OneDriveLargeFileUploadTask.create(client, file, options);
+const uploadTask = await MicrosoftGraph.LargeFileUploadTask.create(client, file, options);
 ```
+
 Use the upload task to run the upload
 
 ```typescript
 // upload
-const response = await uploadTask.upload();
+const result = await uploadTask.upload();
 
 ```
