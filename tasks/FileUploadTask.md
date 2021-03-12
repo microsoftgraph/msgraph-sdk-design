@@ -16,9 +16,26 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 - The task should signal upload completion via by returning the status or returning a completed **Task**/**Promise**/**Future** for async APIs.
 - Using the RequestContext, the feature flag for the **FileUploadTask** can be set for telemetry purposes.
 - The task should not retry to upload failed slices as any retry should already be done by the retry-handler which the task should be using.
-- The task should provide cancellation capabilities through native task cancellation sources when using async APIs.
-- For Outlook, OneDrive and PrintDocument APIs, send a delete request to the upload session URL to cancel an upload task. 
+- Upload task cancellation - 
+  - The task should provide cancellation capabilities through native task cancellation sources when using async APIs.
+  - For Outlook, OneDrive and PrintDocument APIs, send a delete request to the upload session URL to cancel an upload task. 
 - The task should provide api to access the upload session object containing its URL, expiry date and the cancellation status.
+  - Implement `getUploadSession()` which returns a `LargeFileTaskUploadSession` object.
+  - `LargeFileTaskUploadSession` -
+    ```json
+    "properties": {
+      "url": { "type": "string"},
+      "expiryDate": { "type": "date"},
+      "isCancelled": { "type": "boolean"},
+    }
+    ```
+- Progress Handler -
+  - Provide capabilities to the user to track progress using callback functions.
+  - Implement a `IProgress` interface which contains the following callback properties -
+    - `progress(rangeOfFileUploaded, additionalParamters):void` - called after each chunk upload.
+    - `completed(uploadResult, additionalParamters):void` - called on a successful task completion.
+    - `failure(error, additionalParamters):void`.
+    - `additionalParameters` should be an optional parameter of any strict type allowing flexibility in the implementation of the callback.      
 - The task classes naming should match **LargeFileUploadXXX** (provider, result...) and all the classes should live in a **tasks** subnamespace, and be sharing the same  namespace as the **PageIterator** task.
 - The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**. An example of the agnostic nature of task is how the task is marked as completed considering different response formats from each API:
   - If the response status is a 201.
