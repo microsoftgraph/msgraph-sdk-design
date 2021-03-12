@@ -84,9 +84,9 @@ Json Schema with a generic type for the object:
 
 ```json
 {
-"@odata.context":"https://outlook.office.com/api/v2.0/$metadata#Users('<redacted>')/Messages('<redacted>')/AttachmentSessions/$entity",
-"expirationDateTime":"2019-09-25T01:09:30.7671707Z",
-"nextExpectedRanges":["2097152"]
+  "@odata.context":"https://outlook.office.com/api/v2.0/$metadata#Users('<redacted>')/Messages('<redacted>')/AttachmentSessions/$entity",
+  "expirationDateTime":"2019-09-25T01:09:30.7671707Z",
+  "nextExpectedRanges":["2097152"]
 }
 ```
 
@@ -184,6 +184,9 @@ Create an upload session using the request builders
 
 ```typescript
 
+// create the upload session
+const uploadSession = LargeFileUploadTask.createUploadSession(client, "REQUEST_URL", payload);
+
 // specify the options
 let options = {
     path: "/Documents",
@@ -191,14 +194,9 @@ let options = {
     rangeSize: 1024 * 1024,
 };
 
-// create an upload session
-const uploadTask = await MicrosoftGraph.LargeFileUploadTask.create(client, file, options);
-```
+// Create an upload session
+const uploadTask = new LargeFileUploadTask(client, fileObj, uploadSession, optionsWithProgress);
 
-Use the upload task to run the upload
-
-```typescript
-// upload
-const result = await uploadTask.upload();
-
+//Use the upload task to run the upload
+const uploadResult:UploadResult = await uploadTask.upload();
 ```
