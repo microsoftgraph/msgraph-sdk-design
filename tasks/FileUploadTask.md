@@ -16,7 +16,16 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 - The task should signal upload completion via by returning the status or returning a completed **Task**/**Promise**/**Future** for async APIs.
 - Using the RequestContext, the feature flag for the **FileUploadTask** can be set for telemetry purposes.
 - The task should not retry to upload failed slices as any retry should already be done by the retry-handler which the task should be using.
-- The task should provide cancellation capabilities through native task cancellation sources when using async APIs.
+- Upload task cancellation - 
+  - The task should provide cancellation capabilities through native task cancellation sources when using async APIs.
+  - For Outlook, OneDrive and PrintDocument APIs, send a delete request to the upload session URL to cancel an upload task. 
+- The task should provide api to access the upload session object containing its URL, expiry date and the cancellation status.
+  - Implement `getUploadSession()` which returns a `LargeFileTaskUploadSession` object.
+- Progress Handler -
+  - Provide capabilities to the user to track progress using callback functions.
+  - Implement a `IUploadEventHandler`(currently `IProgress` in Java and c#) interface which contains the following callback properties -
+    - `progress(rangeOfFileUploaded, additionalParamters):void` - called after each chunk upload.
+    - `additionalParameters` should be an optional parameter of any strict type allowing flexibility in the implementation of the callback.      
 - The task classes naming should match **LargeFileUploadXXX** (provider, result...) and all the classes should live in a **tasks** subnamespace, and be sharing the same  namespace as the **PageIterator** task.
 - The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**. An example of the agnostic nature of task is how the task is marked as completed considering different response formats from each API:
   - If the response status is a 201.
@@ -30,6 +39,19 @@ Refer to the following documentation for more information:
 - [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true)
 - [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
 
+## Large File Upload Session
+
+Json Schema of the upload session object: 
+
+```json
+{
+  "properties": {
+    "url": { "type": "string"},
+    "expiryDate": { "type": "date"},
+    "isCancelled": { "type": "boolean"},
+  }
+}
+```
 ## Large File Upload Result Prototype
 
 Json Schema with a generic type for the object:
@@ -52,22 +74,32 @@ Json Schema with a generic type for the object:
 ## Large Upload Sequence
 
 1. The consumer creates a large upload session using the SDK.
-1. The consumer opens a stream to the file that needs to be uploaded (from storage, network, memory...).
-1. The consumer creates a large upload task (this object model) passing the upload session, upload parameters, and the stream.
-1. The consumer calls the **upload** method which:
+2. The consumer opens a stream to the file that needs to be uploaded (from storage, network, memory...).
+3. The consumer creates a large upload task (this object model) passing the upload session, upload parameters, and the stream.
+4. The consumer calls the **upload** method which:
     1. Reads the next bytes according to parameters
-    1. Performs the upload request.
-    1. Reads the response to determine whether a next range of bytes is expected, or the upload is completed, or whether the upload has failed.
-    1. If next bytes are expected, the task repeats previous 3 steps.
-1. The upload status is returned to the consumer or an exception is thrown if the upload failed.
+    2. Performs the upload request.
+    3. Reads the response to determine whether a next range of bytes is expected, or the upload is completed, or whether the upload has failed.
+    4. If next bytes are expected, the task repeats previous 3 steps.
+5. The upload status is returned to the consumer or an exception is thrown if the upload failed.
 
+## Large File Progress Handler Prototype
+
+```json
+{
+  "properties":{
+    "progress":{"type": "callback"},
+    "extraCallbackParam": { "type":  "generic"}
+  }
+}
+```
 ### Example of a response calling for the upload of the next range
 
 ```json
 {
-"@odata.context":"https://outlook.office.com/api/v2.0/$metadata#Users('<redacted>')/Messages('<redacted>')/AttachmentSessions/$entity",
-"expirationDateTime":"2019-09-25T01:09:30.7671707Z",
-"nextExpectedRanges":["2097152"]
+  "@odata.context":"https://outlook.office.com/api/v2.0/$metadata#Users('<redacted>')/Messages('<redacted>')/AttachmentSessions/$entity",
+  "expirationDateTime":"2019-09-25T01:09:30.7671707Z",
+  "nextExpectedRanges":["2097152"]
 }
 ```
 
@@ -165,6 +197,9 @@ Create an upload session using the request builders
 
 ```typescript
 
+// create the upload session
+const uploadSession = LargeFileUploadTask.createUploadSession(client, "REQUEST_URL", payload);
+
 // specify the options
 let options = {
     path: "/Documents",
@@ -172,14 +207,9 @@ let options = {
     rangeSize: 1024 * 1024,
 };
 
-// create an upload session
-const uploadTask = await MicrosoftGraph.LargeFileUploadTask.create(client, file, options);
-```
+// Create an upload session
+const uploadTask = new LargeFileUploadTask(client, fileObj, uploadSession, optionsWithProgress);
 
-Use the upload task to run the upload
-
-```typescript
-// upload
-const result = await uploadTask.upload();
-
+//Use the upload task to run the upload
+const uploadResult:UploadResult = await uploadTask.upload();
 ```
