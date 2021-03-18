@@ -44,11 +44,13 @@ Refer to the following documentation for more information:
 Json Schema of the upload session object: 
 
 ```json
+{
   "properties": {
     "url": { "type": "string"},
     "expiryDate": { "type": "date"},
     "isCancelled": { "type": "boolean"},
   }
+}
 ```
 ## Large File Upload Result Prototype
 
@@ -82,6 +84,7 @@ Json Schema with a generic type for the object:
 5. The upload status is returned to the consumer or an exception is thrown if the upload failed.
 
 ## Large File Progress Handler Prototype
+
 ```json
 {
   "properties":{
