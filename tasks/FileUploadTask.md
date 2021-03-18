@@ -21,20 +21,10 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
   - For Outlook, OneDrive and PrintDocument APIs, send a delete request to the upload session URL to cancel an upload task. 
 - The task should provide api to access the upload session object containing its URL, expiry date and the cancellation status.
   - Implement `getUploadSession()` which returns a `LargeFileTaskUploadSession` object.
-  - `LargeFileTaskUploadSession` -
-    ```json
-    "properties": {
-      "url": { "type": "string"},
-      "expiryDate": { "type": "date"},
-      "isCancelled": { "type": "boolean"},
-    }
-    ```
 - Progress Handler -
   - Provide capabilities to the user to track progress using callback functions.
-  - Implement a `IProgress` interface which contains the following callback properties -
+  - Implement a `IUploadEventHandler`(currently `IProgress` in Java and c#) interface which contains the following callback properties -
     - `progress(rangeOfFileUploaded, additionalParamters):void` - called after each chunk upload.
-    - `completed(uploadResult, additionalParamters):void` - called on a successful task completion.
-    - `failure(error, additionalParamters):void`.
     - `additionalParameters` should be an optional parameter of any strict type allowing flexibility in the implementation of the callback.      
 - The task classes naming should match **LargeFileUploadXXX** (provider, result...) and all the classes should live in a **tasks** subnamespace, and be sharing the same  namespace as the **PageIterator** task.
 - The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**. An example of the agnostic nature of task is how the task is marked as completed considering different response formats from each API:
@@ -49,6 +39,17 @@ Refer to the following documentation for more information:
 - [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true)
 - [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
 
+## Large File Upload Session
+
+Json Schema of the upload session object: 
+
+```json
+  "properties": {
+    "url": { "type": "string"},
+    "expiryDate": { "type": "date"},
+    "isCancelled": { "type": "boolean"},
+  }
+```
 ## Large File Upload Result Prototype
 
 Json Schema with a generic type for the object:
@@ -71,15 +72,24 @@ Json Schema with a generic type for the object:
 ## Large Upload Sequence
 
 1. The consumer creates a large upload session using the SDK.
-1. The consumer opens a stream to the file that needs to be uploaded (from storage, network, memory...).
-1. The consumer creates a large upload task (this object model) passing the upload session, upload parameters, and the stream.
-1. The consumer calls the **upload** method which:
+2. The consumer opens a stream to the file that needs to be uploaded (from storage, network, memory...).
+3. The consumer creates a large upload task (this object model) passing the upload session, upload parameters, and the stream.
+4. The consumer calls the **upload** method which:
     1. Reads the next bytes according to parameters
-    1. Performs the upload request.
-    1. Reads the response to determine whether a next range of bytes is expected, or the upload is completed, or whether the upload has failed.
-    1. If next bytes are expected, the task repeats previous 3 steps.
-1. The upload status is returned to the consumer or an exception is thrown if the upload failed.
+    2. Performs the upload request.
+    3. Reads the response to determine whether a next range of bytes is expected, or the upload is completed, or whether the upload has failed.
+    4. If next bytes are expected, the task repeats previous 3 steps.
+5. The upload status is returned to the consumer or an exception is thrown if the upload failed.
 
+## Large File Progress Handler Prototype
+```json
+{
+  "properties":{
+    "progress":{"type": "callback"},
+    "extraCallbackParam": { "type":  "generic"}
+  }
+}
+```
 ### Example of a response calling for the upload of the next range
 
 ```json
