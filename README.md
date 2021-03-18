@@ -63,9 +63,8 @@ N - Native library support
 |--|--|--|
 |Service+Models|[msgraph-sdk-java](https://github.com/microsoftgraph/msgraph-sdk-java)||
 |Core|[msgraph-sdk-java-core](https://github.com/microsoftgraph/msgraph-sdk-java-core)||
-|Auth|[msgraph-sdk-java-auth](https://github.com/microsoftgraph/msgraph-sdk-java-auth)||
+|Auth|[azure-identity](https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/identity/azure-identity)||
 |beta|[msgraph-beta-sdk-java](https://github.com/microsoftgraph/msgraph-beta-sdk-java)||
-|Auth|[msgraph-sdk-android-auth](https://github.com/microsoftgraph/msgraph-sdk-android-auth)||
 
 Java Core is based on the [OkHttp](https://github.com/square/okhttp).
 
