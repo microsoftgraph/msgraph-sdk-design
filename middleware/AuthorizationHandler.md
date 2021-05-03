@@ -10,6 +10,10 @@ A piece of client-side middleware intended to allow the use of an authorization 
 - Transparently authorize requests
 - Accept AuthorizationProvider instance in constructor
 - Update Authorization Header
+- Certain workloads error out when an unexpected header is present in the request. The middlewares should check:
+  - If the request URL is a Graph serve endpoint or a custom url provided by the developer, then append or update the authorization header.
+  - Else the middleware should delete authorization header.
+ 
 
 Take a request object and use authorization provider to add Authorization header.  
 
