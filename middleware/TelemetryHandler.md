@@ -36,6 +36,10 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
     - `RuntimeEnvironment: Node/1.1` for JavaScript.
     - `RuntimeEnvironment: JRE/1.1` for Java.
 
+- Certain workloads error out when an unexpected header is present in the request. The middlewares should check:
+  - If the request URL is a Graph serve endpoint or a custom url provided by the developer, then append or update the telemetry headers.
+  - Else the middleware should delete telemetry header.
+
 #### Ideal Metadata Capture
 ```
 SdkVersion: graph-dotnet-beta/0.6.0-preview, graph-dotnet-core/1.16.0 (featureUsage=0f)
