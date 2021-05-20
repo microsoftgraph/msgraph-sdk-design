@@ -21,12 +21,12 @@ There are two primary usage scenarios for the client factory.  Developers who wi
 - Enable a developer to provide custom hosts. 
   - `CustomHosts` option should be set on client creation.
   - `CustomHosts` option should be made available in the `Context` so that it is available to the middleware during request processing.
-  - These URLs are different from the Graph service endpoints on the national clouds. 
+  - These hostnames are different from the Graph service endpoints on the national clouds. 
   - Certain workloads error out when an unexpected header is present in the request. The middlewares should check: 
     - If the request URL is a Graph service endpoint or a custom host provided by the developer, then append request headers or modify the request content.
     - Else the middleware should delete request headers added by that middleware.
   - Example of an workload error - [LargeFileUploadTask upload to OneDrive caused CORS error due `SDKVersion` telemetry header](https://github.com/microsoftgraph/msgraph-sdk-javascript/issues/265)
-  - Provide capabilities to modify or update the `CustomURLs` option after the client creation.  
+  - Provide capabilities to modify or update the `CustomHosts` option after the client creation.  
  
 ## Performance Considerations
 
