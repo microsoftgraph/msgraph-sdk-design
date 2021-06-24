@@ -6,7 +6,7 @@ For a variety of reasons, collections of entities are often split into pages and
 
 ## Requirements
 
-1. Accept any collection of entities that contains a link to a next page
+1. Accept any collection of entities that contains a link to a next page. This must include support for a collection of entities returned from a batch response.
 2. Accept a callback function that will be called for each entity in each page of the collection.  The callback function should provide a way to indicate to the iterator to stop as well as resume iterating. The consumer should drive the use of the API by fetching the next page results whenever they require. 
 3. Dereference the next page link, when each of the the entities of the current page have been passed to the callback.
 4. Accept or provide the ability to pass information like headers, middleware options in the request for the next page. For example, when using a PageIteratorTask for processing a large number of events, consumer should be able to specify the timezone preferance in the headers. 
