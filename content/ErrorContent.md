@@ -31,12 +31,12 @@ GraphServiceException or GraphServiceError MUST support all potential OData erro
 
 ## Reference service error implementations
 
-JavaScript - [GraphError](https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/GraphError.ts)
-.NET - [ServiceException](https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/feature/2.0/src/Microsoft.Graph.Core/Exceptions/ServiceException.cs)
-Java - [GraphServiceException](https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/http/GraphServiceException.java)
+- JavaScript - [GraphError](https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/GraphError.ts)
+- .NET - [ServiceException](https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/feature/2.0/src/Microsoft.Graph.Core/Exceptions/ServiceException.cs)
+- Java - [GraphServiceException](https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/http/GraphServiceException.java)
 
 ## Reference client error implementations
 
-JavaScript - [GraphClientError](https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/GraphClientError.ts)
-.NET - [ClientException](https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Exceptions/ClientException.cs), everything had been a ServiceException.
-Java - [ClientException](https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/core/ClientException.java)
+- JavaScript - [GraphClientError](https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/GraphClientError.ts)
+- .NET - [ClientException](https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Exceptions/ClientException.cs), everything had been a ServiceException.
+- Java - [ClientException](https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/core/ClientException.java)
