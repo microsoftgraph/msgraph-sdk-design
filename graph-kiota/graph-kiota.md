@@ -32,7 +32,7 @@ Graph Core
 // Following is for typescript only
 ``` typescript
 GraphCoreClient {
-    httpClient:  KiotaHttpClient
+    httpClient:  KiotaHttpClient // importing the HTTPClient from Kiota core library
 }
 ```
 
@@ -45,7 +45,6 @@ class GraphServiceClient{
     MailRequestBuilder();
 }
 
-const graphServiceclient = new
 ```
 
 #### Graph core library specifications
@@ -107,3 +106,7 @@ PageIterator(coreclient, response)
 var response = new serviceClient.me().get();
 PageIterator(service, response)
 ```
+
+
+- The service library should extend the capabilities of the core library, that is, a user using service client should not require to create or use a core client to access any functionality. 
+- This can be achieved by maintaining a parent abstract class for the core and the service client.
