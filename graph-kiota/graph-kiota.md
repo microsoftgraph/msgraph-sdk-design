@@ -76,6 +76,8 @@ This library contains the
 
 - Graph core client
 
+
+
 ```
 var response = new coreClient.requestURL("/me").get();
 ```
@@ -107,6 +109,10 @@ var response = new serviceClient.me().get();
 PageIterator(service, response)
 ```
 
-
 - The service library should extend the capabilities of the core library, that is, a user using service client should not require to create or use a core client to access any functionality. 
 - This can be achieved by maintaining a parent abstract class for the core and the service client.
+
+### More questions
+
+- Does the generated ApiClient have to be tightly coupled with the generated request builders? Should it always be tightly coupled? [MEM] I ask as there could be scenarios where the request builders are not necessary and the client developers just wants the Kiota.Core functionality in the client, and will use client.requestUrl<Response>.Get();
+
