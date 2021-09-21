@@ -65,33 +65,39 @@ This library contains the
 
 #### Graph Service library specifications
 
+- Discuss about ways to add custom code or custom configurations to the generated `GraphServiceClient` code.
+- The custom configurations that can go here are as follows: 
+ - Setting the default for `HttpCore` with a Graph specific `HttpCore` instance. 
+ - Adding multiple constructors to the `GraphServiceClient`. 
 
 #### Graph Middlewares
 
 - Import middlewares from Kiota core library
 - How to add graph specific checks in the middleware. Example: The JS SDK checks if the url is a Graph url or a custom host passed by the user before appending telemetry headers or auth headers. If not, the headers are removed.
 
-
+- AuthHandler - Kiota core
+- RetryHandler - Kiota core
+- RedirectHandler - Kiota core
+- CompressionHandler - Kiota core
+- CachingHandler - Kiota core
+- ChaosHandler - Graph core 
 #### Use cases
 
-- Graph core client
-
-
-
+- Graph core client 
 ```
 var response = new coreClient.requestURL("/me").get();
 ```
 
 - Graph service client
-
 ```
 var response = new serviceClient.me().get();
 ```
 
-- Graph service client
+- Graph service client calling a core functionality
 
+- The service library should extend the capabilities of the core library, that is, a user using service client should not require to create or use a core client to access any functionality. 
 ```
-var response = new serviceClient.requestURL("/me").get();
+var response = new serviceClient.requestURL("/me").get(); // Example : a user of the JS SDK should be able to access GraphServiceClient.api(/me) without initialising the core.
 ```
 
 - Graph core client with a task
@@ -106,11 +112,13 @@ PageIterator(coreclient, response)
 
 ```
 var response = new serviceClient.me().get();
-PageIterator(service, response)
+PageIterator(serviceClient, response)
 ```
 
-- The service library should extend the capabilities of the core library, that is, a user using service client should not require to create or use a core client to access any functionality. 
-- This can be achieved by maintaining a parent abstract class for the core and the service client.
+- The service library should extend the capabilities of the core library, that is, a user using service client should not require to create or use a core client to access any functionality.
+-  Some options to  achieve this (TBD):
+ -  Maintain a parent abstract class for the core and the service client.
+ -  `GraphServiceClient` extends the `GraphCoreClient`.
 
 ### More questions
 
