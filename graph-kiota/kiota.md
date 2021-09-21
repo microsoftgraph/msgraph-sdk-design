@@ -68,10 +68,7 @@ class HttpCore implements kiota.abstractions.HttpCore {
     sendNoResponseContentAsync(requestInfo: RequestInformation, responseHandler: ResponseHandler | undefined): Promise<void>;
     enableBackingStore(backingStoreFactory?: BackingStoreFactory | undefined): void;
 }
-    ```
 
-
-```
 class HttpClient{
     middlewares : Middlewares();
     send() //calls the MiddlewareChain to make a  request with the native HttpClient;
@@ -155,8 +152,8 @@ var response = apiClient.users("<ID>").get();
 #### Retry
 
 ```
-Retry-After: <http-date>
-Retry-After: <delay-seconds>
+Retry-After: http-date
+Retry-After: delay-seconds
 ```
 
 #### Redirect
@@ -166,9 +163,9 @@ Retry-After: <delay-seconds>
 
 #### Telemetry
 
-- Introduce a callback option so that user can add
-- Why introduce a callback instead user can have a custom middleware chain with telemetry  handler implementation?
-- Should the callback pattern be used for every middleware?
+- Introduce a callback option so that user can add custom telemetry code.
+- Discuss: Why introduce a callback instead user can have a custom middleware chain with telemetry  handler implementation?
+- Discuss: Should the callback pattern be used for every middleware?
 
 
 
