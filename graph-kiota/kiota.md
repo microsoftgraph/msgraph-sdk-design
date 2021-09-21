@@ -41,7 +41,7 @@ Libraries for each language:
         }
         ````
         - Serialization interfaces
-        - Authentication: IAuthProvider, abstract classes- anonymousAuthenticationProvider.ts and BearerTokenAuthneticationProvider.ts
+        - Authentication: `IAuthProvider`, abstract classes- `anonymousAuthenticationProvider` and `BearerTokenAuthneticationProvider`
         - Utils
         - ResponseHandler interface
         - MiddlewareOption class
@@ -55,35 +55,26 @@ Libraries for each language:
     [Kiota core typescript](https://github.com/microsoft/kiota/tree/main/http/typescript/fetch)
     - This library contains the following:
         -  HttpCore class implementing the abstraction HttpCore interface.
-        -  HttpClientbuilder (.NET, Java) or HTTPClient class (TS) (Process and records the middleware chain used while making requests.)
+        -  HttpClientbuilder (.NET, Java) or HTTPClient class (TS) (processes and records the middleware chain used while making requests.)
         -  Middlewares: AuthHandler, Retry, Redirect, Compression, Caching, Telemetry
     
-    ```
-    class HttpCore implements kiota.abstractions.HttpCore {
-        constructor(authProvider, parseNodeFactory, serializationWriteFactory, httpClient);
+```
+class HttpCore implements kiota.abstractions.HttpCore {
+    constructor(authProvider, parseNodeFactory, serializationWriteFactory, httpClient);
 
-        sendAsync<ModelType extends Parsable>(requestInfo: RequestInformation, type: new() => ModelType, responseHandler: ResponseHandler | undefined): Promise<ModelType>;
-        sendCollectionAsync<ModelType extends Parsable>(requestInfo: RequestInformation, type: new() => ModelType, responseHandler: ResponseHandler | undefined): Promise<ModelType[]>;
-        sendPrimitiveAsync<ResponseType>(requestInfo: RequestInformation, responseType: "string" | "number" | "boolean" | "Date" | "ReadableStream", responseHandler: ResponseHandler | undefined): Promise<ResponseType>;
-        sendNoResponseContentAsync(requestInfo: RequestInformation, responseHandler: ResponseHandler | undefined): Promise<void>;
-        enableBackingStore(backingStoreFactory?: BackingStoreFactory | undefined): void;
-    }
+    sendAsync<ModelType extends Parsable>(requestInfo: RequestInformation, type: new() => ModelType, responseHandler: ResponseHandler | undefined): Promise<ModelType>;
+    sendCollectionAsync<ModelType extends Parsable>(requestInfo: RequestInformation, type: new() => ModelType, responseHandler: ResponseHandler | undefined): Promise<ModelType[]>;
+    sendPrimitiveAsync<ResponseType>(requestInfo: RequestInformation, responseType: "string" | "number" | "boolean" | "Date" | "ReadableStream", responseHandler: ResponseHandler | undefined): Promise<ResponseType>;
+    sendNoResponseContentAsync(requestInfo: RequestInformation, responseHandler: ResponseHandler | undefined): Promise<void>;
+    enableBackingStore(backingStoreFactory?: BackingStoreFactory | undefined): void;
+}
     ```
 
 
 ```
-class HttpCore {
-
-    constructor (authProvider, serializationWriterFactory, parseNodeFactory, HttpClient)
-
-    sendRequests()
-}
-
 class HttpClient{
     middlewares : Middlewares();
-
-    send() //calls the MiddlewareChain;
-
+    send() //calls the MiddlewareChain to make a  request with the native HttpClient;
 }
 ```
 
@@ -110,26 +101,6 @@ class APIClient {
 
 - Kiota auth providers
 
-### Kiota Middlewares
-
-#### AuthHandler
-#### Retry
-
-```
-Retry-After: <http-date>
-Retry-After: <delay-seconds>
-```
-
-#### Redirect
-
-#### Compression
-#### Caching
-
-#### Telemetry
-
-- Introduce a callback option so that user can add
-- Why introduce a callback instead user can have a custom middleware chain with telemetry  handler implementation?
-
 ### Example of how we use the Kiota libraries:
 
 1. Clone the Kiota repo, build the project and navigate the path containing the `kiota.exe`
@@ -149,7 +120,6 @@ Example:
 ```
 import { HttpCore } from '@microsoft/kiota-http-fetch';
 ```
-
 
 5. Import the serialization library
 - [dotnet](https://github.com/microsoft/kiota/packages/826855)
@@ -176,7 +146,30 @@ var httpCore = new HTTPCore(authProvider, JsonParseNodeFactory, JsonSerializatio
 
 ```
 var apiClient = new APIClient(httpCore);
+var response = apiClient.users("<ID>").get();
 ```
+
+### Kiota Middlewares
+
+#### AuthHandler
+#### Retry
+
+```
+Retry-After: <http-date>
+Retry-After: <delay-seconds>
+```
+
+#### Redirect
+
+#### Compression
+#### Caching
+
+#### Telemetry
+
+- Introduce a callback option so that user can add
+- Why introduce a callback instead user can have a custom middleware chain with telemetry  handler implementation?
+- Should the callback pattern be used for every middleware?
+
 
 
 
