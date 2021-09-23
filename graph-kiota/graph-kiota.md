@@ -1,7 +1,7 @@
-### Graph OpenAPI specification
+### Graph OpenAPI description
 
-- OpenAPI v1 specification:https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml
-- OpenAPI beta specification:https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/beta/openapi.yaml
+- [OpenAPI v1 specification](https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml)
+- [OpenAPI beta specification](https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/beta/openapi.yaml)
 
 ### Graph libraries using Kiota
 
@@ -10,7 +10,7 @@
 The Graph Service libraries which contain the request builders will be generated using Kiota
 
 Generation command:
-```
+```Shell
 kiota.exe -d https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml --language typescript -o path\msgraph-sdk-typescript\src -c GraphServiceClient -n MicrosoftGraph
 ```
 - GraphServiceClient generated.
@@ -60,7 +60,7 @@ This library contains the
     - Batching
 
 - Authentication Providers
-    - Use the `IAuthProvider` and  auth provider class from the Kiota Auth abstractions.
+    - Use the `IAuthenticationProvider` and  authentication provider class from the Kiota abstractions.
 
 
 #### Graph Service library specifications
@@ -84,7 +84,7 @@ This library contains the
 #### Use cases
 
 - Graph core client 
-```
+```TypeScript
 var response = new coreClient.requestURL("/me").get();
 ```
 

@@ -21,7 +21,7 @@ class APIClient {
 Libraries for each language:
 
 - Kiota abstractions
-    - This library contains only abstract classes and interfaces which can be implemented to connect the generated request builders with a client library that makes the call to the API.
+    - This library contains only abstract classes and interfaces which can be implemented to connect the generated request builders with a client library that makes the call to the API, handles serialization and authentication.
     [Kiota abstractions dotnet](https://github.com/microsoft/kiota/tree/main/abstractions/dotnet)
     [Kiota abstractions java](https://github.com/microsoft/kiota/tree/main/abstractions/java)
     [Kiota abstractions typescript](https://github.com/microsoft/kiota/tree/main/abstractions/typescript)
@@ -41,10 +41,10 @@ Libraries for each language:
         }
         ````
         - Serialization interfaces
-        - Authentication: `IAuthProvider`, abstract classes- `anonymousAuthenticationProvider` and `BearerTokenAuthneticationProvider`
+        - Authentication: `IAuthenticationProvider`, abstract classes- `anonymousAuthenticationProvider` and `BearerTokenAuthneticationProvider`
         - Utils
         - ResponseHandler interface
-        - MiddlewareOption class
+        - RequestOption interface
         - RequestInformation
         - HttpMethod Enum
 
@@ -110,8 +110,8 @@ kiota.exe -d ../msgraph-sdk-powershell/openApiDocs/v1.0/mail.yml --language csha
 5. Create a demo class to test the `APIClient`.
 
 4. Import the `KiotaCore` library
-- [dotnet](https://github.com/microsoft/kiota/packages/826853)
-- [TypeScript](https://github.com/microsoft/kiota/packages/827040)
+- [dotnet](https://github.com/microsoft/kiota/blob/main/docs/requiredtools/dotnet.md)
+- [TypeScript](https://github.com/microsoft/kiota/blob/main/docs/requiredtools/typescript.md)
 
 Example:
 ```
@@ -130,7 +130,7 @@ Example:
 
 6. Import the AuthProvider library or implement the IAuthProvider interface to create a custom AuthProvider class.
 
-Find a suitable Kiota Authentication library in https://github.com/microsoft/kiota/packages
+Find a suitable Kiota Authentication library in https://github.com/microsoft/kiota/tree/main/authentication/typescript/azure
 
 
 7. Create a HTTPCore instance:
@@ -143,7 +143,7 @@ var httpCore = new HTTPCore(authProvider, JsonParseNodeFactory, JsonSerializatio
 
 ```
 var apiClient = new APIClient(httpCore);
-var response = apiClient.users("<ID>").get();
+var response = await apiClient.users("<ID>").get();
 ```
 
 ### Kiota Middlewares
