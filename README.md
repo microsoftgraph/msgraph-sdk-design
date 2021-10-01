@@ -26,7 +26,7 @@ This repository holds documents related to current and on-going work on Microsof
 || [Multipart Content](content/MultipartContent.md)            |✓|[✓][java_multipartcontent]| | | | |
 || [Error Content](content/ErrorContent.md)            | | | | | | |
 | Graph Components
-|| [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|✓|[✓][js_graphclientfactory]|[✓][objc_graphclientfactory]| | | |[✓][objc_graphclientfactory] | | | | [✓][python_graphclientfactory]|
+|| [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|✓|[✓][js_graphclientfactory]|[✓][objc_graphclientfactory]| | | |[✓][python_graphclientfactory] |
 || [Response Handling](ResponseHandler.md) |[✓][dotnet_responsehandler]| |[✓][js_responsehandler]||||
 | Tasks
 || [File Upload](tasks/FileUploadTask.md)                | |✓|[✓][js_fileuploadtask] |✓| | |
@@ -92,7 +92,7 @@ Java Core is based on the [OkHttp](https://github.com/square/okhttp).
 
 |Role| Repo | Packages |
 |--|--|--|
-|Core|[msgraph-sdk-python-core](https://github.com/microsoftgraph/msgraph-sdk-python-core)|
+|Core|[msgraph-sdk-python-core](https://github.com/microsoftgraph/msgraph-sdk-python-core)|[PyPI](https://pypi.org/project/msgraph-core/)
 
 ## Issues
 
