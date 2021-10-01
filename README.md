@@ -9,13 +9,13 @@ This repository holds documents related to current and on-going work on Microsof
 | Component |Feature| .net | Java | JS | ObjC | Powershell | PHP | Ruby | Python | Go |  
 |--|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
-| | Pipeline                |✓|✓|[✓][js_middleware]|[✓][objc_middleware]|||
-| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][objc_authhandler] | | |
-| | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|✓|[✓][js_retryhandler]|[✓][objc_retryhandler]| | |
-| | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|✓|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | |
+| | Pipeline                |✓|✓|[✓][js_middleware]|[✓][objc_middleware]| | | |[✓][python_middleware]|
+| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][objc_authhandler] | | | |[✓][python_authhandler] |
+| | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|✓|[✓][js_retryhandler]|[✓][objc_retryhandler]| | | | [✓][python_retryhandler]|
+| | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|✓|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | | |✓ |
 | | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N|N| | |
 | | [Logging Handler](middleware/LoggingHandler.md) |O| | | | | |
-| | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|✓|✓|✓| | |
+| | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|✓|✓|✓| | | |[✓][python_telemetryhandler] |
 | | Connection Management | | | | | | |
 | | Long Running Operations | | | | | | |
 | | Chaos Handler | | |O| | | |
@@ -26,7 +26,7 @@ This repository holds documents related to current and on-going work on Microsof
 || [Multipart Content](content/MultipartContent.md)            |✓|[✓][java_multipartcontent]| | | | |
 || [Error Content](content/ErrorContent.md)            | | | | | | |
 | Graph Components
-|| [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|✓|[✓][js_graphclientfactory]|[✓][objc_graphclientfactory]| | |
+|| [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|✓|[✓][js_graphclientfactory]|[✓][objc_graphclientfactory]| | | |[✓][objc_graphclientfactory] | | | | [✓][python_graphclientfactory]|
 || [Response Handling](ResponseHandler.md) |[✓][dotnet_responsehandler]| |[✓][js_responsehandler]||||
 | Tasks
 || [File Upload](tasks/FileUploadTask.md)                | |✓|[✓][js_fileuploadtask] |✓| | |
@@ -92,7 +92,7 @@ Java Core is based on the [OkHttp](https://github.com/square/okhttp).
 
 |Role| Repo | Packages |
 |--|--|--|
-|All|[msgraph-sdk-python](https://github.com/microsoftgraph/msgraph-sdk-python)|
+|Core|[msgraph-sdk-python-core](https://github.com/microsoftgraph/msgraph-sdk-python-core)|
 
 ## Issues
 
@@ -139,3 +139,9 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [js_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/middleware/RetryHandler.ts
 [js_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/HTTPClientFactory.ts
 [js_authprovider]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/MSALAuthenticationProvider.ts
+
+[python_middleware]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/middleware.py
+[python_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/authorization.py
+[python_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/retry.py
+[python_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/_client_factory.py
+[python_telemetryhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/telemetry.py
