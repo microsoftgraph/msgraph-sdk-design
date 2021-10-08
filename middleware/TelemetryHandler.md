@@ -26,15 +26,17 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
 
     `SdkVersion: graph-javascript/1.0.0 (featureUsage=0f)`
 
-- Add `HostOS` request header to each request to help us identify the OS on which our client SDK is running on. e.g.
+- A `hostOS` value can also be added as a key/value pair in the comment to help us identify the OS on which our client SDK is running on. e.g.
 
-    `HostOS: Microsoft Windows 10.0.18362`
+    `hostOS=Microsoft Windows 10.0.18362`
 
-- Add `RuntimeEnvironment` request header to capture the runtime framework on which the client SDK is running on. Ideally, we should capture the runtime environment in the form of `RuntimeEnvironment: Name/Version`. e.g.
+- Add `runtimeEnvironment` key/value pair to capture the runtime framework on which the client SDK is running on. Ideally, we should capture the runtime environment in the form of `runtimeEnvironment=Name/Version`. e.g.
 
-    - `RuntimeEnvironment: .NETFramework/1.1` for .NET.
-    - `RuntimeEnvironment: Node/1.1` for JavaScript.
-    - `RuntimeEnvironment: JRE/1.1` for Java.
+    - `runtimeEnvironment=.NETFramework/1.1` for .NET.
+    - `runtimeEnvironment=Node/1.1` for JavaScript.
+    - `runtimeEnvironment=JRE/1.1` for Java.
+
+Multiple key/value pairs included in the comment should be delimited by a semi-colon.
 
 - Certain workloads error out when an unexpected header is present in the request. The middlewares should check:
   - If the request URL is a Graph serve endpoint or a custom url provided by the developer, then append or update the telemetry headers.
@@ -42,10 +44,9 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
 
 #### Ideal Metadata Capture
 ```
-SdkVersion: graph-dotnet-beta/0.6.0-preview, graph-dotnet-core/1.16.0 (featureUsage=0f)
+SdkVersion: graph-dotnet-beta/0.6.0-preview, graph-dotnet-core/1.16.0 (featureUsage=0f; hostOS=Microsoft Windows 10.0.18362; runtimeEnvironment=.NETFramework/4.7.2)
 client-request-id: fdae6861-5916-486d-93d9-9129160b2d79
-HostOS: Microsoft Windows 10.0.18362
-RuntimeEnvironment: .NETFramework/4.7.2
+
 ```
 
 ## Remarks
