@@ -16,11 +16,13 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
     | **v1.0 Service Model** | `graph-{lang}/{major}.{minor}.{build}` | `graph-dotnet/1.16.0` |
     | **Beta Service Model** | `graph-{lang}-beta/{major}.{minor}.{build}` | `graph-dotnet-beta/1.16.0` |
     
-    The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values should be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
+    The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values MUST be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
 
     ```
-    SdkVersion: MyApp/1.0, graph-dotnet-core/1.16.0 (featureUsage=0f), graph-dotnet/1.15.0
+    SdkVersion: MyApp/1.0, graph-dotnet/1.15.0, graph-dotnet-core/1.16.0 (featureUsage=0f)
     ```
+    
+- Client SDK library component names SHOULD be lower case.
 
 - If available, add a the `featureUsage` value contained in the [RequestContext](../middleware/RequestContext.md) to the `SDKVersion` header as key/value pair in the comment after the product identifier. e.g.
 
@@ -64,9 +66,18 @@ where `product`, `product-version`, `comment` and `token` are defined in [RFC 72
 
 Currently, many SDKs embed the version number into the `product` using a hypen as a separator.  Over time we should migrate these to use the `/` to make parsing the version easier.
 
-The order of `SdkVersion` values is significant. Core library SdkVersion header values MUST be specified as the last value in the SdkVersion header. Service library header values MUST precede the Core library value in the SdkVersion header.
+The order of `SdkVersion` values is significant. Core library SdkVersion header values MUST be specified as the last value in the SdkVersion header. Service library header values MUST precede the Core library value in the SdkVersion header. Microsoft applications header values MUST precede the Service library header value.
+
+> Note: The `SdkVersion` header is intended for Microsoft telemetry purposes. It is used to capture information about Microsoft SDKs and products that use the Microsoft Graph APIs. Non-Microsoft applications that use this header, or alter the value of this header, will gain no benefit from using this header. Use of this header by non-Microsoft applications reduces the telemetry value of this header and reduces the data quality associated with header which reduces the insights that we can gain from this header. In turn, this means fewer data-driven improvements to our SDKs.
 
 ## Performance
 
+The SdkVersion header is not used for any performance purposes by Microsoft Graph.
+
 ## Security
 
+The SdkVersion header MUST not be used for any security related features unless the security feature use is captured by the `featureUsage` value. 
+
+## Privacy
+
+The SdkVersion header MUST not contain information that identifies users or organizations.
