@@ -68,7 +68,7 @@ Currently, many SDKs embed the version number into the `product` using a hypen a
 
 The order of `SdkVersion` values is significant. Core library SdkVersion header values MUST be specified as the last value in the SdkVersion header. Service library header values MUST precede the Core library value in the SdkVersion header. Microsoft applications header values MUST precede the Service library header value.
 
-> Note: The `SdkVersion` header is intended for Microsoft telemetry purposes. It is used to capture information about Microsoft SDKs and products that use the Microsoft Graph APIs. Non-Microsoft applications that use this header, or alter the value of this header, will gain no benefit from using this header. Use of this header by non-Microsoft applications reduces the telemetry value of this header and reduces the data quality associated with header which reduces the insights that we can gain from this header. In turn, this means fewer data-driven improvements to our SDKs.
+> Note: The `SdkVersion` header is intended for Microsoft telemetry purposes. It is used to capture information about Microsoft SDKs and products that use the Microsoft Graph APIs. Non-Microsoft applications that use this header, or alter the value of this header, will gain no benefit from using this header. Use of this header by non-Microsoft applications reduces the telemetry value of this header and reduces the data quality associated with header which reduces the insights that we can gain from this header. In turn, this means fewer data-driven improvements to our SDKs. Users of the SDK or the SDK repository should not alter the value of the SdkVersion header.
 
 ## Performance
 
