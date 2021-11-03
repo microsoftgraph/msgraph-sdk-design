@@ -22,6 +22,8 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
     SdkVersion: MyApp/1.0, graph-dotnet/1.15.0, graph-dotnet-core/1.16.0 (featureUsage=0f)
     ```
     
+- The template for the component version that also represents an package should match the form defined in [Versions](../Versions.md).
+
 - Client SDK library component names SHOULD be lower case.
 
 - If available, add a the `featureUsage` value contained in the [RequestContext](../middleware/RequestContext.md) to the `SDKVersion` header as key/value pair in the comment after the product identifier. e.g.
