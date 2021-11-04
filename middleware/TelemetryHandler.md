@@ -15,6 +15,7 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
     | **Core** | `graph-{lang}-core/{major}.{minor}.{build}` | `graph-dotnet-core/1.16.0` |
     | **v1.0 Service Model** | `graph-{lang}/{major}.{minor}.{build}` | `graph-dotnet/1.16.0` |
     | **Beta Service Model** | `graph-{lang}-beta/{major}.{minor}.{build}` | `graph-dotnet-beta/1.16.0` |
+    | **Future Service Model** | `graph-{lang}-{endpoint}/{major}.{minor}.{build}` | `graph-dotnet-v2.0/1.16.0` |
     
     The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values MUST be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
 
