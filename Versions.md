@@ -16,7 +16,7 @@ Prelease identifiers like `preview`, `beta`, and `rc` should be lower case.
 
 ### PHP version format
 
-Composer has a [more restrictive format](https://getcomposer.org/doc/articles/versions.md#stabilities) so we should use `x.y.z-RCn` for release candidates and `x.y.z-beta` for service libraries based on the beta endpoint. The first release candidate (preview) release should look like `2.6.0-RC`. Subsequent iterations of a preview can be suffixed with the preview iteration like this: `2.6.0-RC1`.
+Composer has a [more restrictive format](https://getcomposer.org/doc/articles/versions.md#stabilities) so we should use `x.y.z-rcn` for release candidates and `x.y.z-beta` for service libraries based on the beta endpoint. The first release candidate (preview) release should look like `2.6.0-rc`. Subsequent iterations of a preview can be suffixed with the preview iteration like this: `2.6.0-rc1`.
 
 ### Golang version format
 
