@@ -39,7 +39,7 @@ GraphCoreClient {
 GraphServiceClient
 ```
 class GraphServiceClient{
-    httpCoreInstance : HttpCore // From Kiota
+    requestAdapterInstance : RequestAdapter  // From Kiota
 
     UserRequestBuilder();
     MailRequestBuilder();
@@ -62,6 +62,15 @@ This library contains the
 - Authentication Providers
     - Use the `IAuthenticationProvider` and  authentication provider class from the Kiota abstractions.
 
+- BaseRequest/IBaseRequest
+    - These classes/interfaces would be dropped as they are rendered redundant by the existence of `RequestInformation` from the Kiota core libraries and provide better support for conversion to native http request objects.
+    - Existing extensions/features/enrichments to the classes/interfaces would be moved to the `RequestInformation` through the graph core library.(e.g. one can use `BaseRequest` instances to create a batch request, now we would use `RequestInformation` instances)
+
+- HttpProvider/IHttpProvider
+    - These classes/interfaces would be dropped as they are rendered redundant by the existence of `IRequestAdapter` from the Kiota core libraries and provide the necessary functionality to perform http requests
+
+- Response Handler
+    - Any existing/needed response handlers to now implement the `IResponseHandler` (or equivalent) from kiota core libraries
 
 #### Graph Service library specifications
 
@@ -75,7 +84,7 @@ This library contains the
 - Import middlewares from Kiota core library
 - How to add graph specific checks in the middleware. Example: The JS SDK checks if the url is a Graph url or a custom host passed by the user before appending telemetry headers or auth headers. If not, the headers are removed.
 
-- AuthHandler - Kiota core
+- AuthHandler - none - This avoids having to configure both the middleware and the provider and the authentication provider implementations are available across any http client
 - RetryHandler - Kiota core
 - RedirectHandler - Kiota core
 - CompressionHandler - Kiota core
