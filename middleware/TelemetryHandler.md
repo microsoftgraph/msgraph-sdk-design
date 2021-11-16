@@ -8,7 +8,7 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
 
 - Add a `client-request-id` header with GUID value to request if one is not present.  If the [RequestContext](../middleware/RequestContext.md) has a `ClientRequestId` property set then that value should be used.
 
-- Add `SdkVersion` request header to each request to identify the language and version of the client SDK library(s). The product identifier should be of the format `graph-{lang}/{majorVersion}.{minorVersion}.{patchVersion}` for client libraries. If the client SDK library has more than one component i.e. core, v1.0/beta service model library, then the product identifier should capture them as follows based on usage :
+- Add a single `SdkVersion` request header to each request to identify the language and version of the client SDK library(s). The product identifier should be of the format `graph-{lang}/{majorVersion}.{minorVersion}.{patchVersion}` for client libraries. If the client SDK library has more than one component i.e. core, v1.0/beta service model library, then the product identifier should capture them as follows based on usage :
 
     | Client SDK Library Component | Template | Example |
     | --- | --- | --- |
