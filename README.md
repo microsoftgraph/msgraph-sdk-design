@@ -9,13 +9,13 @@ This repository holds documents related to current and on-going work on Microsof
 | Component |Feature| .net | Java | JS | ObjC | Powershell | PHP | Ruby | Python | Go |  
 |--|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
-| | Pipeline                |✓|✓|[✓][js_middleware]|[✓][objc_middleware]| | | |[✓][python_middleware]|
-| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][objc_authhandler] | | | |[✓][python_authhandler] |
-| | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|✓|[✓][js_retryhandler]|[✓][objc_retryhandler]| | | | [✓][python_retryhandler]|
-| | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|✓|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | | |✓ |
+| | Pipeline                |✓|✓|[✓][js_middleware]|[✓][objc_middleware]| | | |[✓][python_middleware]| [✓][go_middleware]|
+| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][objc_authhandler] | | | |[✓][python_authhandler] | N/A |
+| | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|✓|[✓][js_retryhandler]|[✓][objc_retryhandler]| | | | [✓][python_retryhandler]| [✓][go_retryhandler]
+| | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|✓|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | | |✓ | [✓][go_redirecthandler]|
 | | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N|N| | |
 | | [Logging Handler](middleware/LoggingHandler.md) |O| | | | | |
-| | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|✓|✓|✓| | | |[✓][python_telemetryhandler] |
+| | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|✓|✓|✓| | | |[✓][python_telemetryhandler] | [✓][go_telemetryhandler]|
 | | Connection Management | | | | | | |
 | | Long Running Operations | | | | | | |
 | | Chaos Handler | | |O| | | |
@@ -26,13 +26,13 @@ This repository holds documents related to current and on-going work on Microsof
 || [Multipart Content](content/MultipartContent.md)            |✓|[✓][java_multipartcontent]| | | | |
 || [Error Content](content/ErrorContent.md)            | | | | | | |
 | Graph Components
-|| [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|✓|[✓][js_graphclientfactory]|[✓][objc_graphclientfactory]| | | |[✓][python_graphclientfactory] |
+|| [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|✓|[✓][js_graphclientfactory]|[✓][objc_graphclientfactory]| | | |[✓][python_graphclientfactory] | [✓][go_graphclientfactory]
 || [Response Handling](ResponseHandler.md) |[✓][dotnet_responsehandler]| |[✓][js_responsehandler]||||
 | Tasks
 || [File Upload](tasks/FileUploadTask.md)                | |✓|[✓][js_fileuploadtask] |✓| | |
 || [Page Iterator](tasks/PageIteratorTask.md)            |[✓][dotnet_pageiteratortask]|✓|[✓][js_pageiteratortask] |✓| | |
 | [Providers](providers/providers.md)
-|| [Authentication](providers/AuthenticationProvider.md)              |[✓][dotnet_authprovider]|[J](java_authprovider) / [A](android_authprovider) |[✓][js_authprovider]|[✓][objc_authprovider] | | |
+|| [Authentication](providers/AuthenticationProvider.md)              |[✓][dotnet_authprovider]|[J](java_authprovider) / [A](android_authprovider) |[✓][js_authprovider]|[✓][objc_authprovider] | | | | | [✓][go_authprovider]|
 || [Logging](providers/LoggingProvider.md)                     | | | | | | |
 
 ✓ - Completed  
@@ -49,6 +49,15 @@ N - Native library support
 |Core|[msgraph-sdk-dotnet](https://github.com/microsoftgraph/msgraph-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Core/)|
 |Auth|[msgraph-sdk-dotnet-auth](https://github.com/microsoftgraph/msgraph-sdk-dotnet-auth)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Auth/)|
 |Beta|[msgraph-beta-sdk-dotnet](https://github.com/microsoftgraph/msgraph-beta-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Beta/)|
+
+### Go
+
+|Role| Repo | Packages |
+|--|--|--|
+|Service+Models|[msgraph-sdk-go](https://github.com/microsoftgraph/msgraph-sdk-go)|[pkg.go.dev](https://pkg.go.dev/github.com/microsoftgraph/msgraph-sdk-go/)|
+|Core|[msgraph-sdk-go-core](https://github.com/microsoftgraph/msgraph-sdk-go-core)|[pkg.go.dev](https://pkg.go.dev/github.com/microsoftgraph/msgraph-sdk-go-core/)|
+|Auth|[azure-identity](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/azidentity)|[pkg.go.dev](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity)|
+|beta|[msgraph-beta-sdk-go](https://github.com/microsoftgraph/msgraph-beta-sdk-go)|[pkg.go.dev](https://pkg.go.dev/github.com/microsoftgraph/msgraph-beta-sdk-go/)|
 
 ### Javascript
 
@@ -145,3 +154,10 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [python_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/retry.py
 [python_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/_client_factory.py
 [python_telemetryhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/telemetry.py
+
+[go_middleware]: https://github.com/microsoft/kiota/blob/main/http/go/nethttp/pipeline.go
+[go_authprovider]: https://github.com/microsoft/kiota/tree/main/authentication/go/azure
+[go_retryhandler]: https://github.com/microsoft/kiota/blob/main/http/go/nethttp/retry_handler.go
+[go_redirecthandler]: https://github.com/microsoft/kiota/blob/main/http/go/nethttp/redirect_handler.go
+[go_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-go-core/blob/main/graph_client_factory.go
+[go_telemetryhandler]: https://github.com/microsoftgraph/msgraph-sdk-go-core/blob/main/graph_telemetry_handler.go
