@@ -41,12 +41,12 @@ N - Native library support
 
 ## Supported Languages
 
-### .Net
+### .NET
 
 |Role| Repo | Packages |
 |--|--|--|
 |Service+Models|[msgraph-sdk-dotnet](https://github.com/microsoftgraph/msgraph-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph/)|
-|Core|[msgraph-sdk-dotnet](https://github.com/microsoftgraph/msgraph-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Core/)|
+|Core|[msgraph-sdk-dotnet-core](https://github.com/microsoftgraph/msgraph-sdk-dotnet-core)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Core/)|
 |Auth|[msgraph-sdk-dotnet-auth](https://github.com/microsoftgraph/msgraph-sdk-dotnet-auth)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Auth/)|
 |Beta|[msgraph-beta-sdk-dotnet](https://github.com/microsoftgraph/msgraph-beta-sdk-dotnet)|[Nuget](https://www.nuget.org/packages/Microsoft.Graph.Beta/)|
 
