@@ -66,6 +66,6 @@ Examples of where the presence of a body is ambiguous:
 |PUT | 204 | This MUST not return a body. |
 |DELETE | 200 | The response body, if present should describe the status of the operation. In theory this could be a representation of the resource that was deleted. |
 |DELETE | 204 | This MUST not return a body. |
-|GET | 200 | This MUST return a body that represents the identified resource. If should a representation doesn't exist, then the response SHOULD be a 404. |
+|GET | 200 | This MUST return a body that represents the identified resource. If a representation doesn't exist, then the response SHOULD be a 404. |
 |GET | 202 | A 202 may be used if the GET request will take a long time. In this case the body might be empty. |
 
