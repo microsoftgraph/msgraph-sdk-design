@@ -2,7 +2,7 @@
 
 This repository holds documents related to current and on-going work on Microsoft Graph SDKs.  The following diagram shows a high level view of the SDK component architecture. The goal is to enable developers to opt-into functionality that they wish to use.  Over time all the SDKs will be adapted to follow this pattern.
 
-![Component Architecure](images/componentArch.png)
+![Component Architecture](images/componentArch.png)
 
 ## SDK Features Support
 
@@ -13,7 +13,8 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][objc_authhandler] | | | |[✓][python_authhandler] | N/A |
 | | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|[✓][java_retryhandler]|[✓][js_retryhandler]|[✓][objc_retryhandler]| | | | [✓][python_retryhandler]| [✓][go_retryhandler]
 | | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|[✓][java_redirecthandler]|[✓][js_redirecthandler]|[✓][objc_redirecthandler] | | | |✓ | [✓][go_redirecthandler]|
-| | [Compression Handler](middleware/CompressionHandler.md) |[✓][dotnet_compressionhandler]|N|N|N| | |
+| | [Request compression Handler](middleware/CompressionHandler.md) | | | | | | |
+| | [Response decompression Handler](middleware/DecompressionHandler.md) |[✓][dotnet_decompressionhandler]|N|N|N| | |
 | | [Logging Handler](middleware/LoggingHandler.md) |O| | | | | |
 | | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|[✓][java_telemetryhandler]|✓|✓| | | |[✓][python_telemetryhandler] | [✓][go_telemetryhandler]|
 | | Connection Management | | | | | | |
@@ -139,7 +140,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [dotnet_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/RetryHandler.cs
 [dotnet_redirecthandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/RedirectHandler.cs
 [dotnet_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/AuthenticationHandler.cs
-[dotnet_compressionhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/CompressionHandler.cs
+[dotnet_decompressionhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/CompressionHandler.cs
 [dotnet_clientfactory]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/GraphClientFactory.cs
 [dotnet_batchrequestcontent]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/Content/BatchRequestContent.cs
 [dotnet_batchresponsecontent]: https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/src/Microsoft.Graph.Core/Requests/Content/BatchResponseContent.cs
