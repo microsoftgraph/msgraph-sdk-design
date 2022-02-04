@@ -11,7 +11,7 @@ For a variety of reasons, collections of entities are often split into pages and
 3. Dereference the next page link, when each of the the entities of the current page have been passed to the callback.
 4. Accept or provide the ability to pass information like headers, middleware options in the request for the next page. For example, when using a PageIteratorTask for processing a large number of events, consumer should be able to specify the timezone preferance in the headers. 
 5. RequestOptions should be configurable outside of construction  for flexibility with each call to **Iterate**.
-6. Provide a **Next** method that returns the next item the current page or the next page.
+6. Provide a **Next** method that returns the next item from the current page or the next page.
 
 ## Performance Considerations
 
