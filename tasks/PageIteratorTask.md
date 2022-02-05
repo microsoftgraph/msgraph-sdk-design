@@ -11,7 +11,8 @@ For a variety of reasons, collections of entities are often split into pages and
 3. Dereference the next page link, when each of the the entities of the current page have been passed to the callback.
 4. Accept or provide the ability to pass information like headers, middleware options in the request for the next page. For example, when using a PageIteratorTask for processing a large number of events, consumer should be able to specify the timezone preferance in the headers. 
 5. RequestOptions should be configurable outside of construction  for flexibility with each call to **Iterate**.
-6. Provide a **Next** method that returns the next item the current page or the next page.
+6. Provie a **hasNext** method that returns true if there's a next item and false otherwise
+7. Provide a **Next** method that returns the next item the current page or the next page.
 
 ## Performance Considerations
 
@@ -84,6 +85,33 @@ TypeScript
         var requestOptions = { headers: { "Prefer":  'outlook.timezone= "utc"' } };
         let pageIterator = new PageIterator(client, response, callback, requestOptions); 
         pageIterator.iterate(); 
+```
+
+Go
+```go
+pageIterator, err := msgraphgocore.NewPageIterator(graphResponse, *reqAdapter, ParsableCons)
+pageIterator.SetHeaders(map[string]string{"Content-Type": "application/json"})
+
+err := pageIterator.Iterate(func(pageItem interface{}) bool {
+      item := pageItem.(graph.User)
+      res = append(res, *item.GetId())
+      return true
+})
+
+pageIterator.Iterate(func(pageItem interface{}) bool {
+      item := pageItem.(graph.User)
+      res = append(res, *item.GetId())
+      
+      return *item.GetId() != "2" // pauses when id == 2
+})
+
+// resumes iteration from user with id 3
+pageIterator.Iterate(func(pageItem interface{}) bool {
+      item := pageItem.(graph.User)
+      res2 = append(res2, *item.GetId())
+      
+      return true
+})
 ```
 ## Future Implementations
     - Support 4th requirement mentioned in this file. The progress can be tracked as follows -
