@@ -12,6 +12,7 @@ Microsoft Graph SDKs should provide the ability for application developers to ga
 
 Open Telemetry spans are nested and can have attributes attached to each span. The following spans should be created for each request with the indicated attributes.
 
+```
 Application Request: { }
   Convert RequestInformation to Native Request Object: { }
     [Serialize Request Payload]: { size, type }
@@ -21,6 +22,7 @@ Application Request: { }
     [Retry Request]: { statusCode, retry-after }
   Handle Response: { statusCode }
     [Deserialize Response Payload]: { size, type }
+```
 
 Attributes marked with ! should only be captured if the application has indicated the EUII can be captured.
 Error messages should never include EUII unless it is explicitly indicted by the application.
