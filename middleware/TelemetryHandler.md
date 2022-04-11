@@ -22,7 +22,11 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
     ```
     SdkVersion: MyApp/1.0, graph-dotnet/1.15.0, graph-dotnet-core/1.16.0 (featureUsage=0f)
     ```
-    
+
+- The Telemetry Handler MUST NOT append values to an existing SdkVersion header in the case of an retry scenario. The handler can check for the existance of the `retry-attempt` header to determine whether the request is a retry.
+
+- The Telemetry Handler MUST be the final custom handler so that it can aggregate information about handlers earlier in the chain.
+
 - The template for the component version that also represents a package should match the form defined in [Versions](../Versions.md).
 
 - Client SDK library component names SHOULD be lower case.
