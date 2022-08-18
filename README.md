@@ -136,7 +136,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [objc_batchresponsecontent]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/GraphContent/BatchContent/MSBatchResponseContent.h
 [objc_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/HTTPClient/MSClientFactory.h
 
-[dotnet_authprovider]: https://docs.microsoft.com/dotnet/api/azure.identity
+[dotnet_authprovider]: https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/identity/Azure.Identity
 [dotnet_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/RetryHandler.cs
 [dotnet_redirecthandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/RedirectHandler.cs
 [dotnet_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/AuthenticationHandler.cs
