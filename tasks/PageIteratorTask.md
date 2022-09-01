@@ -125,6 +125,43 @@ pageIterator.Iterate(func(pageItem interface{}) bool {
 })
 ```
 
+PHP
+```php
+$pageIterator = new PageIterator($graphResponse, $requestAdapter, $parsableConstructor);
+$pageIterator->setHeaders(["Content-Type" => "application/json"]);
+
+$items = [];
+$pageIterator->iterate(function ($pageItem) use (&$items) {
+      $deserializer = new JsonParseNode($pageItem);
+      /** var User $item **/
+      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue]);
+      $items []= $item;
+      return true;
+})
+```
+PHP
+```php
+$pageIterator = new PageIterator($graphResponse, $requestAdapter, $parsableConstructor);
+$pageIterator->setHeaders(["Content-Type" => "application/json"]);
+$items = [];
+
+$pageIterator->iterate(function ($pageItem) use (&$items) {
+      $deserializer = new JsonParseNode($pageItem);
+      /** var User $item **/
+      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue]);
+      $items []= $item;
+      return $item->getId() !== '2';
+});
+
+// resumes iteration from user with id 3
+$pageIterator->iterate(function ($pageItem) use (&$items) {
+      $deserializer = new JsonParseNode($pageItem);
+      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue']);
+      $items []= $item;
+      return true;
+});
+```
+
 ## Future Implementations
 
     - Support 4th requirement mentioned in this file. The progress can be tracked as follows -
@@ -132,7 +169,7 @@ pageIterator.Iterate(func(pageItem interface{}) bool {
     |-------------|----------------------|
     | C#          | -                    |
     | JAVA        | -                    |
-    | PHP         | -                    |
+    | PHP         | In Progress          |
     | Objective-C | -                    |
     | JavaScript  | In Progress          |
-    | Go          | Implemented
+    | Go          | Implemented          |
