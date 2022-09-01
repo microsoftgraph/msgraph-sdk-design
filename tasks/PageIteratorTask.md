@@ -134,7 +134,7 @@ $items = [];
 $pageIterator->iterate(function ($pageItem) use (&$items) {
       $deserializer = new JsonParseNode($pageItem);
       /** var User $item **/
-      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue]);
+      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue']);
       $items []= $item;
       return true;
 })
@@ -148,7 +148,7 @@ $items = [];
 $pageIterator->iterate(function ($pageItem) use (&$items) {
       $deserializer = new JsonParseNode($pageItem);
       /** var User $item **/
-      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue]);
+      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue']);
       $items []= $item;
       return $item->getId() !== '2';
 });
