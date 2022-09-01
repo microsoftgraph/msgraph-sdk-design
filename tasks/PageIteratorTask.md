@@ -169,7 +169,7 @@ $pageIterator->iterate(function ($pageItem) use (&$items) {
     |-------------|----------------------|
     | C#          | -                    |
     | JAVA        | -                    |
-    | PHP         | In Progress          |
+    | PHP         | Implemented          |
     | Objective-C | -                    |
     | JavaScript  | In Progress          |
     | Go          | Implemented          |
