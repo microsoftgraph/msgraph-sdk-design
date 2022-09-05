@@ -132,10 +132,7 @@ $pageIterator->setHeaders(["Content-Type" => "application/json"]);
 
 $items = [];
 $pageIterator->iterate(function ($pageItem) use (&$items) {
-      $deserializer = new JsonParseNode($pageItem);
-      /** var User $item **/
-      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue']);
-      $items []= $item;
+      $items []= $pageItem;
       return true;
 })
 ```
@@ -146,18 +143,12 @@ $pageIterator->setHeaders(["Content-Type" => "application/json"]);
 $items = [];
 
 $pageIterator->iterate(function ($pageItem) use (&$items) {
-      $deserializer = new JsonParseNode($pageItem);
-      /** var User $item **/
-      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue']);
-      $items []= $item;
-      return $item->getId() !== '2';
+      return $pageItem->id !== '2';
 });
 
 // resumes iteration from user with id 3
 $pageIterator->iterate(function ($pageItem) use (&$items) {
-      $deserializer = new JsonParseNode($pageItem);
-      $item = $deserializer->getObjectValue([User::class, 'createFromDiscriminatorValue']);
-      $items []= $item;
+      $items []= $pageItem;
       return true;
 });
 ```
