@@ -158,8 +158,8 @@ $pageIterator->iterate(function ($pageItem) use (&$items) {
     - Support 4th requirement mentioned in this file. The progress can be tracked as follows -
     | SDK         | Implementation Status |
     |-------------|----------------------|
-    | C#          | -                    |
-    | JAVA        | -                    |
+    | C#          | Implemented |
+    | JAVA        | Implemented |
     | PHP         | Implemented          |
     | Objective-C | -                    |
     | JavaScript  | In Progress          |
