@@ -125,14 +125,42 @@ pageIterator.Iterate(func(pageItem interface{}) bool {
 })
 ```
 
+PHP
+```php
+$pageIterator = new PageIterator($graphResponse, $requestAdapter, $parsableConstructor);
+$pageIterator->setHeaders(["Content-Type" => "application/json"]);
+
+$items = [];
+$pageIterator->iterate(function ($pageItem) use (&$items) {
+      $items []= $pageItem;
+      return true;
+})
+```
+PHP
+```php
+$pageIterator = new PageIterator($graphResponse, $requestAdapter, $parsableConstructor);
+$pageIterator->setHeaders(["Content-Type" => "application/json"]);
+$items = [];
+
+$pageIterator->iterate(function ($pageItem) use (&$items) {
+      return $pageItem->id !== '2';
+});
+
+// resumes iteration from user with id 3
+$pageIterator->iterate(function ($pageItem) use (&$items) {
+      $items []= $pageItem;
+      return true;
+});
+```
+
 ## Future Implementations
 
     - Support 4th requirement mentioned in this file. The progress can be tracked as follows -
     | SDK         | Implementation Status |
     |-------------|----------------------|
-    | C#          | -                    |
-    | JAVA        | -                    |
-    | PHP         | -                    |
+    | C#          | Implemented |
+    | JAVA        | Implemented |
+    | PHP         | Implemented          |
     | Objective-C | -                    |
     | JavaScript  | In Progress          |
-    | Go          | Implemented
+    | Go          | Implemented          |
