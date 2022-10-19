@@ -39,5 +39,5 @@ Application Request: { }
 ```
 
 Attributes marked with ! should only be captured if the application has indicated the EUII can be captured.
-Error messages should never include EUII unless it is explicitly indicted by the application.
+Error messages should never include EUII unless it is explicitly indicated by the application.
 
