@@ -8,40 +8,54 @@ Provide a mandatory middleware component that attaches metadata to a Graph reque
 
 - Add a `client-request-id` header with GUID value to request if one is not present.  If the [RequestContext](../middleware/RequestContext.md) has a `ClientRequestId` property set then that value should be used.
 
-- Add `SdkVersion` request header to each request to identify the language and version of the client SDK library(s). The product identifier should be of the format `graph-{lang}/{majorVersion}.{minorVersion}.{buildVersion}` for client libraries. If the client SDK library has more than one component i.e. core, v1.0/beta service model library, then the product identifier should capture them as follows based on usage :
+- Add a single `SdkVersion` request header to each request to identify the language and version of the client SDK library(s). The product identifier should be of the format `graph-{lang}/{majorVersion}.{minorVersion}.{patchVersion}` for client libraries. If the client SDK library has more than one component i.e. core, v1.0/beta service model library, then the product identifier should capture them as follows based on usage :
 
     | Client SDK Library Component | Template | Example |
     | --- | --- | --- |
-    | **Core** | `graph-{lang}-core/{major}.{minor}.{build}` | `graph-dotnet-core/1.16.0` |
-    | **v1.0 Service Model** | `graph-{lang}/{major}.{minor}.{build}` | `graph-dotnet/1.16.0` |
-    | **Beta Service Model** | `graph-{lang}-beta/{major}.{minor}.{build}` | `graph-dotnet-beta/1.16.0` |
+    | **Core** | `graph-{lang}-core/{major}.{minor}.{patch}` | `graph-dotnet-core/1.16.0` |
+    | **v1.0 Service Model** | `graph-{lang}/{major}.{minor}.{patch}` | `graph-dotnet/1.16.0` |
+    | **Beta Service Model** | `graph-{lang}-beta/{major}.{minor}.{patch}` | `graph-dotnet-beta/1.16.0` |
+    | **Future Service Model** | `graph-{lang}-{endpoint}/{major}.{minor}.{patch}` | `graph-dotnet-v2.0/1.16.0` |
     
-    The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values should be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
+    The `SdkVersion` version can contain multiple values, or appear multiple times in a request. Values MUST be comma delimited as normal header lists are if the `SdkVersion` contains multiple values. e.g.
 
     ```
-    SdkVersion: MyApp/1.0, graph-dotnet-core/1.16.0 (featureUsage=0f), graph-dotnet/1.15.0
+    SdkVersion: MyApp/1.0, graph-dotnet/1.15.0, graph-dotnet-core/1.16.0 (featureUsage=0f)
     ```
+
+- The Telemetry Handler MUST NOT append values to an existing SdkVersion header in the case of a retry scenario. The handler can check for the existance of the `retry-attempt` header to determine whether the request is a retry.
+
+- The Telemetry Handler SHOULD be the last handler. If there is a final handler, it SHOULD be the second to last handler in the chain so that it can aggregate telemetry information about handlers earlier in the chain.
+
+- The template for the component version that also represents a package should match the form defined in [Versions](../Versions.md).
+
+- Client SDK library component names SHOULD be lower case.
 
 - If available, add a the `featureUsage` value contained in the [RequestContext](../middleware/RequestContext.md) to the `SDKVersion` header as key/value pair in the comment after the product identifier. e.g.
 
     `SdkVersion: graph-javascript/1.0.0 (featureUsage=0f)`
 
-- Add `HostOS` request header to each request to help us identify the OS on which our client SDK is running on. e.g.
+- A `hostOS` value can also be added as a key/value pair in the comment to help us identify the OS on which our client SDK is running on. e.g.
 
-    `HostOS: Microsoft Windows 10.0.18362`
+    `hostOS=Microsoft Windows 10.0.18362`
 
-- Add `RuntimeEnvironment` request header to capture the runtime framework on which the client SDK is running on. Ideally, we should capture the runtime environment in the form of `RuntimeEnvironment: Name/Version`. e.g.
+- Add `runtimeEnvironment` key/value pair to capture the runtime framework on which the client SDK is running on. Ideally, we should capture the runtime environment in the form of `runtimeEnvironment=Name/Version`. e.g.
 
-    - `RuntimeEnvironment: .NETFramework/1.1` for .NET.
-    - `RuntimeEnvironment: Node/1.1` for JavaScript.
-    - `RuntimeEnvironment: JRE/1.1` for Java.
+    - `runtimeEnvironment=.NETFramework/1.1` for .NET.
+    - `runtimeEnvironment=Node/1.1` for JavaScript.
+    - `runtimeEnvironment=JRE/1.1` for Java.
+
+Multiple key/value pairs included in the comment should be delimited by a semi-colon.
+
+- Certain workloads error out when an unexpected header is present in the request. The middlewares should check:
+  - If the request URL is a Graph serve endpoint or a custom url provided by the developer, then append or update the telemetry headers.
+  - Else the middleware should delete telemetry header.
 
 #### Ideal Metadata Capture
 ```
-SdkVersion: graph-dotnet-beta/0.6.0-preview, graph-dotnet-core/1.16.0 (featureUsage=0f)
+SdkVersion: graph-dotnet-beta/0.6.0-preview, graph-dotnet-core/1.16.0 (featureUsage=0f; hostOS=Microsoft Windows 10.0.18362; runtimeEnvironment=.NETFramework/4.7.2)
 client-request-id: fdae6861-5916-486d-93d9-9129160b2d79
-HostOS: Microsoft Windows 10.0.18362
-RuntimeEnvironment: .NETFramework/4.7.2
+
 ```
 
 ## Remarks
@@ -57,11 +71,20 @@ ABNF Syntax for SdkVersion:
 
 where `product`, `product-version`, `comment` and `token` are defined in [RFC 7230](https://tools.ietf.org/html/rfc7230) and [RFC 7231](https://tools.ietf.org/html/rfc7231).
 
-Currently, many SDKs embed the version number into the `product` using a hypen as a separator.  Over time we should migrate these to use the `/` to make parsing the version easier.
+Currently, many SDKs embed the version number into the `product` using a hypen as a separator.  Over time we should migrate these to use the `/` to make parsing the version easier. `/` should not be used for any other purpose in the `SdkVersion` header.
 
-The order of `SdkVersion` values is significant. Core library SdkVersion header values MUST be specified as the last value in the SdkVersion header. Service library header values MUST precede the Core library value in the SdkVersion header.
+The order of `SdkVersion` values is significant. Core library SdkVersion header values MUST be specified as the last value in the SdkVersion header. Service library header values MUST precede the Core library value in the SdkVersion header. Microsoft applications header values MUST precede the Service library header value. Another way to look at this is to list products/components in dependency order where the left most token represents the highest level in the dependency chain.
+
+> Note: The `SdkVersion` header is intended for Microsoft telemetry purposes. It is used to capture information about Microsoft SDKs and products that use the Microsoft Graph APIs. Non-Microsoft applications that use this header, or alter the value of this header, will gain no benefit from using this header. Use of this header by non-Microsoft applications reduces the telemetry value of this header and reduces the data quality associated with header which reduces the insights that we can gain from this header. In turn, this means fewer data-driven improvements to our SDKs. Users of the SDK or the SDK repository should not alter the value of the SdkVersion header.
 
 ## Performance
 
+The SdkVersion header is not used for any performance purposes by Microsoft Graph.
+
 ## Security
 
+The SdkVersion header MUST not be used for any security related features unless the security feature use is captured by the `featureUsage` value. 
+
+## Privacy
+
+The SdkVersion header MUST not contain information that identifies users or organizations.

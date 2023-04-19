@@ -35,3 +35,4 @@ Provide a configurable testing handler component that, by default, generates ran
 
 * Support for custom response bodies.
 * Conditional responses based on URL and/or header pattern matching.
+* Support for having a default Middleware chain, which can be used as Custom Middleware chain by doing some manipulations.
