@@ -9,10 +9,11 @@ For a variety of reasons, collections of entities are often split into pages and
 1. Accept any collection of entities that contains a link to a next page. This must include support for a collection of entities returned from a batch response.
 2. Accept a callback function that will be called for each entity in each page of the collection. The callback function should provide a way to indicate to the iterator to stop as well as resume iterating. The callback function should be passed to the Iterate method. The consumer should drive the use of the API by fetching the next page results whenever they require.
 3. Dereference the next page link, when each of the the entities of the current page have been passed to the callback.
-4. Accept or provide the ability to pass information like headers, middleware options in the request for the next page. For example, when using a PageIteratorTask for processing a large number of events, consumer should be able to specify the timezone preferance in the headers.
-5. RequestOptions should be configurable outside of construction for flexibility with each call to **Iterate**.
-6. Provie a **hasNext** method that returns true if there's a next item and false otherwise
-7. Provide a **Next** method that returns the next item from the current page or the next page.
+4. Expose the state of the PageIterator (NotStarted, Started, Delta etc.) to the user. This proves to be helpful in the scenario where a deltaLink is returned at which point the paging will be paused, however the user should be informed that it is safe to follow the delta link if they wish to examine the changes to the resource.  
+5. Accept or provide the ability to pass information like headers, middleware options in the request for the next page. For example, when using a PageIteratorTask for processing a large number of events, consumer should be able to specify the timezone preferance in the headers.
+6. RequestOptions should be configurable outside of construction for flexibility with each call to **Iterate**.
+7. Provie a **hasNext** method that returns true if there's a next item and false otherwise
+8. Provide a **Next** method that returns the next item from the current page or the next page.
 
 ## Performance Considerations
 
