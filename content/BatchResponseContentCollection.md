@@ -1,4 +1,4 @@
-# BatchRequestContentCollection
+# BatchResponseContentCollection
 
 ## Objectives
 
