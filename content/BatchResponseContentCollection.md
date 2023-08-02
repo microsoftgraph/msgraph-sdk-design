@@ -2,14 +2,14 @@
 
 ## Objectives
 
-Provide component to simplify the processing of batch responses.
+Provide component to simplify the processing of multiple batch responses made via `BatchRequestContentCollection`.
 
 ## Requirements
 
 See [constraints](ContentArchitecturalConstraints.md) related to all content objects.
 
-- Deserialize batch response payload into a collection of GraphResponse objects
-- Allow users to enumerate collection of GraphResponse objects
+- Hold multiple batch response objects (i.e. `BatchResponseContent`) made from a collection of batch request objects(i.e. `BatchRequestContentCollection`)
+- Allow users to enumerate collection of individual response objects
 - Allow users to retrieve a specific response object by using the same unique identifiers used in making the request.
 - Allow users to retrieve a specific deserialized response content value by using the same unique identifiers used in making the request.
 - Allow users to retrieve a specific stream response content value by using the same unique identifiers used in making the request.
