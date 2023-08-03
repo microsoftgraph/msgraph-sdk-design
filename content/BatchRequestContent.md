@@ -23,5 +23,5 @@ Requests that require additional consent, not already obtained, should not be in
 
 ## References
 
-- [1] [Graph Documentation]( https://developer.microsoft.com/en-us/graph/docs/concepts/json_batching)
-- [2] [OData](https://www.oasis-open.org/committees/download.php/60365/odata-json-format-v4.01-wd02-2017-03-24.docx)
+1. [Graph Documentation]( https://learn.microsoft.com/en-us/graph/json-batching)
+1. [OData](https://www.oasis-open.org/committees/download.php/60365/odata-json-format-v4.01-wd02-2017-03-24.docx)
