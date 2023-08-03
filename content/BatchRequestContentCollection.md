@@ -19,5 +19,5 @@ Similar to [BatchRequestContent](BatchRequestContent.md), it must support the be
 
 The request client MAY send `BatchRequestContent` instances in parallel if the `BatchRequestContentCollection` contains more than one `BatchRequestContent` instance
 
-- [1] [Graph Documentation]( https://developer.microsoft.com/en-us/graph/docs/concepts/json_batching)
-- [2] [OData](https://www.oasis-open.org/committees/download.php/60365/odata-json-format-v4.01-wd02-2017-03-24.docx)
+1. [Graph Documentation]( https://developer.microsoft.com/en-us/graph/docs/concepts/json_batching)
+1. [OData](https://www.oasis-open.org/committees/download.php/60365/odata-json-format-v4.01-wd02-2017-03-24.docx)
