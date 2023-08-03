@@ -15,7 +15,7 @@ Similar to [BatchRequestContent](BatchRequestContent.md), it must support the be
 - The addition of a new request object with a dependency, SHOULD make the best effort at placing the object in the same `BatchRequestContent` as its dependency and throw an error in the event this is not possible.
 - It MUST be possible to configure the maximum number of request objects per `BatchRequestContent` in the `BatchRequestContentCollection` to a value lower than the default value of 20 request objects. This is to enable customized scenarios for developers and provide a means of client side optimization/throttling for workloads that may have lower maximums in batched requests.
 
-> Given the similar API experience between `BatchRequestContentCollection` and `BatchRequestContent`, `BatchRequestContent` SHOULD be used internally and not exposed publicly to avoid confusion for the end user. Adding new requests should automatically generate new `BatchRequestContent` instances to the `BatchRequestContentCollection`.
+> Given the similar API experience between `BatchRequestContentCollection` and `BatchRequestContent`, public documentation(code comments and examples) SHOULD encourage the use and point to `BatchRequestContentCollection` to avoid confusion for the end user. Adding new requests should automatically generate new `BatchRequestContent` instances to the `BatchRequestContentCollection`. `BatchRequestContent` should be a public facing type to enable users with customized batching scenarios.
 
 ### Performance Considerations
 
