@@ -20,7 +20,7 @@ Similar to [BatchRequestContent](BatchRequestContent.md), it must support the be
 
 ## Performance Considerations
 
-The request client MAY send `BatchRequestContent` instances in parallel if the `BatchRequestContentCollection` contains more than one `BatchRequestContent` instance
+To minimize the risk of clients getting throttled by the API, the request client SHOULD send `BatchRequestContent` instances in sequence if the `BatchRequestContentCollection` contains more than one `BatchRequestContent` instance by default. The request client MAY send `BatchRequestContent` instances in parallel by use of a configuration parameter to allow the user to opt-in to this behavior in the event that the user is aware of the potential throttling limits.
 
 ## Usage Examples
 
