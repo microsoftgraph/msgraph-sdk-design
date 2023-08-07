@@ -13,10 +13,39 @@ See [constraints](ContentArchitecturalConstraints.md) related to all content obj
 - Allow users to retrieve a specific response object by using the same unique identifiers used in making the request.
 - Allow users to retrieve a specific deserialized response content value by using the same unique identifiers used in making the request.
 - Allow users to retrieve a specific stream response content value by using the same unique identifiers used in making the request.
+- Allow users to retrieve a dictionary of the unique identifiers used in making the request corresponding to response status code to enable the re-emitting/retrying of failed individual requests.
 
 ## Performance Considerations
 
 ## Security Considerations
+
+## Usage Examples
+
+```cs
+var batchRequestContent = new BatchRequestContent(graphServiceClient);
+
+// send and get back response
+var batchResponseContent = await graphServiceClient.Batch.PostAsync(batchRequestContent);
+
+// get back specific native response message
+HttpResponseMessage responseMessage = await batchResponseContent.GetResponseByIdAsync(requestId);
+
+// get back specific response using identifier and deserialize it
+EventCollectionResponse events = await batchResponseContent.GetResponseByIdAsync<EventCollectionResponse>(eventsRequestId);
+
+// get back specific response using identifier and get the stream
+Stream imageStream = await batchResponseContent.GetResponseStreamByIdAsync(imageRequestId);
+
+// enumerate list of failed requests and create a new batch request
+var statusCodes = await batchResponseContent.GetResponsesStatusCodesAsync();
+if(statusCodes.Any())
+{
+    var retryBatch = batchRequestContent.NewBatchWithFailedRequests(rateLimitedResponses);
+    // send and get back response
+    var retryBatchResponseContent = await graphServiceClient.Batch.PostAsync(retryBatch);
+}
+
+```
 
 ## References
 

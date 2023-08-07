@@ -13,10 +13,39 @@ See [constraints](ContentArchitecturalConstraints.md) related to all content obj
 - Allow users to retrieve a specific response object by using the SAME unique identifiers used in making the request (the unique identifiers will be unique across the `BatchResponseContentCollection` as they were unique across the `BatchRequestContentCollection` when making the request).
 - Allow users to retrieve a specific deserialized response content value by using the same unique identifiers used in making the request.
 - Allow users to retrieve a specific stream response content value by using the same unique identifiers used in making the request.
+- Allow users to retrieve a dictionary of the unique identifiers used in making the request corresponding to response status code to enable the re-emitting/retrying of failed individual requests.
 
 ## Performance Considerations
 
 ## Security Considerations
+
+## Usage Examples
+
+```cs
+var batchRequestContentCollection = new BatchRequestContentCollection(graphServiceClient);
+
+// send and get back response
+var batchResponseContentCollection = await graphServiceClient.Batch.PostAsync(batchRequestContentCollection);
+
+// get back specific native response message
+HttpResponseMessage responseMessage = await batchResponseContentCollection.GetResponseByIdAsync(requestId);
+
+// get back specific response using identifier and deserialize it
+EventCollectionResponse events = await batchResponseContentCollection.GetResponseByIdAsync<EventCollectionResponse>(eventsRequestId);
+
+// get back specific response using identifier and get the stream
+Stream imageStream = await batchResponseContentCollection.GetResponseStreamByIdAsync(imageRequestId);
+
+// enumerate list of failed requests and create a new batch request
+var statusCodes = await batchResponseContentCollection.GetResponsesStatusCodesAsync();
+if(statusCodes.Any())
+{
+    var retryBatch = batchRequestContentCollection.NewBatchWithFailedRequests(rateLimitedResponses);
+    // send and get back response
+    var retryBatchResponseContentCollection = await graphServiceClient.Batch.PostAsync(retryBatch);
+}
+
+```
 
 ## References
 
