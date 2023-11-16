@@ -51,5 +51,5 @@ if(statusCodes.Any())
 
 ## References
 
-1. [Graph Documentation]( https://learn.microsoft.com/en-us/graph/json-batching)
+1. [Graph Documentation]( https://learn.microsoft.com/graph/json-batching)
 1. [OData](https://www.oasis-open.org/committees/download.php/60365/odata-json-format-v4.01-wd02-2017-03-24.docx)
