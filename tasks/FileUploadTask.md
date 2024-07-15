@@ -30,6 +30,8 @@ This task aims to provide a fluent and easy to use mechanism for the consumer to
 - The task should be agnostic to the kind of upload being performed so as to support for various fileUpload scenarios e.g. **DriveItem** and **FileAttachment**. An example of the agnostic nature of task is how the task is marked as completed considering different response formats from each API:
   - If the response status is a 201.
   - An additional case for OneDrive is, if the response status is a 200 and the response contains an "id" then the task is complete.
+- MUST NOT compress the individual slices when it uploads them. This is because compressing slices with content-encoding header leads to invalid ranges/content length headers. (e.g. for a 100 bytes file of 10*10 bytes uncompressed slices, the content length would be ~7 bytes)
+- MUST NOT compress the whole file before sending it. This is because it might lead to memory issues in some client contexts (needs compressed result length to [compute the range header](https://www.rfc-editor.org/rfc/rfc9110.html#section-14.1.2-3)), it's also because the content-encoding header applies to individual requests and not to the overall set of requests and the server would try to decompress each slice independently, leading to a corrupted result.
   
 > Note: Outlook and Print API does not allow to update an attachment after it has been uploaded.
 
@@ -38,6 +40,10 @@ Refer to the following documentation for more information:
 - [Outlook](https://docs.microsoft.com/en-us/graph/outlook-large-attachments)
 - [OneDriveItem](https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0&preserve-view=true)
 - [Print API](https://docs.microsoft.com/en-us/graph/upload-data-to-upload-session)
+
+### Appendix on the range header for Microsoft Graph
+
+Microsoft Graph large file upload is inspired off [range response syntax](https://www.rfc-editor.org/rfc/rfc7233#section-4.2), [updated in RFC9110](https://www.rfc-editor.org/rfc/rfc9110.html#section-14.1.2).
 
 ## Large File Upload Session
 
