@@ -11,6 +11,7 @@ A middleware component that compresses request bodies and falls back to an uncom
 - The compression handler should accept a `CompressionOptions` object with a property `EnableCompression`. That object can be passed when instantiating the handler, if nothing is passed a default value is created with `EnableCompression: true`. That object can also be passed on a per request base from the fluent-style API by the SDK used. If a value is passed for the request, it takes precedence over the value that was set with the handler. Compression is only performed when the computed value of `EnableCompression` is `true`.
 - MUST NOT compress request bodies when a Content-Range header is present with a "bytes" range unit to avoid "corrupting" the set of requests in the range. (e.g. Content-Range: bytes 0-9/20)
 - MUST NOT compress request bodies when a Content-Encoding header is already present to avoid double compression.
+- MUST NOT attempt to send decompressed payloads if the response status code is `415` and the `Content-Encoding` request header was already present outside of the middleware handler.
 
 ## Remarks
 
