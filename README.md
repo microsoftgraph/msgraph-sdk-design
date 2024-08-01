@@ -15,7 +15,7 @@ This repository holds documents related to current and on-going work on Microsof
 | | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|[✓][java_redirecthandler]|[✓][js_redirecthandler]|[✓][objc_redirecthandler]|[✓][dotnet_redirecthandler]| | |✓ | [✓][go_redirecthandler]|
 | | [Request compression Handler](middleware/CompressionHandler.md) | | | | | | |
 | | [Response decompression Handler](middleware/DecompressionHandler.md) |[✓][dotnet_decompressionhandler]|N|N|N|[✓][dotnet_decompressionhandler]| |
-| | [Logging Handler](middleware/LoggingHandler.md) |O| | | |[✓][powershell_logginghandler]| |
+| | [Logging Handler](middleware/LoggingHandler.md) (PowerShell only since other languages implement Observability/OTEL ) |✓| | | |[✓][powershell_logginghandler]| |
 | | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|[✓][java_telemetryhandler]|✓|✓|[✓][powershell_telemetryhandler]| | |[✓][python_telemetryhandler] | [✓][go_telemetryhandler]|
 | | Connection Management | | | | | | |
 | | Long Running Operations | | | | | | |
@@ -39,6 +39,8 @@ This repository holds documents related to current and on-going work on Microsof
 ✓ - Completed  
 O - In progress
 N - Native library support
+
+> NOTE: additionally all handler should provide observability and tracing support through Open Telemetry. [More information](./Observability.md)
 
 ## Supported Languages
 
