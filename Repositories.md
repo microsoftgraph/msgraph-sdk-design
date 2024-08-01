@@ -1,4 +1,5 @@
 With the Kiota onboarding, our code will be using the following four solutions:
+
 - Kiota generator
 - Kiota core libraries
 - Graph core library which will be dependending on the Kiota core.
@@ -8,16 +9,11 @@ The proposed plan to set the GitHub repositories for the above solutions is as f
 
 - Kiota (the generator) - common for all languages
 	
-- kiota-<language>
-	
+- kiota-<language> : contains the abstractions and core implementation packages
 - msgraph-sdk-<language>-core
-	
 - msgraph-sdk-<language>
-	
 - msgraph-beta-sdk-<language>
-	
 - (optional) msgraph-china-sdk-<language>
-	
 - (optional) msgraph-beta-china-sdk-<language>
  
 Concerns to be discussed more:
