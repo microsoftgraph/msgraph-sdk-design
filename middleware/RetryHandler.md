@@ -12,12 +12,11 @@ Provide a reusuable component that provides application developers with effectiv
 - Retries should be limited by maximum elapsed time and maximum retry attempts
 - Where no `retry-after` header is provided by the server, perform retry with the retry handler specified by the library consumer, or fall back to the default handler implemented as exponential backoff handler.
 - Allow library consumer to set the parameters for the exponential backoff, and also provide sane defaults, e.g.:
-  - initial retry interval: 0.5 seconds
-  - retry interval randomization factor: 0.5
-  - retry interval multiplier: 1.5
-  - maximum interval: 1 minute
-  - maximum elapsed time: 10 minutes
-  - maximum retry attempts: 50
+  - initial retry interval: 3 seconds
+  - retry interval multiplier: (retry number)^2
+  - maximum interval: 180 seconds
+  - maximum elapsed time: 1800 seconds (10 retries ^ 2 * 180 seconds)
+  - maximum retry attempts: 10
 - Only requests with payloads that are buffered/rewindable are supported. Payloads with forward only streams will be have the responses returned without any retry attempt.
 
 ### Supported Status Codes
