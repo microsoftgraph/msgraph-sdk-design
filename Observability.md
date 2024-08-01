@@ -40,17 +40,17 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
       "com.microsoft.kiota.request.type": "Fully qualified name of the content model"
     },
     "SendAsync - <URI template>": { // http request adapter or equivalent, also applies to the other overloads like sendPrimitiveAsync etc...
-      "http.response_content_length?": "int value for the response content length",
-      "http.status_code": "http response status code",
-      "http.flavor": "1.1 or 2.0",
+      "http.response.body.size?": "int value for the response content length",
+      "http.response.status_code": "http response status code",
+      "network.protocol.version": "1.1 or 2 or 3",
       "http.response_content_type?": "value from the response content type header",
-      "http.method": "http method for the request",
-      "http.scheme": "http or https",
-      "http.uri!": "URI of the request",
-      "http.host": "request host",
-      "http.request_content_length?": "int value for the request content length",
+      "http.request.method": "http method for the request",
+      "url.scheme": "http or https",
+      "url.full!": "URI of the request",
+      "server.address": "request host",
+      "http.request.body.size?": "int value for the request content length",
       "http.request_content_type?": "value from the response content type header",
-      "http.uri_template": "URI template for the request",
+      "url.uri_template": "URI template for the request",
       "com.microsoft.kiota.response.type": "The fully qualified name of the deserialized model",
       "getHttpResponseMessage": {
         "GetAuthorizationToken": { // comes from the authentication provider
