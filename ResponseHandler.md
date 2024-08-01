@@ -9,7 +9,7 @@ Implement default behaviour for Graph calls.  These can be used either by genera
 - Provide the ability to take a response payload from a failed request and deserialize it into a ErrorContent object.
 - Responses with 4XX or 5XX should attempt to translate response body into ErrorContent, otherwise a default ErrorContent should be created.
 - Calls to the native Http library should not throw ServiceExceptions.
-- Service Library calls should throw an exception with a ErrorContent object. Ideally a different exception should be thrown based on a) the call could not be made b) the server returned an error.
+- Service Library calls SHOULD throw an exception with a ErrorContent object. Ideally a different exception should be thrown based on a) the call could not be made b) the server returned an error. See [ErrorContent Requirements](./ErrorContent.md#requirements) for recommended exception names.
 - For responses with an ErrorContent payload, attempt to update the ErrorContent with X-ThrowSite header if the the header exists and the ErrorContent does not have a payload.
 
 ## Example Usage
