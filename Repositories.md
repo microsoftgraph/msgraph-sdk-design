@@ -17,7 +17,7 @@ The proposed plan to set the GitHub repositories for the above solutions is as f
  
 Concerns to be discussed more:
   
-1. Duplicate names - Consider adding new repositories for all the Kiota generated libraries and discontinuing the repos that use the current code generation process.
+1. Duplicate names - Consider adding new repositories for all the Kiota generated libraries and discontinuing the repos that use the current code generation process. Also consider renaming the older repository.
   In this case, we will need to think of duplicate repository names, that is, the old repo and the new repo cannot be named as `msgraph-sdk-<language>`.
 2. JavaScript - The current core library is named as `msgraph-sdk-javascript`. 
 
