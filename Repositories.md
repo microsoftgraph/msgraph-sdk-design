@@ -2,7 +2,7 @@ With the Kiota onboarding, our code will be using the following four solutions:
 - Kiota generator
 - Kiota core libraries
 - Graph core library which will be dependending on the Kiota core.
-- Graph service library containing Kiota generated the request builders.
+- Graph service library containing Kiota generated request builders.
 
 The proposed plan to set the GitHub repositories for the above solutions is as follows : 
 
