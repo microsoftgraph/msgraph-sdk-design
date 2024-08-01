@@ -9,10 +9,17 @@ Provide a reusuable component that provides application developers with effectiv
 - Retried Requests should be equivalent to the initial request made.
 - A `retry-attempt` header SHOULD be added which contains a numeric value representing the retry number.  This value will be used for diagnostics and determining the effectiveness of the retry handler.
 - Retries MUST respect the `retry-after` response header if provided.
-- Where no `retry-after` header is provided by the server, an exponential backoff with random offset hueristic should be used to determine the retry delay.
-- Customers can specify a custom value for the `RetriesTimeLimit` greater than 0 to introduce time-based evaluated request retries alongside the default count-based request retry.
-- If the `RetriesTimeLimit` value has been specified, the cumulative retry time and `retry-after` value for each request retry will be evaluated against this value; if the cumulative retry time plus the `retry-after` value is greater than the `RetriesTimeLimit`, the failed response will be immediately returned, else the request retry continues. This is applicable to both 429 and 503/504.
+- Retries should be limited by maximum elapsed time and maximum retry attempts.
+- Where no `retry-after` header is provided by the server, perform retry with the retry handler options specified by the library consumer, or fall back to the default handler implemented as exponential backoff handler.
+- Allow library consumer to set the parameters for the exponential backoff, and also provide sane defaults, e.g.:
+  - initial retry interval: 3 seconds
+  - retry interval multiplier: (retry number)^2
+  - maximum interval: 180 seconds
+  - maximum elapsed time: 1800 seconds (10 retries ^ 2 * 180 seconds)
+  - maximum retry attempts: 10
 - Only requests with payloads that are buffered/rewindable are supported. Payloads with forward only streams will be have the responses returned without any retry attempt.
+- Customers can specify a custom value for the `RetriesTimeLimit` greater than 0 to introduce time-based evaluated request retries alongside the default count-based request retry.
+- If the `RetriesTimeLimit` value has been specified, the cumulative retry time and `retry-after` value for each request retry will be evaluated against this value; if the cumulative retry time plus the `retry-after` value is greater than the `RetriesTimeLimit`, the failed response will be immediately returned, else the request retry continues.
 - Additional observability requirements in [Observability](../Observability.md)
 
 ### Supported Status Codes
