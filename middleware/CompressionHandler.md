@@ -12,6 +12,7 @@ A middleware component that compresses request bodies and falls back to an uncom
 - MUST NOT compress request bodies when a Content-Range header is present with a "bytes" range unit to avoid "corrupting" the set of requests in the range. (e.g. Content-Range: bytes 0-9/20)
 - MUST NOT compress request bodies when a Content-Encoding header is already present to avoid double compression.
 - MUST NOT attempt to send the original uncompressed payloads if the response status code is `415` and the `Content-Encoding` request header was already present outside of the middleware handler.
+- Additional observability requirements in [Observability](../Observability.md)
 
 ## Remarks
 

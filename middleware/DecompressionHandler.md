@@ -7,6 +7,7 @@ A middleware component that requests, detects and decompresses response bodies.
 - Add `Accept-encoding: gzip` to request headers.
 - Decompress response bodies that have the header `Content-Encoding: gzip`
 - Compression handler should be installed as a default handler by [GraphClientFactory](../GraphClientFactory.md)
+- Additional observability requirements in [Observability](../Observability.md)
 
 ## Remarks
 

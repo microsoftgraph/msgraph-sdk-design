@@ -8,6 +8,8 @@ A piece of client-side middleware designed to handle 3XX responses transparently
 
 ## Requirements
 
+- Additional observability requirements in [Observability](../Observability.md)
+
 ### Status Codes Handled
 
 |Status Code | Description | Notes|

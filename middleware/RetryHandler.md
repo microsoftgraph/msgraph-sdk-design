@@ -13,6 +13,7 @@ Provide a reusuable component that provides application developers with effectiv
 - Customers can specify a custom value for the `RetriesTimeLimit` greater than 0 to introduce time-based evaluated request retries alongside the default count-based request retry.
 - If the `RetriesTimeLimit` value has been specified, the cumulative retry time and `retry-after` value for each request retry will be evaluated against this value; if the cumulative retry time plus the `retry-after` value is greater than the `RetriesTimeLimit`, the failed response will be immediately returned, else the request retry continues. This is applicable to both 429 and 503/504.
 - Only requests with payloads that are buffered/rewindable are supported. Payloads with forward only streams will be have the responses returned without any retry attempt.
+- Additional observability requirements in [Observability](../Observability.md)
 
 ### Supported Status Codes
 

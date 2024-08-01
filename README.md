@@ -40,6 +40,8 @@ This repository holds documents related to current and on-going work on Microsof
 O - In progress
 N - Native library support
 
+> NOTE: additionally all handler should provide observability and tracing support through Open Telemetry. [More information](./Observability.md)
+
 ## Supported Languages
 
 ### .NET
