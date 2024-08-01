@@ -56,7 +56,7 @@ Libraries for each language:
     - This library contains the following:
         -  HttpCore class implementing the abstraction HttpCore interface.
         -  HttpClientbuilder (.NET, Java) or HTTPClient class (TS) (processes and records the middleware chain used while making requests.)
-        -  Middlewares: AuthHandler, Retry, Redirect, Compression, Caching, Telemetry
+        -  Middlewares: RetryHandler, Redirect, Compression, Caching, Telemetry
     
 ```
 class HttpCore implements kiota.abstractions.HttpCore {
@@ -133,16 +133,16 @@ Example:
 Find a suitable Kiota Authentication library in https://github.com/microsoft/kiota/tree/main/authentication/typescript/azure
 
 
-7. Create a HTTPCore instance:
+7. Create a RequestAdapter instance:
 
 ```
-var httpCore = new HTTPCore(authProvider, JsonParseNodeFactory, JsonSerializationWriterFactory)
+var requestAdapter = new FetchRequestAdapter(authProvider, JsonParseNodeFactory, JsonSerializationWriterFactory)
 ```
 
 8. Create a APIClient instance:
 
 ```
-var apiClient = new APIClient(httpCore);
+var apiClient = new APIClient(requestAdapter);
 var response = await apiClient.users("<ID>").get();
 ```
 
