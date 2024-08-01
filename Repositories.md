@@ -8,12 +8,11 @@ With the Kiota onboarding, our code will be using the following four solutions:
 The proposed plan to set the GitHub repositories for the above solutions is as follows : 
 
 - Kiota (the generator) - common for all languages
-	
 - kiota-<language> : contains the abstractions and core implementation packages
 - msgraph-sdk-<language>-core
 - msgraph-sdk-<language>
 - msgraph-beta-sdk-<language>
-- (optional) msgraph-china-sdk-<language>
+- (optional) msgraph-china-sdk-<language>: an advantage of Kiota based generation is we can deliver SDKs tailored to customers' environments, this includes the ability to ship one service library per national cloud per version as national clouds generally have access to fewer endpoints.
 - (optional) msgraph-beta-china-sdk-<language>
  
 Concerns to be discussed more:
