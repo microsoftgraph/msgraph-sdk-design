@@ -71,10 +71,13 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
             "http.status_code": "status code of the response",
             "CompressionHandler_intercept?": {
               "com.microsoft.kiota.handler.compression.enable": "boolean, true if the handler is present and enabled",
-              "ParametersNameDecodingHandler_intercept?": {
-                "com.microsoft.kiota.handler.parameters_name_decoding.enable": "boolean, true if the handler is present and enabled",
-                "Request_transport?": {
-                  // this span is present only to measure network latency and deduct it from the middleware pipeline
+              "DecompressionHandler_intercept?": {
+                "com.microsoft.kiota.handler.decompression.enable": "boolean, true if the handler is present and enabled",
+                "ParametersNameDecodingHandler_intercept?": {
+                  "com.microsoft.kiota.handler.parameters_name_decoding.enable": "boolean, true if the handler is present and enabled",
+                    "Request_transport?": {
+                    // this span is present only to measure network latency and deduct it from the middleware pipeline
+                    }
                 }
               }
             }
