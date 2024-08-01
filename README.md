@@ -20,6 +20,7 @@ This repository holds documents related to current and on-going work on Microsof
 | | Connection Management | | | | | |
 | | Long Running Operations | | | | | |
 | | Chaos Handler | |[✓][java_chaoshandler] |O| | |
+| | [Sunset Handler](middleware/SunsetHandler.md) | 
 | | Service Discovery Handler | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
 || [Batch Request Content](content/BatchRequestContent.md)     |[✓][dotnet_batchrequestcontent]|[✓][java_batchrequestcontent]|[✓][js_batchrequestcontent]| | |
