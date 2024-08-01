@@ -2,7 +2,7 @@
 
 ## Objectives
 
-Provide a reusuable component that provides application developers with effective handling of failed requests that can be retried.
+Provide a reusable component that provides application developers with effective handling of failed requests that can be retried.
 
 ## Requirements
 
@@ -45,7 +45,8 @@ The thread processing a request should not be blocked while waiting for a retry 
 [Graph Throttling](https://developer.microsoft.com/en-us/graph/docs/concepts/throttling)
 
 ## Open Issues
+
 - New requests made while an existing request has been queued for retry, should be considered for adding to the queue.  
 - Requests with the exact same URL should be queued.
 - Requests with the same path should be queued.
-- Requests with n matching initial segments should be queued after 5-n throtted requests. e.g. If a there have been 3 throttled requests for requests with the first two segments matching, then the next matching request should be queued.  
+- Requests with n matching initial segments should be queued after 5-n throttled requests. e.g. If a there have been 3 throttled requests for requests with the first two segments matching, then the next matching request should be queued.  
