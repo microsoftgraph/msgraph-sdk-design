@@ -156,12 +156,11 @@ $pageIterator->iterate(function ($pageItem) use (&$items) {
 Python
 ```
 page_iterator = PageIterator(response, client.request_adapter)
-page_iterator.set_headers({"Count": 2, "Skip": 2})
+page_iterator.set_headers({"Content-Type": "application/json"})
 
 page_result = page_iterator.convert_to_page(response)
 page_result.odata_next_link = "https://graph.microsoft.com/v1.0/users?$top=2&$skip=2"
 
-page = page_iterator.convert_to_page(page_result)
 
 page_iterator.iterate(lambda page_item: print(f" Page item {page_item}"))
 
