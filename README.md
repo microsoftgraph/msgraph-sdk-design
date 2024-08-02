@@ -6,39 +6,41 @@ This repository holds documents related to current and on-going work on Microsof
 
 ## SDK Features Support
 
-| Component |Feature| .net | Java | JS | ObjC | Powershell | PHP | Ruby | Python | Go |  
-|--|--|--|--|--|--|--|--|--|--|--|
+| Component |Feature| .net | Java | JS | Powershell | PHP | Ruby | Python | Go |  
+|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
-| | Pipeline                |✓|✓|[✓][js_middleware]|[✓][objc_middleware]|✓| | |[✓][python_middleware]| [✓][go_middleware]|
-| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][objc_authhandler]|[✓][dotnet_authhandler]| | |[✓][python_authhandler] | N/A |
-| | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|[✓][java_retryhandler]|[✓][js_retryhandler]|[✓][objc_retryhandler]|[✓][dotnet_retryhandler]| | | [✓][python_retryhandler]| [✓][go_retryhandler]
-| | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|[✓][java_redirecthandler]|[✓][js_redirecthandler]|[✓][objc_redirecthandler]|[✓][dotnet_redirecthandler]| | |✓ | [✓][go_redirecthandler]|
+| | Pipeline                |✓|✓|[✓][js_middleware]|✓| | |[✓][python_middleware]| [✓][go_middleware]|
+| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][dotnet_authhandler]| | |[✓][python_authhandler] | N/A |
+| | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|[✓][java_retryhandler]|[✓][js_retryhandler]|[✓][dotnet_retryhandler]| | | [✓][python_retryhandler]| [✓][go_retryhandler]
+| | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|[✓][java_redirecthandler]|[✓][js_redirecthandler]|[✓][dotnet_redirecthandler]| | |✓ | [✓][go_redirecthandler]|
 | | [Request compression Handler](middleware/CompressionHandler.md) | | | | | | |
-| | [Response decompression Handler](middleware/DecompressionHandler.md) |[✓][dotnet_decompressionhandler]|N|N|N|[✓][dotnet_decompressionhandler]| |
-| | [Logging Handler](middleware/LoggingHandler.md) |O| | | |[✓][powershell_logginghandler]| |
-| | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|[✓][java_telemetryhandler]|✓|✓|[✓][powershell_telemetryhandler]| | |[✓][python_telemetryhandler] | [✓][go_telemetryhandler]|
-| | Connection Management | | | | | | |
-| | Long Running Operations | | | | | | |
-| | Chaos Handler | |[✓][java_chaoshandler] |O| | | |
-| | Service Discovery Handler | | | | | | |
+| | [Response decompression Handler](middleware/DecompressionHandler.md) |[✓][dotnet_decompressionhandler]|N|N|[✓][dotnet_decompressionhandler]| |
+| | [Logging Handler](middleware/LoggingHandler.md) (PowerShell only since other languages implement Observability/OTEL ) |✓| | |[✓][powershell_logginghandler]| |
+| | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|[✓][java_telemetryhandler]|✓|[✓][powershell_telemetryhandler]| | |[✓][python_telemetryhandler] | [✓][go_telemetryhandler]|
+| | Connection Management | | | | | |
+| | Long Running Operations | | | | | |
+| | Chaos Handler | |[✓][java_chaoshandler] |O| | |
+| | Service Discovery Handler | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
-|| [Batch Request Content](content/BatchRequestContent.md)     |[✓][dotnet_batchrequestcontent]|[✓][java_batchrequestcontent]|[✓][js_batchrequestcontent]|[✓][objc_batchrequestcontent] | | |
-|| [Batch Response Content](content/BatchResponseContent.md)   |[✓][dotnet_batchrequestcontent]|[✓][java_batchresponsecontent]|[✓][js_batchresponsecontent] |[✓][objc_batchresponsecontent] | | |
-|| [Multipart Content](content/MultipartContent.md)            |✓|[✓][java_multipartcontent]| | | | |
-|| [Error Content](content/ErrorContent.md)            | | | | |N| |
+|| [Batch Request Content](content/BatchRequestContent.md)     |[✓][dotnet_batchrequestcontent]|[✓][java_batchrequestcontent]|[✓][js_batchrequestcontent]| | |
+|| [Batch Response Content](content/BatchResponseContent.md)   |[✓][dotnet_batchrequestcontent]|[✓][java_batchresponsecontent]|[✓][js_batchresponsecontent] | | |
+|| [Multipart Content](content/MultipartContent.md)            |✓|[✓][java_multipartcontent]| | | |
+|| [Error Content](content/ErrorContent.md)            | | | |N| |
 | Graph Components
-|| [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|[✓][java_httpclients]|[✓][js_graphclientfactory]|[✓][objc_graphclientfactory]|[✓][dotnet_clientfactory]| | |[✓][python_graphclientfactory] | [✓][go_graphclientfactory]
-|| [Response Handling](ResponseHandler.md) |[✓][dotnet_responsehandler]| |[✓][js_responsehandler]||✓||
+|| [Client Factory](GraphClientFactory.md)           |[✓][dotnet_clientfactory]|[✓][java_httpclients]|[✓][js_graphclientfactory]|[✓][dotnet_clientfactory]| | |[✓][python_graphclientfactory] | [✓][go_graphclientfactory]
+|| [Response Handling](ResponseHandler.md) |[✓][dotnet_responsehandler]| |[✓][js_responsehandler]|✓||
 | Tasks
-|| [File Upload](tasks/FileUploadTask.md)                | |[✓][java_largefileupload]|[✓][js_fileuploadtask] |✓|[✓][powershell_fileupload] | |
-|| [Page Iterator](tasks/PageIteratorTask.md)            |[✓][dotnet_pageiteratortask]||[✓][js_pageiteratortask] |✓|[✓][powershell_pageiterator]| |
+|| [File Upload](tasks/FileUploadTask.md)                | |[✓][java_largefileupload]|[✓][js_fileuploadtask] |[✓][powershell_fileupload] | |
+|| [Page Iterator](tasks/PageIteratorTask.md)            |[✓][dotnet_pageiteratortask]||[✓][js_pageiteratortask] |[✓][powershell_pageiterator]| |
 | [Providers](providers/providers.md)
-|| [Authentication](providers/AuthenticationProvider.md)              |[✓][dotnet_authprovider]|[✓][java_authprovider]|[✓][js_authprovider]|[✓][objc_authprovider]|[✓][powershell_authprovider]| | | | [✓][go_authprovider]|
-|| [Logging](providers/LoggingProvider.md)                     | | | | |N| |
+|| [Authentication](providers/AuthenticationProvider.md)              |[✓][dotnet_authprovider]|[✓][java_authprovider]|[✓][js_authprovider]|[✓][powershell_authprovider]| | | | [✓][go_authprovider]|
+|| [Logging](providers/LoggingProvider.md)                     | | | |N| |
 
 ✓ - Completed  
 O - In progress
 N - Native library support
+
+> NOTE: additionally all handler should provide observability and tracing support through Open Telemetry. [More information](./Observability.md)
 
 ## Supported Languages
 
@@ -73,18 +75,10 @@ N - Native library support
 |--|--|--|
 |Service+Models|[msgraph-sdk-java](https://github.com/microsoftgraph/msgraph-sdk-java)||
 |Core|[msgraph-sdk-java-core](https://github.com/microsoftgraph/msgraph-sdk-java-core)||
-|Auth|[azure-identity](https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/identity/azure-identity)||
+|Auth|[azure-identity](https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/identity/azure-identity)||
 |beta|[msgraph-beta-sdk-java](https://github.com/microsoftgraph/msgraph-beta-sdk-java)||
 
 Java Core is based on the [OkHttp](https://github.com/square/okhttp).
-
-### Objective C
-
-|Role| Repo | Packages |
-|--|--|--|
-|Core|[msgraph-sdk-objc](https://github.com/microsoftgraph/msgraph-sdk-objc)||
-|Auth|[msgraph-sdk-objc-auth](https://github.com/microsoftgraph/msgraph-sdk-objc-auth)|
-|Models|[msgraph-sdk-objc-models](https://github.com/microsoftgraph/msgraph-sdk-objc-models)|
 
 ### PHP
 
@@ -126,15 +120,6 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [java_largefileupload]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/tasks/LargeFileUploadRequest.java
 [java_httpclients]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/httpcore/HttpClients.java
 
-
-[objc_middleware]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Protocols/MSGraphMiddleware.h
-[objc_authprovider]:https://github.com/microsoftgraph/msgraph-sdk-objc-auth
-[objc_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Implementations/Authentication/MSAuthenticationHandler.h
-[objc_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-objc/tree/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Implementations/RetryHandler
-[objc_redirecthandler]: https://github.com/microsoftgraph/msgraph-sdk-objc/tree/master/MSGraphCoreSDK/MSGraphCoreSDK/Middleware/Implementations/RedirectHandler
-[objc_batchrequestcontent]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/GraphContent/BatchContent/MSBatchRequestContent.h
-[objc_batchresponsecontent]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/GraphContent/BatchContent/MSBatchResponseContent.h
-[objc_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-objc/blob/master/MSGraphCoreSDK/MSGraphCoreSDK/HTTPClient/MSClientFactory.h
 
 [dotnet_authprovider]: https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/identity/Azure.Identity
 [dotnet_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/RetryHandler.cs

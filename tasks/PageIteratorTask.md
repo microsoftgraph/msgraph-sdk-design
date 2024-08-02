@@ -153,7 +153,18 @@ $pageIterator->iterate(function ($pageItem) use (&$items) {
       return true;
 });
 ```
+Python
+```
+page_iterator = PageIterator(response, client.request_adapter)
+page_iterator.set_headers({"Content-Type": "application/json"})
 
+page_result = page_iterator.convert_to_page(response)
+page_result.odata_next_link = "https://graph.microsoft.com/v1.0/users?$top=2&$skip=2"
+
+
+page_iterator.iterate(lambda page_item: print(f" Page item {page_item}"))
+
+```
 ## Future Implementations
 
     - Support 4th requirement mentioned in this file. The progress can be tracked as follows -
@@ -165,3 +176,4 @@ $pageIterator->iterate(function ($pageItem) use (&$items) {
     | Objective-C | -                    |
     | JavaScript  | In Progress          |
     | Go          | Implemented          |
+    | Python      | Implemented          |

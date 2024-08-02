@@ -7,12 +7,24 @@ A middleware component that requests, detects and decompresses response bodies.
 - Add `Accept-encoding: gzip` to request headers.
 - Decompress response bodies that have the header `Content-Encoding: gzip`
 - Compression handler should be installed as a default handler by [GraphClientFactory](../GraphClientFactory.md)
+- Additional observability requirements in [Observability](../Observability.md)
 
 ## Remarks
 
 For request payload compression, refer to the [compression handler](./CompressionHandler.md) specification.
 
-This middleware is currently not required in JavaScript as the Fetch API already supports decompressing responses automatically and automatically adds the accept-encoding header.  If Microsoft Graph accepts compressed responses at some point in the future then we should add request compression middleware to Javascript also.
+## State of automatic decompression
+
+The following table describes the state of automatic decompression of responses. When automatic decompression is supported, we don't need to implement it manually.
+
+| Language | Client | Automatic decompression | Source | Notes |
+| -------- | ------ | ----------------------- | ------ | ----- |
+| CSharp | HttpClient | Yes | [link](https://learn.microsoft.com/en-us/dotnet/api/system.net.decompressionmethods?view=net-8.0) | Only if the handler `AutomaticDecompression` is set to `All` (not the default!) |
+| Go | net/http | Yes | [link](https://webscraping.ai/faq/go/how-do-i-process-compressed-http-responses-in-go) | Only gzip is supported. Ensure `DisableCompression` is false (default) on the transport. |
+| Java | OkHttp | Yes | [link](https://medium.com/tech-insider/okhttps-gzip-compression-904919638458) | |
+| PHP | Guzzle | Yes | [link](https://docs.guzzlephp.org/en/stable/request-options.html#decode-content) | Does NOT add the accept encoding header automatically. |
+| Python | HTTPX | Yes | None | Couldn't find any source, but tested with 0.27.0 and httpbin |
+| TypeScript/JavaScript | fetch | Yes | [link](https://stackoverflow.com/questions/70092469/node-fetch-automatic-gzip-decompression/78779242#78779242) | Automatically adds the accept encoding header and decompresses the response. Make sure `compress` is set to `true` (default) in the request options. |
 
 ## Example
 

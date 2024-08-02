@@ -6,9 +6,13 @@ A middleware component that compresses request bodies and falls back to an uncom
 
 - Add `Content-encoding: gzip` to request headers for requests with a body.
 - Compresses request bodies.
-- Should the handler receive a [415 Unsupported Media Type](https://httpwg.org/specs/rfc7231.html#status.415) response or a `400 Bad Request` response with an OData error containing the following message `Unable to read JSON request payload. Please ensure Content-Type header is set and payload is of valid JSON format.` when the content-type was `application/json`, the handler will retry sending the request without compressing it a maximum of one time before passing on the error.
+- Should the handler receive a [415 Unsupported Media Type](https://httpwg.org/specs/rfc7231.html#status.415) response, the handler will retry sending the request without compressing it a maximum of one time before passing on the error.
 - Compression handler should be installed as a default handler by [GraphClientFactory](../GraphClientFactory.md)
 - The compression handler should accept a `CompressionOptions` object with a property `EnableCompression`. That object can be passed when instantiating the handler, if nothing is passed a default value is created with `EnableCompression: true`. That object can also be passed on a per request base from the fluent-style API by the SDK used. If a value is passed for the request, it takes precedence over the value that was set with the handler. Compression is only performed when the computed value of `EnableCompression` is `true`.
+- MUST NOT compress request bodies when a Content-Range header is present with a "bytes" range unit to avoid "corrupting" the set of requests in the range. (e.g. Content-Range: bytes 0-9/20)
+- MUST NOT compress request bodies when a Content-Encoding header is already present to avoid double compression.
+- MUST NOT attempt to send the original uncompressed payloads if the response status code is `415` and the `Content-Encoding` request header was already present outside of the middleware handler.
+- Additional observability requirements in [Observability](../Observability.md)
 
 ## Remarks
 
