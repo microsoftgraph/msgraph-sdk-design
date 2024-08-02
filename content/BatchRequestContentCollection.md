@@ -33,7 +33,7 @@ var requestInformation = graphServiceClient.Users.ToGetRequestInformation();
 var requestStepId = await batchRequestContentCollection.AddBatchRequestStepAsync(requestInformation);
 
 // add step using native platform HTTP request
-var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "http://example.com");
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://graph.microsoft.com/v1.0/me");
 var secondRequestStepId = batchRequestContentCollection.AddBatchRequestStep(httpRequestMessage);
 
 for (var i = 0; i < 25; i++) // its possible to add more than 20 requests
@@ -45,9 +45,11 @@ for (var i = 0; i < 25; i++) // its possible to add more than 20 requests
 // send and get back response
 var batchResponseContentCollection = await graphServiceClient.Batch.PostAsync(batchRequestContentCollection);
 
-// enumerate list of failed requests and create a new batch request
+// enumerate list of response status codes
 var statusCodes = await batchResponseContentCollection.GetResponsesStatusCodesAsync();
-if(statusCodes.Any())
+// filter the requests to retry
+var rateLimitedResponses = statusCodes.Where(x => x.Value == HttpStatusCode.TooManyRequests).ToDictionary(x => x.Key, y => y.Value);
+if (rateLimitedResponses.Any())
 {
     var retryBatch = batchRequestContentCollection.NewBatchWithFailedRequests(rateLimitedResponses);
     // send and get back response

@@ -39,9 +39,9 @@ var secondRequestStepId = batchRequestContent.AddBatchRequestStep(httpRequestMes
 // send and get back response
 var batchResponseContent = await graphServiceClient.Batch.PostAsync(batchRequestContent);
 
-// enumerate list of failed requests and create a new batch request
+// enumerate list of response status codes
 var statusCodes = await batchResponseContent.GetResponsesStatusCodesAsync();
-// filter the request to retry
+// filter the requests to retry
 var rateLimitedResponses = statusCodes.Where(x => x.Value == HttpStatusCode.TooManyRequests).ToDictionary(x => x.Key,y => y.Value); 
 if (rateLimitedResponses.Any())
 {
