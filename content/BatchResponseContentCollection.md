@@ -1,16 +1,16 @@
-# BatchResponseContent
+# BatchResponseContentCollection
 
 ## Objectives
 
-Provide component to simplify the processing of batch responses.
+Provide component to simplify the processing of multiple batch responses made via `BatchRequestContentCollection`.
 
 ## Requirements
 
 See [constraints](ContentArchitecturalConstraints.md) related to all content objects.
 
-- Deserialize batch response payload into a collection of GraphResponse objects
-- Allow users to enumerate collection of GraphResponse objects
-- Allow users to retrieve a specific response object by using the same unique identifiers used in making the request.
+- Hold multiple batch response objects (i.e. `BatchResponseContent`) made from a collection of batch request objects(i.e. `BatchRequestContentCollection`)
+- Allow users to enumerate collection of individual response objects.
+- Allow users to retrieve a specific response object by using the SAME unique identifiers used in making the request (the unique identifiers will be unique across the `BatchResponseContentCollection` as they were unique across the `BatchRequestContentCollection` when making the request).
 - Allow users to retrieve a specific deserialized response content value by using the same unique identifiers used in making the request.
 - Allow users to retrieve a specific stream response content value by using the same unique identifiers used in making the request.
 - Allow users to retrieve a dictionary of the unique identifiers used in making the request corresponding to response status code to enable the re-emitting/retrying of failed individual requests.
@@ -22,42 +22,43 @@ See [constraints](ContentArchitecturalConstraints.md) related to all content obj
 ## Usage Examples
 
 ```cs
-var batchRequestContent = new BatchRequestContent(graphServiceClient);
+var batchRequestContentCollection = new BatchRequestContentCollection(graphServiceClient);
 
 // add step 1 using requestInformation
 var requestInformation = graphServiceClient.Users.ToGetRequestInformation();
-var requestId = await batchRequestContent.AddBatchRequestStepAsync(requestInformation);
+var requestId = await batchRequestContentCollection.AddBatchRequestStepAsync(requestInformation);
 
 // add step 2 using requestInformation
 var eventsRequestInformation = graphServiceClient.Me.Events.ToGetRequestInformation();
-var eventsRequestId = await batchRequestContent.AddBatchRequestStepAsync(eventsRequestInformation);
+var eventsRequestId = await batchRequestContentCollection.AddBatchRequestStepAsync(eventsRequestInformation);
 
 // add step 2 using requestInformation
 var imageRequestInformation = graphServiceClient.Me.Photo.Content.ToGetRequestInformation();
-var imageRequestId = await batchRequestContent.AddBatchRequestStepAsync(eventsRequestInformation);
+var imageRequestId = await batchRequestContentCollection.AddBatchRequestStepAsync(eventsRequestInformation);
 
 // send and get back response
-var batchResponseContent = await graphServiceClient.Batch.PostAsync(batchRequestContent);
+var batchResponseContentCollection = await graphServiceClient.Batch.PostAsync(batchRequestContentCollection);
 
 // get back specific native response message
-HttpResponseMessage responseMessage = await batchResponseContent.GetResponseByIdAsync(requestId);
+HttpResponseMessage responseMessage = await batchResponseContentCollection.GetResponseByIdAsync(requestId);
 
 // get back specific response using identifier and deserialize it
-EventCollectionResponse events = await batchResponseContent.GetResponseByIdAsync<EventCollectionResponse>(eventsRequestId);
+EventCollectionResponse events = await batchResponseContentCollection.GetResponseByIdAsync<EventCollectionResponse>(eventsRequestId);
 
 // get back specific response using identifier and get the stream
-Stream imageStream = await batchResponseContent.GetResponseStreamByIdAsync(imageRequestId);
+Stream imageStream = await batchResponseContentCollection.GetResponseStreamByIdAsync(imageRequestId);
 
 // enumerate list of response status codes
-var statusCodes = await batchResponseContent.GetResponsesStatusCodesAsync();
+var statusCodes = await batchResponseContentCollection.GetResponsesStatusCodesAsync();
 // filter the requests to retry
 var rateLimitedResponses = statusCodes.Where(x => x.Value == HttpStatusCode.TooManyRequests).ToDictionary(x => x.Key, y => y.Value);
 if (rateLimitedResponses.Any())
 {
-    var retryBatch = batchRequestContent.NewBatchWithFailedRequests(rateLimitedResponses);
+    var retryBatch = batchResponseContentCollection.NewBatchWithFailedRequests(rateLimitedResponses);
     // send and get back response
     var retryBatchResponseContent = await graphServiceClient.Batch.PostAsync(retryBatch);
 }
+
 ```
 
 ## References
