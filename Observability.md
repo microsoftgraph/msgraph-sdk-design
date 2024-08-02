@@ -75,8 +75,16 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
                 "com.microsoft.kiota.handler.decompression.enable": "boolean, true if the handler is present and enabled",
                 "ParametersNameDecodingHandler_intercept?": {
                   "com.microsoft.kiota.handler.parameters_name_decoding.enable": "boolean, true if the handler is present and enabled",
-                    "Request_transport?": {
-                    // this span is present only to measure network latency and deduct it from the middleware pipeline
+                    "SunsetHandler_intercept?": {
+                      "com.microsoft.kiota.handler.sunset.enable": "boolean, true if the handler is present and enabled",
+                        "Event - com.microsoft.kiota.sunset_header_received?": {
+                          // raised only if a sunset header is present in the response
+                          "sunset_date": "Date at internet date format from the sunset header value",
+                          "sunset_link?": "link header with a sunset value for rel (only the URI)"
+                        },
+                        "Request_transport?": {
+                        // this span is present only to measure network latency and deduct it from the middleware pipeline
+                        }
                     }
                 }
               }
