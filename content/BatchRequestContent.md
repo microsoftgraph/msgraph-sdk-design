@@ -41,7 +41,9 @@ var batchResponseContent = await graphServiceClient.Batch.PostAsync(batchRequest
 
 // enumerate list of failed requests and create a new batch request
 var statusCodes = await batchResponseContent.GetResponsesStatusCodesAsync();
-if(statusCodes.Any())
+// filter the request to retry
+var rateLimitedResponses = statusCodes.Where(x => x.Value == HttpStatusCode.TooManyRequests).ToDictionary(x => x.Key,y => y.Value); 
+if (rateLimitedResponses.Any())
 {
     var retryBatch = batchRequestContent.NewBatchWithFailedRequests(rateLimitedResponses);
     // send and get back response
