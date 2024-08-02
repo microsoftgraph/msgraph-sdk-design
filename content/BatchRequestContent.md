@@ -33,7 +33,7 @@ var requestInformation = graphServiceClient.Users.ToGetRequestInformation();
 var requestStepId = await batchRequestContent.AddBatchRequestStepAsync(requestInformation);
 
 // add step using native platform HTTP request
-var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "http://example.com");
+var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://graph.microsoft.com/v1.0/me");
 var secondRequestStepId = batchRequestContent.AddBatchRequestStep(httpRequestMessage);
 
 // send and get back response

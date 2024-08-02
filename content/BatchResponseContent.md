@@ -24,6 +24,18 @@ See [constraints](ContentArchitecturalConstraints.md) related to all content obj
 ```cs
 var batchRequestContent = new BatchRequestContent(graphServiceClient);
 
+// add step 1 using requestInformation
+var requestInformation = graphServiceClient.Users.ToGetRequestInformation();
+var requestId = await batchRequestContent.AddBatchRequestStepAsync(requestInformation);
+
+// add step 2 using requestInformation
+var eventsRequestInformation = graphServiceClient.Me.Events.ToGetRequestInformation();
+var eventsRequestId = await batchRequestContent.AddBatchRequestStepAsync(eventsRequestInformation);
+
+// add step 2 using requestInformation
+var imageRequestInformation = graphServiceClient.Me.Photo.Content.ToGetRequestInformation();
+var imageRequestId = await batchRequestContent.AddBatchRequestStepAsync(eventsRequestInformation);
+
 // send and get back response
 var batchResponseContent = await graphServiceClient.Batch.PostAsync(batchRequestContent);
 
@@ -36,15 +48,16 @@ EventCollectionResponse events = await batchResponseContent.GetResponseByIdAsync
 // get back specific response using identifier and get the stream
 Stream imageStream = await batchResponseContent.GetResponseStreamByIdAsync(imageRequestId);
 
-// enumerate list of failed requests and create a new batch request
+// enumerate list of response status codes
 var statusCodes = await batchResponseContent.GetResponsesStatusCodesAsync();
-if(statusCodes.Any())
+// filter the requests to retry
+var rateLimitedResponses = statusCodes.Where(x => x.Value == HttpStatusCode.TooManyRequests).ToDictionary(x => x.Key, y => y.Value);
+if (rateLimitedResponses.Any())
 {
     var retryBatch = batchRequestContent.NewBatchWithFailedRequests(rateLimitedResponses);
     // send and get back response
     var retryBatchResponseContent = await graphServiceClient.Batch.PostAsync(retryBatch);
 }
-
 ```
 
 ## References
