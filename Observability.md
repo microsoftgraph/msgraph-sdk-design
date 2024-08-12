@@ -65,11 +65,11 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
           "com.microsoft.kiota.handler.retry.enable": "boolean, true if the handler is present and enabled",
           "http.request.resend_count": "int number of retries that occurred before the request was successful",
           "http.request.resend_delay?": "int duration in seconds before the request was retried",
-          "http.status_code": "status code of the response",
+          "http.response.status_code": "status code of the response",
           "RedirectHandler_intercept?": { // single span when the request is successful, multiple when retries occurred
             "com.microsoft.kiota.handler.redirect.enable": "boolean, true if the handler is present and enabled",
             "com.microsoft.kiota.handler.redirect.count": "int, the number of redirects that occurred",
-            "http.status_code": "status code of the response",
+            "http.response.status_code": "status code of the response",
             "CompressionHandler_intercept?": {
               "com.microsoft.kiota.handler.compression.enable": "boolean, true if the handler is present and enabled",
               "DecompressionHandler_intercept?": {
