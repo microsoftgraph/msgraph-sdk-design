@@ -63,7 +63,8 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
         },
         "RetryHandler_intercept?": { // single span when the request is successful, multiple when retries occurred
           "com.microsoft.kiota.handler.retry.enable": "boolean, true if the handler is present and enabled",
-          "http.retry_count": "int number of retries that occurred before the request was successful",
+          "http.request.resend_count": "int number of retries that occurred before the request was successful",
+          "http.request.resend_delay?": "int duration in seconds before the request was retried",
           "http.status_code": "status code of the response",
           "RedirectHandler_intercept?": { // single span when the request is successful, multiple when retries occurred
             "com.microsoft.kiota.handler.redirect.enable": "boolean, true if the handler is present and enabled",
@@ -92,7 +93,7 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
           }
         },
         "retryCAEResponseIfRequired": {
-          "http.retry_count?": "1 of we had to retry for CAE challenge, not set otherwise",
+          "http.request.resend_count?": "1 of we had to retry for CAE challenge, not set otherwise",
           "Event - com.microsoft.kiota.authenticate_challenge_received?": {
             // raised only if the application is receiving a CAE challenge
           }
