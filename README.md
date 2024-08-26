@@ -6,8 +6,8 @@ This repository holds documents related to current and on-going work on Microsof
 
 ## SDK Features Support
 
-| Component |Feature| .net | Java | JS | Powershell | PHP | Ruby | Python | Go |  
-|--|--|--|--|--|--|--|--|--|--|
+| Component |Feature| .net | Java | JS | Powershell | PHP | Ruby | Python | Go | TS |
+|--|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
 | | Pipeline                |✓|✓|[✓][js_middleware]|✓| | |[✓][python_middleware]| [✓][go_middleware]|
 | | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][dotnet_authhandler]| | |[✓][python_authhandler] | N/A |
@@ -21,6 +21,7 @@ This repository holds documents related to current and on-going work on Microsof
 | | Long Running Operations | | | | | |
 | | Chaos Handler | |[✓][java_chaoshandler] |O| | |
 | | [Sunset Handler](middleware/SunsetHandler.md) | 
+| | [Headers Inspection Handler](middleware/HeadersInspectionHandler.md) | [✓][dotnet_headersinspectionhandler] | [✓][java_headersinspectionhandler] | | | [✓][php_headersinspectionhandler] | | [✓][python_headersinspectionhandler] | [✓][go_headersinspectionhandler] | [✓][typescript_headersinspectionhandler] |
 | | [Parameters Name Decoding Handler](middleware/ParametersNameDecodingHandler.md) | [✓][dotnet_paramhandler] | [✓][java_paramhandler] | | N/A | [✓][php_paramhandler] | [✓][ruby_paramhandler] | [✓][python_paramhandler] | [✓][go_paramhandler]
 | | Service Discovery Handler | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
@@ -122,7 +123,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [java_largefileupload]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/tasks/LargeFileUploadRequest.java
 [java_httpclients]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/httpcore/HttpClients.java
 [java_paramhandler]: https://github.com/microsoft/kiota-java/blob/main/components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/ParametersNameDecodingHandler.java
-
+[java_headersinspectionhandler]: https://github.com/microsoft/kiota-java/blob/main/components/http/okHttp/src/main/java/com/microsoft/kiota/http/middleware/HeadersInspectionHandler.java
 
 [dotnet_authprovider]: https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/identity/Azure.Identity
 [dotnet_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/RetryHandler.cs
@@ -136,6 +137,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [dotnet_pageiteratortask]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Tasks/PageIterator.cs
 [dotnet_telemetryhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/GraphClientFactory.cs
 [dotnet_paramhandler]: https://github.com/microsoft/kiota-dotnet/blob/main/src/http/httpClient/Middleware/ParametersNameDecodingHandler.cs
+[dotnet_headersinspectionhandler]: https://github.com/microsoft/kiota-dotnet/blob/main/src/http/httpClient/Middleware/HeadersInspectionHandler.cs
 
 [js_middleware]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/middleware/IMiddleware.ts
 [js_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/middleware/AuthenticationHandler.ts
@@ -155,6 +157,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [python_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/_client_factory.py
 [python_telemetryhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/telemetry.py
 [python_paramhandler]: https://github.com/microsoft/kiota-http-python/blob/main/kiota_http/middleware/parameters_name_decoding_handler.py
+[python_headersinspectionhandler]: https://github.com/microsoft/kiota-http-python/blob/main/kiota_http/middleware/headers_inspection_handler.py
 
 [go_middleware]: https://github.com/microsoft/kiota/blob/main/http/go/nethttp/pipeline.go
 [go_authprovider]: https://github.com/microsoft/kiota/tree/main/authentication/go/azure
@@ -163,6 +166,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [go_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-go-core/blob/main/graph_client_factory.go
 [go_telemetryhandler]: https://github.com/microsoftgraph/msgraph-sdk-go-core/blob/main/graph_telemetry_handler.go
 [go_paramhandler]: https://github.com/microsoft/kiota-http-go/blob/main/parameters_name_decoding_handler.go
+[go_headersinspectionhandler]: https://github.com/microsoft/kiota-http-go/blob/main/headers_inspection_handler.go
 
 [powershell_telemetryhandler]: https://github.com/microsoftgraph/msgraph-sdk-powershell/blob/dev/src/Authentication/Authentication/Helpers/HttpHelpers.cs
 [powershell_logginghandler]: https://github.com/microsoftgraph/msgraph-sdk-powershell/blob/dev/tools/Custom/Module.cs
@@ -171,5 +175,8 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [powershell_authprovider]: https://github.com/microsoftgraph/msgraph-sdk-powershell/blob/dev/src/Authentication/Authentication/Cmdlets/ConnectMgGraph.cs
 
 [php_paramhandler]: https://github.com/microsoft/kiota-http-guzzle-php/blob/dev/src/Middleware/ParametersNameDecodingHandler.php
+[php_headersinspectionhandler]: https://github.com/microsoft/kiota-http-guzzle-php/blob/dev/src/Middleware/HeadersInspectionHandler.php
 
 [ruby_paramhandler]: https://github.com/microsoft/kiota-http-ruby/blob/main/lib/microsoft_kiota_faraday/middleware/parameters_name_decoding_handler.rb
+
+[typescript_headersinspectionhandler]: https://github.com/microsoft/kiota-typescript/blob/main/packages/http/fetch/src/middlewares/headersInspectionHandler.ts
