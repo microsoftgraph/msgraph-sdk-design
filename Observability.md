@@ -83,8 +83,11 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
                           "sunset_date": "Date at internet date format from the sunset header value",
                           "sunset_link?": "link header with a sunset value for rel (only the URI)"
                         },
-                        "Request_transport?": {
-                        // this span is present only to measure network latency and deduct it from the middleware pipeline
+                        "HeadersInspectionHandler_intercept?": {
+                          "com.microsoft.kiota.handler.headersInspection.enable": "boolean, true if the handler is present and enabled",
+                          "Request_transport?": {
+                            // this span is present only to measure network latency and deduct it from the middleware pipeline
+                          }
                         }
                     }
                 }
