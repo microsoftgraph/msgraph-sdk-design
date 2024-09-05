@@ -10,20 +10,20 @@ This repository holds documents related to current and on-going work on Microsof
 |--|--|--|--|--|--|--|--|--|--|--|
 |[Middleware](middleware/middleware.md)
 | | Pipeline                |✓|✓|[✓][js_middleware]|✓| | |[✓][python_middleware]| [✓][go_middleware]|
-| | [Authorization Handler](middleware/AuthorizationHandler.md)   |[✓][dotnet_authhandler] |[✓][java_authhandler]|[✓][js_authhandler]|[✓][dotnet_authhandler]| | |[✓][python_authhandler] | N/A |
+| | [Authorization Handler](middleware/AuthorizationHandler.md)   | | |[✓][js_authhandler]| [✓][powershell_authhandler] | | | | | |
 | | [Retry Handler](middleware/RetryHandler.md)              |[✓][dotnet_retryhandler]|[✓][java_retryhandler]|[✓][js_retryhandler]|[✓][dotnet_retryhandler]| | | [✓][python_retryhandler]| [✓][go_retryhandler]
 | | [Redirect Handler](middleware/RedirectHandler.md)        |[✓][dotnet_redirecthandler]|[✓][java_redirecthandler]|[✓][js_redirecthandler]|[✓][dotnet_redirecthandler]| | |✓ | [✓][go_redirecthandler]|
 | | [Request compression Handler](middleware/CompressionHandler.md) | | | | | | |
 | | [Response decompression Handler](middleware/DecompressionHandler.md) |[✓][dotnet_decompressionhandler]|N|N|[✓][dotnet_decompressionhandler]| |
-| | [Logging Handler](middleware/LoggingHandler.md) (PowerShell only since other languages implement Observability/OTEL ) |✓| | |[✓][powershell_logginghandler]| |
+| | [Logging Handler](middleware/LoggingHandler.md) (PowerShell only since other languages implement Observability/OTEL ) | N/A | N/A | |[✓][powershell_logginghandler]| N/A | N/A | N/A | N/A | N/A |
 | | [Telemetry Handler](middleware/TelemetryHandler.md) |[✓][dotnet_telemetryhandler]|[✓][java_telemetryhandler]|✓|[✓][powershell_telemetryhandler]| | |[✓][python_telemetryhandler] | [✓][go_telemetryhandler]|
-| | Connection Management | | | | | |
-| | Long Running Operations | | | | | |
-| | Chaos Handler | |[✓][java_chaoshandler] |O| | |
+| | [Connection Management](middleware/ConnectionPoolManager.md) | | | | | |
+| | [Long Running Operations](middleware/LongRunningOperationHandler.md) | | | | | |
+| | [Chaos Handler](middleware/ChaosHandler.md) | |[✓][java_chaoshandler] |O| | |
 | | [Sunset Handler](middleware/SunsetHandler.md) | 
 | | [Headers Inspection Handler](middleware/HeadersInspectionHandler.md) | [✓][dotnet_headersinspectionhandler] | [✓][java_headersinspectionhandler] | | | [✓][php_headersinspectionhandler] | | [✓][python_headersinspectionhandler] | [✓][go_headersinspectionhandler] | [✓][typescript_headersinspectionhandler] |
 | | [Parameters Name Decoding Handler](middleware/ParametersNameDecodingHandler.md) | [✓][dotnet_paramhandler] | [✓][java_paramhandler] | | N/A | [✓][php_paramhandler] | [✓][ruby_paramhandler] | [✓][python_paramhandler] | [✓][go_paramhandler]
-| | Service Discovery Handler | | | | | |
+| | [Service Discovery Handler](middleware/ServiceDiscoveryHandler.md) | | | | | |
 | [Content](content/ContentArchitecturalConstraints.md)
 || [Batch Request Content](content/BatchRequestContent.md)     |[✓][dotnet_batchrequestcontent]|[✓][java_batchrequestcontent]|[✓][js_batchrequestcontent]| | |
 || [Batch Response Content](content/BatchResponseContent.md)   |[✓][dotnet_batchrequestcontent]|[✓][java_batchresponsecontent]|[✓][js_batchresponsecontent] | | |
@@ -112,7 +112,6 @@ Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 [java_authprovider]: https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/identity/azure-identity
-[java_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/httpcore/AuthenticationHandler.java
 [java_chaoshandler]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/httpcore/ChaosHttpHandler.java
 [java_redirecthandler]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/httpcore/RedirectHandler.java
 [java_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-java-core/blob/dev/src/main/java/com/microsoft/graph/httpcore/RetryHandler.java
@@ -128,7 +127,6 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [dotnet_authprovider]: https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/identity/Azure.Identity
 [dotnet_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/RetryHandler.cs
 [dotnet_redirecthandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/RedirectHandler.cs
-[dotnet_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/AuthenticationHandler.cs
 [dotnet_decompressionhandler]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Middleware/CompressionHandler.cs
 [dotnet_clientfactory]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/GraphClientFactory.cs
 [dotnet_batchrequestcontent]: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/blob/dev/src/Microsoft.Graph.Core/Requests/Content/BatchRequestContent.cs
@@ -152,7 +150,6 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [js_authprovider]: https://github.com/microsoftgraph/msgraph-sdk-javascript/blob/dev/src/MSALAuthenticationProvider.ts
 
 [python_middleware]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/middleware.py
-[python_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/authorization.py
 [python_retryhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/retry.py
 [python_graphclientfactory]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/_client_factory.py
 [python_telemetryhandler]: https://github.com/microsoftgraph/msgraph-sdk-python-core/blob/dev/msgraph/core/middleware/telemetry.py
@@ -173,6 +170,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 [powershell_fileupload]: https://github.com/microsoftgraph/msgraph-sdk-powershell/blob/dev/tools/Custom/FileUploadCmdlet.cs
 [powershell_pageiterator]: https://github.com/microsoftgraph/msgraph-sdk-powershell/blob/dev/tools/Custom/ListCmdlet.cs
 [powershell_authprovider]: https://github.com/microsoftgraph/msgraph-sdk-powershell/blob/dev/src/Authentication/Authentication/Cmdlets/ConnectMgGraph.cs
+[powershell_authhandler]: https://github.com/microsoftgraph/msgraph-sdk-powershell/blob/dev/src/Authentication/Authentication/Cmdlets/InvokeMgGraphRequest.cs
 
 [php_paramhandler]: https://github.com/microsoft/kiota-http-guzzle-php/blob/dev/src/Middleware/ParametersNameDecodingHandler.php
 [php_headersinspectionhandler]: https://github.com/microsoft/kiota-http-guzzle-php/blob/dev/src/Middleware/HeadersInspectionHandler.php
