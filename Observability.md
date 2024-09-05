@@ -85,8 +85,18 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
                         },
                         "HeadersInspectionHandler_intercept?": {
                           "com.microsoft.kiota.handler.headersInspection.enable": "boolean, true if the handler is present and enabled",
-                          "Request_transport?": {
-                            // this span is present only to measure network latency and deduct it from the middleware pipeline
+                          "AuthorizationHandler_intercept?": {
+                            "com.microsoft.kiota.handler.authorization.enable": "boolean, true if the handler is present and enabled",
+                            "com.microsoft.kiota.handler.authorization.token_present?": "boolean, true if an authorization header was already present",
+                            "com.microsoft.kiota.handler.authorization.token_obtained?": "boolean, true if obtaining the JWT was successful",
+                            "Event - com.microsoft.kiota.handler.authorization.challenge_received?" : {
+                              // raised only if a www-authenticate header has been received and we're obtaining a new JWT
+                              "com.microsoft.kiota.handler.authorization.token_obtained": "boolean, true if obtaining the JWT was successful",
+                              "http.request.resend_count": "int number of retries that occurred before the request was successful"
+                            },
+                            "Request_transport?": {
+                              // this span is present only to measure network latency and deduct it from the middleware pipeline
+                            }
                           }
                         }
                     }
