@@ -31,3 +31,21 @@ Trap 401 responses and pass information in the `www-authenticate` header to help
 ## Performance Considerations
 
 ## Security Considerations
+
+## Examples
+
+### C#
+
+```csharp
+var deviceCodeCredentials = new DeviceCodeCredentials();
+// simplest case MS Graph pre-packaged SDK
+var client = new GraphServiceClient(deviceCodeCredentials);
+var me = await client.Me.GetAsync();
+// self-served client
+var authenticationProvider = new AzureIdentityAuthenticationProvider(deviceCodeCredentials);
+var requestAdapter = new HttpRequestAdapter(authenticationProvider);
+var client = new MyCustomGraphClient(requestAdapter);
+var me = await client.Me.GetAsync();
+var httpClient = KiotaClientFactory.GetHttpClient(authenticationProvider); //this method is the http package
+//... make an arbitrary request
+```
