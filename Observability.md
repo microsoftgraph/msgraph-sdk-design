@@ -42,7 +42,7 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
     "SendAsync - <URI template>": { // http request adapter or equivalent, also applies to the other overloads like sendPrimitiveAsync etc...
       "http.response.body.size?": "int value for the response content length",
       "http.response.status_code": "http response status code",
-      "network.protocol.version": "1.1 or 2 or 3",
+      "network.protocol.name": "1.1 or 2 or 3",
       "http.response.header.content-type?": "value from the response content type header",
       "http.request.method": "http method for the request",
       "url.scheme": "http or https",
