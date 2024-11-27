@@ -18,8 +18,8 @@ A middleware handler that allows the client application to inspect request and r
 ```CSharp
 
 var headersInspectionOption = new HeadersInspectionHandlerOption {
-    HeadersInspectionHandlerOption = true,
+    InspectResponseHeaders = true,
 };
 var result = await client.Me.GetAsync(c => c.Options.Add(headersInspectionOption));
-Console.WriteLine("The response is content type is {contentType}", headersInspectionOption.ResponseHeaders["Content-Type"]);
+Console.WriteLine("The response content type is {contentType}", headersInspectionOption.ResponseHeaders["Content-Type"]);
 ```
