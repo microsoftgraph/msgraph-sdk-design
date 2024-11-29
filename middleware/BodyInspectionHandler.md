@@ -23,6 +23,6 @@ var bodyInspectionOption = new BodyInspectionHandlerOption {
     InspectResponseBody = true
 };
 var result = await client.Me.GetAsync(c => c.Options.Add(bodyInspectionOption));
-using var reader = new StringReader(memoryStream, Encoding.UTF8);
+using var reader = new StringReader(bodyInspectionOption.ResponseBody, Encoding.UTF8);
 Console.WriteLine("The response content is {content}", await reader.ReadToEndAsync());
 ```
