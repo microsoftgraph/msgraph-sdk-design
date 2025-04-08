@@ -36,7 +36,7 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
 ```JSONC
 {
   "ApplicationRequest?": { // this span is owned by the application itself in the calling code that calls the chained API surface or equivalent
-    "SetContentFromParsable?" { // request information or equivalent when a request body is used from a model, also applies to setContentFromScalar and from stream
+    "SetContentFromParsable?": { // request information or equivalent when a request body is used from a model, also applies to setContentFromScalar and from stream
       "com.microsoft.kiota.request.type": "Fully qualified name of the content model"
     },
     "SendAsync - <URI template>": { // http request adapter or equivalent, also applies to the other overloads like sendPrimitiveAsync etc...
@@ -87,7 +87,7 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
                         },
                         "HeadersInspectionHandler_intercept?": {
                           "com.microsoft.kiota.handler.headersInspection.enable": "boolean, true if the handler is present and enabled",
-                          "BodyInspectionHandler_intercept?" {
+                          "BodyInspectionHandler_intercept?": {
                           "com.microsoft.kiota.handler.bodyInspection.enable": "boolean, true if the handler is present and enabled",
                             "AuthorizationHandler_intercept?": {
                               "com.microsoft.kiota.handler.authorization.enable": "boolean, true if the handler is present and enabled",
