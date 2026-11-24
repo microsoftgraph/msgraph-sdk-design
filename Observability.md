@@ -33,6 +33,8 @@ The important take-away from this for us as SDK developers, is that with this sl
 
 Open Telemetry spans are nested and can have attributes attached to each span. The following spans should be created for each request with the indicated attributes.
 
+The middleware spans below follow the [recommended native HTTP pipeline order](middleware/middleware.md#recommended-middleware-order). Omit spans for handlers that are not in the pipeline.
+
 ```JSONC
 {
   "ApplicationRequest?": { // this span is owned by the application itself in the calling code that calls the chained API surface or equivalent
@@ -61,50 +63,54 @@ Open Telemetry spans are nested and can have attributes attached to each span. T
         "getRequestFromRequestInformation": {
           // collection of all the http attributes from the parent span might be done here, this span is here to measure errors/timing of the conversion to a native object
         },
-        "RetryHandler_intercept?": { // single span when the request is successful, multiple when retries occurred
-          "com.microsoft.kiota.handler.retry.enable": "boolean, true if the handler is present and enabled",
-          "http.request.resend_count": "int number of retries that occurred before the request was successful",
-          "http.request.resend_delay?": "int duration in seconds before the request was retried",
-          "http.response.status_code": "status code of the response",
-          "RedirectHandler_intercept?": { // single span when the request is successful, multiple when retries occurred
-            "com.microsoft.kiota.handler.redirect.enable": "boolean, true if the handler is present and enabled",
-            "com.microsoft.kiota.handler.redirect.count": "int, the number of redirects that occurred",
-            "http.response.status_code": "status code of the response",
-            "CompressionHandler_intercept?": {
-              "com.microsoft.kiota.handler.compression.enable": "boolean, true if the handler is present and enabled",
-              "http.request.body.compressed": "boolean, true if the response was compressed by the handler",
-              "http.request.body.size": "long, byte size of the request body",
-              "DecompressionHandler_intercept?": {
-                "com.microsoft.kiota.handler.decompression.enable": "boolean, true if the handler is present and enabled",
-                "ParametersNameDecodingHandler_intercept?": {
-                  "com.microsoft.kiota.handler.parameters_name_decoding.enable": "boolean, true if the handler is present and enabled",
-                    "SunsetHandler_intercept?": {
-                      "com.microsoft.kiota.handler.sunset.enable": "boolean, true if the handler is present and enabled",
+        "UrlReplaceHandler_intercept?": {
+          "ParametersNameDecodingHandler_intercept?": {
+            "com.microsoft.kiota.handler.parameters_name_decoding.enable": "boolean, true if the handler is present and enabled",
+            "UserAgentHandler_intercept?": {
+              "AuthorizationHandler_intercept?": { // for arbitrary requests; generated SDKs authenticate in the request adapter
+                "com.microsoft.kiota.handler.authorization.enable": "boolean, true if the handler is present and enabled",
+                "com.microsoft.kiota.handler.authorization.token_present?": "boolean, true if an authorization header was already present",
+                "com.microsoft.kiota.handler.authorization.token_obtained?": "boolean, true if obtaining the token was successful",
+                "Event - com.microsoft.kiota.handler.authorization.challenge_received?": {
+                  // raised only if a www-authenticate header has been received and we're obtaining a new token
+                  "com.microsoft.kiota.handler.authorization.token_obtained": "boolean, true if obtaining the token was successful",
+                  "http.request.resend_count": "int number of retries that occurred before the request was successful"
+                },
+                "CompressionHandler_intercept?": {
+                  "com.microsoft.kiota.handler.compression.enable": "boolean, true if the handler is present and enabled",
+                  "http.request.body.compressed": "boolean, true if the request was compressed by the handler",
+                  "http.request.body.size": "long, byte size of the request body",
+                  "DecompressionHandler_intercept?": { // only when the HTTP client does not already decompress responses
+                    "com.microsoft.kiota.handler.decompression.enable": "boolean, true if the handler is present and enabled",
+                    "RedirectHandler_intercept?": {
+                      "com.microsoft.kiota.handler.redirect.enable": "boolean, true if the handler is present and enabled",
+                      "com.microsoft.kiota.handler.redirect.count": "int, the number of redirects that occurred",
+                      "http.response.status_code": "status code of the response",
+                      "SunsetHandler_intercept?": { // observes the response for each redirect hop
+                        "com.microsoft.kiota.handler.sunset.enable": "boolean, true if the handler is present and enabled",
                         "Event - com.microsoft.kiota.sunset_header_received?": {
                           // raised only if a sunset header is present in the response
                           "sunset_date": "Date at internet date format from the sunset header value",
                           "sunset_link?": "link header with a sunset value for rel (only the URI)"
                         },
-                        "HeadersInspectionHandler_intercept?": {
-                          "com.microsoft.kiota.handler.headersInspection.enable": "boolean, true if the handler is present and enabled",
-                          "BodyInspectionHandler_intercept?": {
-                          "com.microsoft.kiota.handler.bodyInspection.enable": "boolean, true if the handler is present and enabled",
-                            "AuthorizationHandler_intercept?": {
-                              "com.microsoft.kiota.handler.authorization.enable": "boolean, true if the handler is present and enabled",
-                              "com.microsoft.kiota.handler.authorization.token_present?": "boolean, true if an authorization header was already present",
-                              "com.microsoft.kiota.handler.authorization.token_obtained?": "boolean, true if obtaining the token was successful",
-                              "Event - com.microsoft.kiota.handler.authorization.challenge_received?" : {
-                                // raised only if a www-authenticate header has been received and we're obtaining a new token
-                                "com.microsoft.kiota.handler.authorization.token_obtained": "boolean, true if obtaining the token was successful",
-                                "http.request.resend_count": "int number of retries that occurred before the request was successful"
-                              },
+                        "RetryHandler_intercept?": { // retry counts and delays are scoped to one redirect hop
+                          "com.microsoft.kiota.handler.retry.enable": "boolean, true if the handler is present and enabled",
+                          "http.request.resend_count": "int number of retries that occurred before the request was successful",
+                          "http.request.resend_delay?": "int duration in seconds before the request was retried",
+                          "http.response.status_code": "status code of the response",
+                          "HeadersInspectionHandler_intercept?": {
+                            "com.microsoft.kiota.handler.headersInspection.enable": "boolean, true if the handler is present and enabled",
+                            "BodyInspectionHandler_intercept?": {
+                              "com.microsoft.kiota.handler.bodyInspection.enable": "boolean, true if the handler is present and enabled",
                               "Request_transport?": {
                                 // this span is present only to measure network latency and deduct it from the middleware pipeline
                               }
                             }
                           }
                         }
+                      }
                     }
+                  }
                 }
               }
             }
