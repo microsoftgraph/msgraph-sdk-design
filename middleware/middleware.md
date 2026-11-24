@@ -18,9 +18,9 @@ In order to enable a flexible way to support cross cutting features, client libr
 
 For native HTTP adapters, use the following order when the handlers are available and enabled. This is the outbound request order; responses travel back through the same handlers in reverse order.
 
-1. URL replacement
+1. [URL replacement](./UrlReplaceHandler.md)
 2. [Query parameter name decoding](./ParametersNameDecodingHandler.md)
-3. User-Agent
+3. [User-Agent](./UserAgentHandler.md)
 4. [Authorization](./AuthorizationHandler.md) (for arbitrary requests)
 5. [Request compression](./CompressionHandler.md)
 6. [Response decompression](./DecompressionHandler.md) (if the HTTP client does not already decompress responses)
